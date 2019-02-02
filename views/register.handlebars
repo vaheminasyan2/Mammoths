@@ -1,0 +1,40 @@
+<div id="home">
+    <div class="container">
+        <div class="row">
+            <div class="col-8 offset-2">
+                <h1>{{msg}}</h1>
+                <h2>Please register here!</h2>
+                <br><br>
+                <a href="/login">
+                <button id="loginPage" class="btn btn-primary">Existing user</button> </a>
+                <br><br>
+                <form class="clearfix mb-4" action="POST">
+                    <div class="form-group">
+                        <label for="example-text">First Name</label>
+                        <input type="text" id="first-name" class="form-control" aria-describedby="example-text"
+                            placeholder="Enter your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="example-text">Last Name</label>
+                        <input type="text" id="last-name" class="form-control" aria-describedby="example-text"
+                            placeholder="Enter your last name">
+                    </div>
+                    <div class="form-group">
+                        <label for="example-text">Email</label>
+                        <input type="text" id="email" class="form-control" aria-describedby="example-text"
+                            placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="example-text">Password</label>
+                        <input type="text" id="password" class="form-control" aria-describedby="example-text"
+                            placeholder="Enter your password">
+                    </div>
+                    <button id="register" class="btn btn-success float-left">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/login.js"></script>
