@@ -1,9 +1,52 @@
-<div id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-8 offset-2">
-        <h1>{{msg}}</h1>
-        <h2>This is our Home Page!</h2>
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Mammoth</title>
+  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+</head>
+
+<body>
+
+  <div id="home">
+    <div class="container">
+
+      {{!-- First Row --}}
+      <div class="row" id="row1">
+        <h1 class="col-5">Mammoth</h1>
+        <form class="col-6" id="headerForm">
+          <button class="btn btn-primary">Dashboard</button>
+          <button class="btn btn-primary">Friends</button>
+          <button class="btn btn-primary">Reports</button>
+        </form>
+      </div>
+
+      {{!-- Second Row --}}
+      <div class="row" id="row2">
+        <h1 class="col-5" id="name">Name</h1>
+        <form class="col-6" id="headerForm">
+          <button class="btn btn-primary" id="viewPlan">Plan</button>
+          <button class="btn btn-primary" id="viewHistory">History</button>
+          <button class="btn btn-primary" id="postNewActivity">Post New Activity</button>
+        </form>
+      </div>
+
+      {{!-- Third Row --}}
+      <div class="row" id="row3">
+        Display Stats
+      </div>
+
+
+
+
+
+      {{!-- Example Code --}}
+      {{!-- <div class="row">
+
+
         <form class="clearfix mb-4" action="POST">
           <div class="form-group">
             <label for="example-text">Example Text</label>
@@ -15,7 +58,7 @@
           </div>
           <button id="submit" class="btn btn-primary float-right">Submit</button>
         </form>
-        <h3>Examples:</h3>
+        {{!-- <h3>Examples:</h3>
         <ul id="example-list" class="list-group">
           {{#each examples}}
           <li data-id="{{this.id}}" class="list-group-item">
@@ -23,11 +66,13 @@
             <button class="btn btn-danger float-right delete">ｘ</button>
           </li>
           {{/each}}
-        </ul>
+        </ul> --}}
       </div>
     </div>
   </div>
-</div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/index.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="/js/index.js"></script>
+
+</body>
+</html>
