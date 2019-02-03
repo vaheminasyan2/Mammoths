@@ -1,3 +1,12 @@
+/***************************
+HTML Elements
+***************************/
+
+button {
+  margin-left: 5px;
+  width: auto;
+}
+
 div {
   text-align: center;
 }
@@ -6,8 +15,22 @@ h1 {
   text-align: left;
 }
 
-.list-group-item {
-  line-height: 2.5;
+input, p {
+  float: right;
+}
+
+label {
+  clear: both;
+  float: left;
+  text-align: left;
+}
+
+/***************************
+Bootstrap Elements
+***************************/
+
+.col-8 {
+  border: 1px solid black;
 }
 
 .container {
@@ -18,22 +41,34 @@ h1 {
   padding: 20px;
 }
 
-.col-8 {
-  border: 1px solid black;
-}
-
 .row {
   border: 1px solid darkgray;
   padding: 20px;
 }
 
-#headerForm {
-  margin-top: 15px;
+/***************************
+Classes
+***************************/
+
+.list-group-item {
+  line-height: 2.5;
 }
 
-button {
-  margin-left: 5px;
-  width: auto;
+/***************************
+Identifiers
+***************************/
+
+#addExercise {
+  font-size: 12px;
+  text-align: left;
+}
+
+#headerBtns {
+  
+}
+
+#headerForm {
+  margin-top: 15px;
 }
 
 #name {
@@ -47,5 +82,9 @@ button {
 
 #row3 {
   border-top: 0px;
-  height: 50vh;
+}
+
+#submitActivity {
+  float: right;
+  margin-top: 10px;
 }
