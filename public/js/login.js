@@ -26,9 +26,13 @@ $("#register").on("click", function(){
      
     if (newUser.first_name == "" || newUser.last_name == "" || newUser.email == "" || newUser.password == "") {return false}
 
-    $.ajax("api/register", {
+    $.ajax( {
+        headers: {
+            "Content-Type": "application/json"
+          },
         type:"POST",
-        data: newUser
+        data:JSON.stringify(newUser),
+        url: "api/register" 
     }).then(
         function() {
             console.log(newUser);
