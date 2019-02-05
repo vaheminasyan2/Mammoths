@@ -7,9 +7,9 @@
     <title>Mammoth</title>
 
     {{!-- Styling --}}
-    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    {{!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> --}}
 </head>
 
 <body>
@@ -35,7 +35,7 @@
 
             {{!-- Running Form --}}
             <div class="row" id="runningForm">
-                <form class="col-3 offset-4" id="headerForm" action="/" method="POST"> {{!-- Need to change this to
+                <form class="col-3 offset-4" id="headerForm"> {{!-- Need to change this to
                     submit data to database --}}
 
                     <label for="date">Date: </label>
@@ -57,27 +57,29 @@
                     <label for="surface">Surface: </label>
                     <input type="text" name="surface" id="surface" autocomplete="off"><br><br>
 
-                    <button type="submit" name="submitActivity" class="btn btn-primary" id="submitActivity">Submit</button>
+                    <button type="submit" name="submitRun" class="btn btn-primary" id="submitRun">Submit</button>
                 </form>
             </div>
+
+            <div id="runList"></div>
 
             {{!-- Strength Training Form--}}
             <div class="row" id="strengthForm">
 
-                <form class="clearfix mb-4" action="POST">
+                {{!-- <form class="clearfix mb-4" action="POST">
 
                     <input type="text" name="exercise" id="exercise">
                     <div id="addExercise">Add Exercise</div>
 
-                    <button type="submit" id="submit" class="btn btn-primary float-right">Submit</button>
+                    <button type="submit" id="submitStrength" class="btn btn-primary float-right">Submit</button>
 
-                </form>
+                </form> --}}
 
 
-                {{#each exercises}}
+                {{#each run}}
 
                 <li data-id="{{this.id}}" class="list-group-item">
-                    <a href="exercise/{{this.id}}">{{this.text}}</a>
+                    <a href="runs/{{this.id}}">{{this.date}}</a>
                     <button class="btn btn-dnager float-right delete">x</button>
                 </li>
 
