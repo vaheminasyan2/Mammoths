@@ -22,7 +22,7 @@ module.exports = function (app) {
     });
   });
 
-  // Create a new user with a validation to check if that user already exisits in the database. It'll check against user's email. Return false if an user with same email has been found
+  // Create new user with a validation to check if that user already exists in the database. It'll check against user's email. Return false if an user with same email has been found
   app.post("/api/register", function (req, res) {
     db.Users.findOrCreate({
       where: {email: req.body.email},
