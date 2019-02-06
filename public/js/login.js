@@ -1,10 +1,14 @@
-$("#login").on("click", function () {
+$("#login").on("click", function (event) {
     var user = {
         email: $("#email").val().trim(),
         password: $("#password").val().trim()
     };
 
-    if (user.email == "" || user.password == "") { return false }
+    if (user.email == "" || user.password == "") { 
+        event.preventDefault();
+        alert("Please fill out all fields");
+        return
+     }
 
     $.ajax("api/login", {
         type: "POST",
