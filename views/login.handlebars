@@ -4,7 +4,7 @@
             <div class="col-8 offset-2">
                 <h1>{{msg}}</h1>
                 <h2>Please login here!</h2>
-                <br><br>
+                {{!-- <br><br>
                 <a href="/register">
                 <button id="registerPage" class="btn btn-primary">Create profile</button></a>
                 <br><br>
@@ -20,7 +20,9 @@
                             placeholder="Enter your password">
                     </div>
                     <button id="login" class="btn btn-success float-left">Login</button>
-                </form>
+
+                </form> --}}
+                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
             </div>
         </div>
     </div>
