@@ -1,56 +1,247 @@
-<!DOCTYPE html>
-<html lang="en-us">
 
-<head>
-  <meta charset="UTF-8">
-  <title>Mammoth</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-</head>
+  <section class="hero is-primary is-fullheight">
+    <div class="hero-head">
+      <header class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item" >
+              <img src="image.png" alt="Logo">
+            </a>
+            <span class="navbar-burger burger" data-target="navMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="navMenu" class="navbar-menu">
+            <div class="navbar-start">
+              <div class="navbar-item has-dropdown is-hoverable">
+                <a class = 'navbar-link'>
+                  Dashboard
+                </a>
 
-<body>
-
-  <div id="home">
-    <div class="container">
-
-      {{!-- First Row --}}
-      <div class="row" id="row1">
-        <h1 class="col-5">Mammoth</h1>
-        <form class="col-6" id="headerForm">
-          <button class="btn btn-primary">Dashboard</button>
-          <button class="btn btn-primary">Friends</button>
-          <button class="btn btn-primary">Reports</button>
-        </form>
-      </div>
-
-      {{!-- Second Row --}}
-      <div class="row">
-        <h1 class="col-5" id="name">Name</h1>
-
-        {{!-- Plan, History, Post New Activity Buttons --}}
-        <div class="col-6" id="headerBtns">
-          <form action="/" id="headerForm" method="GET">
-            <button class="btn btn-primary" formaction="/plan" id="plan" name="plan">Plan</button>
-            <button class="btn btn-primary" formaction="/history" id="history" name="history">History</button>
-            <button class="btn btn-primary" formaction="/post-activity" id="postNewActivity" name="postNewActivity">Post New Activity</button>
-          </form>
+                <div class = 'navbar-dropdown'>
+                  <a class ='navbar-item'>
+                    Reports
+                  </a>
+                  <a class ='navbar-item'>
+                      History
+                    </a>
+                    <a class ='navbar-item'>
+                        Plan
+                      </a>
+                </div>
+              </div>
+              <a class="navbar-item">
+                Friends
+              </a>
+              <a class="navbar-item">
+                Challenge
+              </a>
+              <a class="navbar-item">
+                Post New Activity
+              </a>
+            </div>
+            <div class="navbar-end">
+                            <span class="navbar-item" id = "signIn">
+                <a class="button is-primary is-inverted">
+                  <span>Sign In</span>
+                </a>
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      </header>
+    </div>
 
-      {{!-- Third Row --}}
-      <div class="row" id="row3">
-        Display Stats
-        <div class="row">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns">
+          <div class = "column is-one-third">
+            <canvas id="myChart" width="200" height="200"></canvas>
+          </div>
+          <div class = "column is-one-third">
 
+          </div>
+          <div class = "column is-one-third">
+              <canvas id="lineChart" width="200" height="200"></canvas>
+          </div>            
         </div>
       </div>
     </div>
+
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-fullwidth">
+        <div class="container">
+          <ul>
+            <li><a>FAQ</a></li>
+            <li><a>Contact Us</a></li>
+            <li><a>About</a></li>
+            <li><a>Terms of Service</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+  </section>
+  <div class="modal">
+    <div class="modal-background modalClose"></div>
+    <div class="modal-content ">
+      <!-- Any other Bulma elements you want -->
+      <form class = "box">
+        <div class = "field">
+            <label class = "label">Username</label>
+            <div class = "control has-icons-left">
+              <input class = "input is-primary" type = "text" placeholder = "Username" required>
+              <span class = "icon is-small is-left">
+                  <i class="fas fa-user"></i>
+              </span>
+            </div>
+        </div>
+        <div class = "field">
+            <label class = "label">Password</label>
+            <div class = "control has-icons-left">
+              <input class = "input" type = "password" placeholder = "••••••••" required>
+              <span class = "icon is-small is-left">
+                <i class = "fa fa-lock"></i>
+              </span>
+            </div>
+          </div>
+          <div class = "field">
+              <label class = "checkbox">
+                <input type = "checkbox">
+                Remember me
+              </label>
+            </div>
+            <div class = "field">
+                <button class = "button is-primary" id = "login" type="submit">
+                  Login
+                  <a href="http://google.com" class="btn btn-default"></a>
+                </button>
+                
+              </div>
+      </form>
+    </div>
+    <button class="modal-close is-large modalClose" aria-label="close"></button>
   </div>
+  
+ <script>
+   var ctx = document.getElementById("myChart").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["Joseph", "Vahe", "Curtis", "Bhavin",],
+                datasets: [{
+                    label: 'Miles',
+                    data: [5, 15, 30, 20,],
+                    backgroundColor: [
+                        'rgba(255, 0, 0, 0.3)',
+                        'rgba(0, 255, 0, 0.3)',
+                        'rgba(0, 0, 255, 0.3)',
+                        'rgba(75, 192, 192, 0.3)',
+                    ],
+                    borderColor: [
+                        'red',
+                        'green',
+                        'blue',
+                        'rgba(75, 192, 192, 1)',
+                    ],
+                    borderWidth: 1,
+                    hoverBorderWidth: 5
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Miles Ran',
+                    fontColor: "white"
+                },
+                legend: { 
+                    display: false 
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero:true,
+                            fontColor: "white"
+                        },
+                        gridLines: {
+                            color: 'rgb(118, 40, 155)'
+                        }
+                    }],
+                    xAxes: [{
+                        ticks:{
+                            fontColor: "white"
+                        },
+                    }]
+                },
+                
+            }
+        });
 
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="/js/index.js"></script>
+        
+        var lineC = document.getElementById("lineChart").getContext('2d');
+        var myChart = new Chart(lineC, {
+            type: 'line',
+            data:{
+                labels: ["Week 1", "Week 2", "Week 3", "Week 4"],
+                datasets: [
+                    {
+                        label: 'Joseph',
+                        data: [50, 60 , 40, 80],
+                        borderColor: 'rgba(255, 0, 0, 0.3)',
+                        fill: false,
+                        pointBackgroundColor: 'red',
+                        pointHoverRadius: 7,
+                    },
+                    {
+                        label: 'Vahe',
+                        data: [22, 11 , 44, 50],
+                        borderColor: 'rgba(0, 255, 0, 0.3)',
+                        fill: false,
+                        pointBackgroundColor: 'green',
+                        pointHoverRadius: 7,
+                    },
+                    {
+                        label: 'Curtis',
+                        data: [30, 70 , 100, 90],
+                        borderColor: 'rgba(0, 0, 255, 0.3)',
+                        fill: false,
+                        pointBackgroundColor: 'blue',
+                        pointHoverRadius: 7,
+                    },
+                    {
+                        label: 'Bhavin',
+                        data: [74, 70 , 30, 5],
+                        borderColor: 'rgba(75, 192, 192, 0.3)',
+                        fill: false,
+                        pointBackgroundColor: 'cyan',
+                        pointHoverRadius: 7,
+                    }
+                ],
+            },
+            options: {
+                title: {
+                    display: true,
+                    text: 'Weekly Goal Completion',
+                    fontColor: "white"
+                },
+                scales: {
+                    yAxes: [{
+                        scaleLabel: {
+                            display: true,
+                            labelString: "% Completion",
+                            fontColor: "gray"
+                        },
+                        ticks: {
+                            beginAtZero:true,
+                            fontColor: "white"
+                        },
+                        gridLines: {
+                            color: 'rgb(118, 40, 155)'
+                        }
+                    }],
+                }
+            }
+        });
 
-</body>
-
-</html>
+ </script>
