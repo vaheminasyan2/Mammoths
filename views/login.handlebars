@@ -1,159 +1,84 @@
-{{!-- <div id="home">
-    <div class="container">
-        <div class="row">
-            <div class="col-8 offset-2">
-                <h1>{{msg}}</h1>
-                <h2>Please login here!</h2>
-                {{!-- <br><br>
-                <a href="/register">
-                <button id="registerPage" class="btn btn-primary">Create profile</button></a>
-                <br><br>
-                <form class="clearfix mb-4">
-                    <div class="form-group">
-                        <label for="example-text">Email</label>
-                        <input type="text" id="email" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="example-text">Password</label>
-                        <input type="text" id="password" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your password">
-                    </div>
-                    <br><br>
-                    <button id="login" class="btn btn-success float-left">Login</button>
-
-                </form> --}}
-                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
 <section class="hero is-primary is-fullheight">
-    <div class="hero-head">
-      <header class="navbar">
-        <div class="container">
-          <div class="navbar-brand">
-            <a class="navbar-item" >
-              <img src="images/image.png" alt="Logo">
+  <div class="hero-head">
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item">
+            <img src="images/image.png" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class='navbar-link'>
+                Dashboard
+              </a>
+
+              <div class='navbar-dropdown'>
+                <a class='navbar-item'>
+                  Reports
+                </a>
+                <a class='navbar-item'>
+                  History
+                </a>
+                <a class='navbar-item'>
+                  Plan
+                </a>
+              </div>
+            </div>
+            <a class="navbar-item">
+              Friends
             </a>
-            <span class="navbar-burger burger" data-target="navMenu">
-              <span></span>
-              <span></span>
-              <span></span>
+            <a class="navbar-item">
+              Challenge
+            </a>
+            <a class="navbar-item">
+              Post New Activity
+            </a>
+          </div>
+          <div class="navbar-end">
+            <span class="navbar-item" id="signIn">
+              <a class="button is-primary is-inverted" href="{{loginUrl}}" id="loginUrl">
+                <span>Sign In</span>
+              </a>
             </span>
           </div>
-          <div id="navMenu" class="navbar-menu">
-            <div class="navbar-start">
-              <div class="navbar-item has-dropdown is-hoverable">
-                <a class = 'navbar-link'>
-                  Dashboard
-                </a>
-
-                <div class = 'navbar-dropdown'>
-                  <a class ='navbar-item'>
-                    Reports
-                  </a>
-                  <a class ='navbar-item'>
-                      History
-                    </a>
-                    <a class ='navbar-item'>
-                        Plan
-                      </a>
-                </div>
-              </div>
-              <a class="navbar-item">
-                Friends
-                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
-              </a>
-              <a class="navbar-item">
-                Challenge
-              </a>
-              <a class="navbar-item">
-                Post New Activity
-              </a>
-            </div>
-            <div class="navbar-end">
-                            <span class="navbar-item" id = "signIn">
-                <a class="button is-primary is-inverted">
-                  <span>Sign In</span>
-                </a>
-              </span>
-            </div>
-          </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
+  </div>
 
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns">
-          <div class = "column is-one-third">
-              <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-          </div>
-          <div class = "column is-one-third">
-
-          </div>
-          <div class = "column is-one-third">
-              <!-- <canvas id="lineChart" width="200" height="200"></canvas> -->
-          </div>            
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-third">
+        </div>
+        <div class="column is-one-third">
+        </div>
+        <div class="column is-one-third">
         </div>
       </div>
     </div>
-
-    <div class="hero-foot">
-      <nav class="tabs is-boxed is-fullwidth">
-        <div class="container">
-          <ul>
-            <li><a>FAQ</a></li>
-            <li><a>Contact Us</a></li>
-            <li><a>About</a></li>
-            <li><a>Terms of Service</a></li>
-          </ul>
-        </div>
-      </nav>
-    </div>
-  </section>
-  <div class="modal">
-    <div class="modal-background modalClose"></div>
-    <div class="modal-content ">
-      <!-- Any other Bulma elements you want -->
-      <form class = "box">
-        <div class = "field">
-            <label class = "label">Username</label>
-            <div class = "control has-icons-left">
-              <input class = "input is-primary" type = "text" placeholder = "Username" required>
-              <span class = "icon is-small is-left">
-                  <i class="fas fa-user"></i>
-              </span>
-            </div>
-        </div>
-        <div class = "field">
-            <label class = "label">Password</label>
-            <div class = "control has-icons-left">
-              <input class = "input" type = "password" placeholder = "••••••••" required>
-              <span class = "icon is-small is-left">
-                <i class = "fa fa-lock"></i>
-              </span>
-            </div>
-          </div>
-          <div class = "field">
-              <label class = "checkbox">
-                <input type = "checkbox">
-                Remember me
-              </label>
-            </div>
-            <div class = "field">
-                <button class = "button is-primary" id = "login" type="submit">
-                  Login
-                  <a href="http://google.com" class="btn btn-default"></a>
-                </button>
-                
-              </div>
-      </form>
-    </div>
-    <button class="modal-close is-large modalClose" aria-label="close"></button>
   </div>
-  
+
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li><a>FAQ</a></li>
+          <li><a>Contact Us</a></li>
+          <li><a>About</a></li>
+          <li><a>Terms of Service</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/login.js"></script>
