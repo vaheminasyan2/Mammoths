@@ -8,5 +8,4 @@ module.exports = function (app) {
     app.post("/register", function (req, res) {
         
     });
-
-}
+};
