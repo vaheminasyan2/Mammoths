@@ -6,7 +6,7 @@ var $runList = $("#runList");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveRun: function(run) {
+  saveRun: function (run) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -16,13 +16,13 @@ var API = {
       data: JSON.stringify(run)
     });
   },
-  getRuns: function() {
+  getRuns: function () {
     return $.ajax({
       url: "api/runs",
       type: "GET"
     });
   },
-  deleteRun: function(id) {
+  deleteRun: function (id) {
     return $.ajax({
       url: "api/runs/" + id,
       type: "DELETE"
@@ -31,9 +31,9 @@ var API = {
 };
 
 // refreshExamples gets new examples from the db and repopulates the list
-var refreshRuns = function() {
-  API.getRuns().then(function(data) {
-    var $runs = data.map(function(run) {
+var refreshRuns = function () {
+  API.getRuns().then(function (data) {
+    var $runs = data.map(function (run) {
       var $a = $("<a>")
         .text(run.date)
         .attr("href", "/runs/" + run.id);
@@ -61,7 +61,7 @@ var refreshRuns = function() {
 
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
-var handleFormSubmit = function(event) {
+var handleFormSubmit = function (event) {
   event.preventDefault();
 
   var run = {
@@ -74,7 +74,7 @@ var handleFormSubmit = function(event) {
     return;
   }
 
-  API.saveRun(run).then(function() {
+  API.saveRun(run).then(function () {
     refreshRuns();
   });
 
@@ -84,12 +84,12 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an example's delete button is clicked
 // Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function() {
+var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteRun(idToDelete).then(function() {
+  API.deleteRun(idToDelete).then(function () {
     refreshRuns();
   });
 };
@@ -97,3 +97,22 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $runList.on("click", ".delete", handleDeleteBtnClick);
+
+function onSignIn(googleUser) {
+  // Useful data for your client-side scripts:
+  var profile = googleUser.getBasicProfile();
+  console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+  console.log('Full Name: ' + profile.getName());
+  console.log('Given Name: ' + profile.getGivenName());
+  console.log('Family Name: ' + profile.getFamilyName());
+  console.log("Image URL: " + profile.getImageUrl());
+  console.log("Email: " + profile.getEmail());
+
+  // The ID token you need to pass to your backend:
+  var id_token = googleUser.getAuthResponse().id_token;
+  console.log("ID Token: " + id_token);
+}
+
+onSignIn(googleUser);
+
+

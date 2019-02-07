@@ -35,4 +35,9 @@ module.exports = function (app) {
       res.json(dbUser);
     })
   })
+
+  app.get("user/:userId", function(req, res){
+    console.log(req.body);
+    //console.log(req.params.userId)
+  }) 
 };
