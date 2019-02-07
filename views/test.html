@@ -1,40 +1,27 @@
-{{!-- <div id="home">
-    <div class="container">
-        <div class="row">
-            <div class="col-8 offset-2">
-                <h1>{{msg}}</h1>
-                <h2>Please login here!</h2>
-                {{!-- <br><br>
-                <a href="/register">
-                <button id="registerPage" class="btn btn-primary">Create profile</button></a>
-                <br><br>
-                <form class="clearfix mb-4" action="POST">
-                    <div class="form-group">
-                        <label for="example-text">Email</label>
-                        <input type="text" id="email" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="example-text">Password</label>
-                        <input type="text" id="password" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your password">
-                    </div>
-                    <button id="login" class="btn btn-success float-left">Login</button>
+<!DOCTYPE html>
+<html lang="en-us">
 
-                </form> --}}
-                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
-            </div>
-        </div>
-    </div>
-</div> --}}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mammoth</title>
+  <link rel="stylesheet" href="../public/css/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+    crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous"></script>
+</head>
 
-<section class="hero is-primary is-fullheight">
+<body>
+  <section class="hero is-primary is-fullheight">
     <div class="hero-head">
       <header class="navbar">
         <div class="container">
           <div class="navbar-brand">
             <a class="navbar-item" >
-              <img src="image.png" alt="Logo">
+              <img src="../image.png" alt="Logo">
             </a>
             <span class="navbar-burger burger" data-target="navMenu">
               <span></span>
@@ -63,7 +50,6 @@
               </div>
               <a class="navbar-item">
                 Friends
-                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
               </a>
               <a class="navbar-item">
                 Challenge
@@ -154,5 +140,8 @@
     <button class="modal-close is-large modalClose" aria-label="close"></button>
   </div>
   
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="/js/login.js"></script>
+  <script type="text/javascript" src="javascript.js"></script>
+</body>
+
+
+</html>

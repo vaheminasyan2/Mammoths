@@ -6,6 +6,7 @@ var Session = require('express-session');
 
 var express = require("express");
 var exphbs = require("express-handlebars");
+var path = require('path');
 //var login = require("./routes/loginroutes");
 
 var db = require("./models");
@@ -45,6 +46,8 @@ app.use(Session({
   resave: true,
   saveUninitialized: true
 }));
+
+// app.use(express.static(path.join(__dirname, '/css')));
 
 app.use("/oauthCallback", function (req, res) {
   var oauth2Client = getOAuthClient();
