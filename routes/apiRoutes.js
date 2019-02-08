@@ -1,4 +1,5 @@
 var db = require("../models");
+var axios = require("axios");
 
 module.exports = function (app) {
   // Get all examples
@@ -22,17 +23,30 @@ module.exports = function (app) {
     });
   });
 
-  // Create new user with a validation to check if that user already exists in the database. It'll check against user's email. Return false if an user with same email has been found
-  app.post("/api/register", function (req, res) {
-    db.Users.findOrCreate({
-      where: {email: req.body.email},
-      defaults: {
-        firstName: req.body.first_name,
-        lastName: req.body.last_name,
-        password: req.body.password
-      }
-    }).spread(user,created).then(function (dbUser) {
-      res.json(dbUser);
-    })
-  })
+  // Create new user with a validation to check if that user already exists in the database. It'll check against user's id. Return false if an user with same email has been found
+  app.post("/api/login", function (req, res) {
+    var newUser = {};
+    //console.log(req.body);
+    axios.get('https://oauth2.googleapis.com/tokeninfo?id_token=' + req.body.idtoken)
+      .then(function (response) {
+        newUser = {
+          name: response.data.name,
+          email: response.data.email,
+          id: response.data.sub
+        }
+      }).catch(function (error) {
+        console.log(error);
+      }).then(function () {
+        //console.log(newUser);
+        db.Users.findOrCreate({
+          where: { id: newUser.id },
+          defaults: {
+            name: newUser.name,
+            email: newUser.email
+          }
+        }).spread(user, created).then(function (dbUser) {
+          res.json(dbUser);
+        });
+      });
+  });
 };
