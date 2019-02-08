@@ -7,10 +7,12 @@
     "start": "node server.js",
     "lint": "eslint **/*.js --quiet",
     "fix": "eslint --fix .",
-    "test": "npm run lint && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
+    "mocha": "cross-env NODE_ENV=test mocha",
+    "test": "npm run lint &&  -u tdd --reporter spec --exit"
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bulma-start": "0.0.2",
     "dotenv": "^6.0.0",

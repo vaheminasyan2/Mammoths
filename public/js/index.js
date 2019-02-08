@@ -121,6 +121,8 @@ function signOut() {
 }
 
 
+
+
 // Dispaly user's data
 var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
