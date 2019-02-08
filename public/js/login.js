@@ -1,49 +1,5 @@
-$("#login").on("click", function (event) {
-    var user = {
-        email: $("#email").val().trim(),
-        password: $("#password").val().trim()
-    };
 
-    if (user.email == "" || user.password == "") { 
-        event.preventDefault();
-        alert("Please fill out all fields");
-        return
-     }
-
-    $.ajax("api/login", {
-        type: "POST",
-        data: user
-    }).then(
-        function () {
-        }
-    )
-})
-
-$("#register").on("click", function (event) {
-
-    var newUser = {
-        first_name: $("#first-name").val().trim(),
-        last_name: $("#last-name").val().trim(),
-        email: $("#email").val().trim(),
-        password: $("#password").val().trim(),
-    };
-
-    if (newUser.first_name == "" || newUser.last_name == "" || newUser.email == "" || newUser.password == "") {
-        event.preventDefault();
-        alert("Please fill out all fields");
-        return
-    }
-
-    $.ajax({
-        headers: {
-            "Content-Type": "application/json"
-        },
-        type: "POST",
-        data: JSON.stringify(newUser),
-        url: "api/register"
-    }).then(
-        function () {
-            console.log(newUser);
-        }
-    )
-})
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    document.location.href = '/home?' + profile.getName();
+  }
