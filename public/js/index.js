@@ -3,9 +3,20 @@ var $runDate = $("#date");
 var $runDistance = $("#distance");
 var $submitBtn = $("#submitRun");
 var $runList = $("#runList");
+var $newActivity = $("#newActivity");
+
+var user = {};
 
 // The API object contains methods for each kind of request we'll make
 var API = {
+
+  getRuns: function () {
+    return $.ajax({
+      url: "api/runs",
+      type: "GET"
+    });
+  },
+
   saveRun: function (run) {
     return $.ajax({
       headers: {
@@ -16,12 +27,7 @@ var API = {
       data: JSON.stringify(run)
     });
   },
-  getRuns: function () {
-    return $.ajax({
-      url: "api/runs",
-      type: "GET"
-    });
-  },
+
   deleteRun: function (id) {
     return $.ajax({
       url: "api/runs/" + id,
@@ -30,37 +36,39 @@ var API = {
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
+// refreshRuns gets new runs from the db and repopulates the list
 var refreshRuns = function () {
   API.getRuns().then(function (data) {
-    var $runs = data.map(function (run) {
-      var $a = $("<a>")
-        .text(run.date)
-        .attr("href", "/runs/" + run.id);
+    console.log(data);
+    // var $runs = data.map(function (run) {
+    //   var $a = $("<a>")
+    //     .text(run.date)
+    //     .attr("href", "/runs/" + run.id);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": run.id
-        })
-        .append($a);
+    //   var $li = $("<li>")
+    //     .attr({
+    //       class: "list-group-item",
+    //       "data-id": run.id
+    //     })
+    //     .append($a);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
+    //   var $button = $("<button>")
+    //     .addClass("btn btn-danger float-right delete")
+    //     .text("ｘ");
 
-      $li.append($button);
+    //   $li.append($button);
 
-      return $li;
-    });
+    //   return $li;
+    // });
 
-    $runList.empty();
-    $runList.append($runs);
+    // $runList.empty();
+    // $runList.append($runs);
   });
 };
+refreshRuns();
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
+// handleFormSubmit is called whenever we submit a new run
+// Save the new run to the db and refresh the list
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
@@ -82,8 +90,8 @@ var handleFormSubmit = function (event) {
   $runDistance.val("");
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
+// handleDeleteBtnClick is called when an run's delete button is clicked
+// Remove the run from the db and refresh the list
 var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
@@ -119,7 +127,6 @@ function signOut() {
     document.location.href = '/';
   });
 }
-
 
 
 

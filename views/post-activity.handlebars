@@ -1,72 +1,114 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<section class="hero is-primary is-fullheight">
+    <div class="hero-head">
+        <header class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/home">
+                        <img src="images/image.png" alt="Logo">
+                    </a>
+                    <span class="navbar-burger burger" data-target="navMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-start">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class='navbar-link' href="/home">
+                                Dashboard
+                            </a>
 
-<head>
-    <meta charset="UTF-8">
-
-    <title>Mammoth</title>
-
-    {{!-- Styling --}}
-    {{!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> --}}
-</head>
-
-<body>
-
-    <div id="home">
-        <div class="container">
-
-            {{!-- Header --}}
-            <div class="row">
-                <h1 class="col-5">Post New Activity</h1>
-                <form class="col-6" id="headerForm" action="/" method="POST">
-                    <button class="btn btn-primary" name="dashboard">Dashboard</button>
-                    <button class="btn btn-primary" name="friends">Friends</button>
-                    <button class="btn btn-primary" name="reports">Reports</button>
-                </form>
+                            <div class='navbar-dropdown'>
+                                <a class='navbar-item'>
+                                    Reports
+                                </a>
+                                <a class='navbar-item'>
+                                    History
+                                </a>
+                                <a class='navbar-item'>
+                                    Plan
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-item">
+                            Friends
+                        </a>
+                        <a class="navbar-item">
+                            Challenge
+                        </a>
+                        <a class="navbar-item" id="newActivity" href="/post-activity">
+                            Post New Activity
+                        </a>
+                    </div>
+                    <div class="navbar-end">
+                        <span class="navbar-item" id="signOut">
+                            <a class="button is-primary is-inverted" href="#" onclick="signOut();">
+                                <span>Sign Out</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
             </div>
+        </header>
+    </div>
 
-            {{!-- Activity List --}}
-            <div class="row" id="activityList">
-                <button class="activity btn btn-light" id="runningBtn" name="running">Running</button>
-                <button class="activity btn btn-light" id="strengthBtn" name="strength">Strength Training</button>
-            </div>
+    <div class="hero-body">
+        <div class="columns">
+            <div class="column is-one-third"></div>
+            <div class="column is-one-third">
+                <div class="container">
+                    <div id="home">
+                        <div class="container">
 
-            {{!-- Running Form --}}
-            <div class="row" id="runningForm">
-                <form class="col-3 offset-4" id="headerForm"> {{!-- Need to change this to
+                            {{!-- Header --}}
+                            <div class="row">
+                                <h1 class="col-5">Post New Activity</h1>
+                                <br>
+                            </div>
+                            {{!-- Activity List --}}
+                            <div class="row" id="activityList">
+                                <button class="activity btn btn-light" id="runningBtn" name="running">Running</button>
+                                <button class="activity btn btn-light" id="strengthBtn" name="strength">Strength
+                                    Training</button>
+                            </div>
+                            <br>
+
+                            {{!-- Running Form --}}
+                            <div class="row" id="runningForm">
+                                <form class="col-3 offset-4" id="headerForm"> {{!-- Need to change this to
                     submit data to database --}}
 
-                    <label for="date">Date: </label>
-                    <input type="text" name="date" id="date" autocomplete="off"><br>
+                                    <label for="date">Date:
+                                        <input type="text" name="date" id="date" autocomplete="off"><br>
 
-                    <label for="distance">Distance: </label>
-                    <input type="text" name="distance" id="distance" autocomplete="off"><br>
+                                        <label for="distance">Distance: </label>
+                                        <input type="text" name="distance" id="distance" autocomplete="off"><br>
 
-                    <label for="duration">Duration: </label>
-                    <input type="text" name="duration" id="duration" autocomplete="off"><br>
+                                        <label for="duration">Duration: </label>
+                                        <input type="text" name="duration" id="duration" autocomplete="off"><br>
 
-                    <label for="pace">Pace: </label> {{!-- Auto-calculate. Conditions = distance/duration fields are
+                                        <label for="pace">Pace: </label> {{!-- Auto-calculate. Conditions = distance/duration fields are
                     filled out --}}
-                    <p id="pace" name="pace">0:00</p><br>
+                                        <p id="pace" name="pace">0:00</p><br>
 
-                    <label for="location">Location: </label>
-                    <input type="text" name="location" id="location" autocomplete="off"><br>
+                                        <label for="location">Location: </label>
+                                        <input type="text" name="location" id="location" autocomplete="off"><br>
 
-                    <label for="surface">Surface: </label>
-                    <input type="text" name="surface" id="surface" autocomplete="off"><br><br>
+                                        <label for="surface">Surface: </label>
+                                        <input type="text" name="surface" id="surface" autocomplete="off"><br><br>
 
-                    <button type="submit" name="submitRun" class="btn btn-primary" id="submitRun">Submit</button>
-                </form>
-            </div>
+                                        <button type="submit" name="submitRun" class="btn btn-primary"
+                                            id="submitRun">Submit</button>
+                                </form>
+                            </div>
 
-            <div id="runList"></div>
+                            <div id="runList"></div>
 
-            {{!-- Strength Training Form--}}
-            <div class="row" id="strengthForm">
+                            {{!-- Strength Training Form--}}
+                            <div class="row" id="strengthForm">
 
-                {{!-- <form class="clearfix mb-4" action="POST">
+                                {{!-- <form class="clearfix mb-4" action="POST">
 
                     <input type="text" name="exercise" id="exercise">
                     <div id="addExercise">Add Exercise</div>
@@ -76,27 +118,83 @@
                 </form> --}}
 
 
-                {{#each run}}
+                                {{#each run}}
 
-                <li data-id="{{this.id}}" class="list-group-item">
-                    <a href="runs/{{this.id}}">{{this.date}}</a>
-                    <button class="btn btn-dnager float-right delete">x</button>
-                </li>
+                                <li data-id="{{this.id}}" class="list-group-item">
+                                    <a href="runs/{{this.id}}">{{this.date}}</a>
+                                    <button class="btn btn-dnager float-right delete">x</button>
+                                </li>
 
-                {{/each}}
+                                {{/each}}
 
-                </ul>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-
+            <div class="column is-one-third"></div>
         </div>
     </div>
     </div>
 
-    {{!-- Javascript, Jquery --}}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/js/post-activity.js"></script>
-    <script src="/js/index.js"></script>
+    <div class="hero-foot">
+        <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+                <ul>
+                    <li><a>FAQ</a></li>
+                    <li><a>Contact Us</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Terms of Service</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</section>
+<div class="modal">
+    <div class="modal-background modalClose"></div>
+    <div class="modal-content ">
+        <!-- Any other Bulma elements you want -->
+        <form class="box">
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left">
+                    <input class="input is-primary" type="text" placeholder="Username" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="password" placeholder="••••••••" required>
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
 
-</body>
+        </form>
 
-</html>
+        </script>
+    </div>
+    <button class="modal-close is-large modalClose" aria-label="close"></button>
+</div>
+
+
+
+
+
+
+
+{{!-- Javascript, Jquery --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/post-activity.js"></script>

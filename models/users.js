@@ -7,5 +7,12 @@ module.exports = function(sequelize, DataTypes) {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
   });
+
+  Users.associate = function(models) {
+    Users.hasMany(models.Runs, {
+      onDelete: "cascade"
+    });
+  };
+
   return Users;
 };
