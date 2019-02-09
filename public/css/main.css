@@ -5868,6 +5868,7 @@ label.panel-block {
       margin-left: 100%; } }
 
 .columns {
+  width: 100%;
   margin-left: -0.75rem;
   margin-right: -0.75rem;
   margin-top: -0.75rem; }

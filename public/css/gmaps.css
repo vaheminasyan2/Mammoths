@@ -1,0 +1,55 @@
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+#map {
+height: 100%;
+width: 100%;
+}
+
+html,
+body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+#wrapper {
+    height: 100%;
+    position: relative;
+}
+
+#mapControl {
+    background: rgb(87, 87, 87);
+    border: 1px solid black;
+    color: white;
+    left: 10px;
+    padding: 5px 0px 5px 0px;
+    position: absolute;
+    text-align: center;
+    top: 60px;
+    z-index: 99;
+}
+
+button {
+    margin: 5px 0px 5px 0px;
+    width: 100px;
+}
+
+#buttonDiv {
+    background: rgb(236, 236, 236);
+    padding: 5px;
+}
+
+#distance {
+    font-size: 18px;
+    font-weight: 700;
+    padding: 5px;
+    
+}
+
+#distanceDiv {
+    font-size: 12px;
+}
+
+#clearRoute {
+    color: red;
+}
