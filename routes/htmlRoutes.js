@@ -25,6 +25,11 @@ module.exports = function (app) {
     res.render("post-activity");
   });
 
+  // app.get("api-user", function (req, res) {
+  //   //res.render("post-activity");
+  // });
+
+
   // Get Plan page
   app.get("/plan", function (req, res) {
     res.render("plan");

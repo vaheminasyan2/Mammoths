@@ -5,7 +5,14 @@ var $submitBtn = $("#submitRun");
 var $runList = $("#runList");
 var $newActivity = $("#newActivity");
 
-var user = {};
+// Our signed in User info 
+var user = {
+  userId: localStorage.getItem("userId"),
+  userEmail: localStorage.getItem("userEmail"),
+  userName: localStorage.getItem("userName")
+};
+
+console.log("userid from Index page " + user.userId);
 
 // The API object contains methods for each kind of request we'll make
 var API = {

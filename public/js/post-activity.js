@@ -13,6 +13,7 @@ function showStrengthForm() {
   $("#strengthForm").show();
 }
 
+
 function addExercise() {
     
 }
