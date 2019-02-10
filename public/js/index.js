@@ -19,6 +19,35 @@ var API = {
       type: "GET"
     });
   },
+
+  saveRun: function (run) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      type: "POST",
+      url: "api/runs",
+      data: JSON.stringify(run)
+    });
+  },
+
+  deleteRun: function (id) {
+    return $.ajax({
+      url: "api/runs/" + id,
+      type: "DELETE"
+    });
+  },
+
+  saveRoute: function(route) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      url: "api/saveRoute",
+      type: "POST",
+      data: JSON.stringify(route)
+    });
+  }
 };
 
 // refreshRuns gets new runs from the db and repopulates the list
@@ -50,12 +79,74 @@ var refreshRuns = function () {
     // $runList.append($runs);
   });
 };
-//refreshRuns();
 
-// Google signOut()
-var auth2
+refreshRuns();
 
-// Dispaly user's data
+// handleFormSubmit is called whenever we submit a new run
+// Save the new run to the db and refresh the list
+var handleFormSubmit = function (event) {
+  event.preventDefault();
+
+  var run = {
+    date: $runDate.val().trim(),
+    distance: $runDistance.val().trim()
+  };
+
+  if (!(run.date && run.distance)) {
+    alert("Fill out both fields dude.");
+    return;
+  }
+
+  API.saveRun(run).then(function () {
+    refreshRuns();
+  });
+
+  $runDate.val("");
+  $runDistance.val("");
+};
+
+// handleDeleteBtnClick is called when an run's delete button is clicked
+// Remove the run from the db and refresh the list
+var handleDeleteBtnClick = function () {
+  var idToDelete = $(this)
+    .parent()
+    .attr("data-id");
+
+  API.deleteRun(idToDelete).then(function () {
+    refreshRuns();
+  });
+};
+
+// Add event listeners to the submit and delete buttons
+$submitBtn.on("click", handleFormSubmit);
+$runList.on("click", ".delete", handleDeleteBtnClick);
+
+
+// Google Sign Out
+// =======================================================
+var auth2;
+
+window.onLoadCallback = function () {
+  gapi.load('auth2', function () {
+    auth2 = gapi.auth2.init({
+      client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
+      scope: 'profile',
+      fetch_basic_profile: false
+    });
+  });
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+    document.location.href = '/';
+  });
+}
+
+// Bar Chart
+// =======================================================
+
 var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -105,10 +196,11 @@ var ctx = document.getElementById("myChart").getContext('2d');
           },
         }]
       },
-
     }
   });
 
+  // Line Chart
+  // =======================================================
 
   var lineC = document.getElementById("lineChart").getContext('2d');
   var myChart = new Chart(lineC, {
@@ -175,20 +267,4 @@ var ctx = document.getElementById("myChart").getContext('2d');
     }
   });
 
-  window.onLoadCallback = function () {
-    gapi.load('auth2', function () {
-      auth2 = gapi.auth2.init({
-        client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
-        scope: 'profile',
-        fetch_basic_profile: false
-      })
-    })
-  }
-  
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-      document.location.href = '/';
-    });
-  }
+  module.exports = API;

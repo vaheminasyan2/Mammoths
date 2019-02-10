@@ -60,18 +60,19 @@ module.exports = function (app) {
   });
 
   app.get("api/user/:id", function (req, res) {
-    res.json(newUser);
-    console.log(newUser);
+    res.json(user);
+    //console.log(user);
   });
 
   // Save a new route to database
   app.post("/api/saveRoute", function (req, res) {
     db.Routes.create({
       name: req.body.name,
-      distance: req.body.distance
-      // wayPoints: req.body.wayPoints
+      distance: req.body.distance,
+      wayPoints: req.body.wayPoints.toString()
     }).then(function (dbRoutes) {
       res.json(dbRoutes);
+      //console.log(dbRoutes);
     });
   });
 

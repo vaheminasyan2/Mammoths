@@ -4,12 +4,8 @@
 var directionsService;
 var directionsDisplay;
 var wayPoints;
+var distance;
 var icon;
-
-// DEPENDENCIES
-// ======================================================
-
-var db = require("../../models");
 
 // INITIALIZE MAP
 // ======================================================
@@ -114,7 +110,7 @@ function initMap() {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints) {
 
-    var distance = 0;
+    distance = 0;
     var meters = 0;
     const metersToMiles = 0.000621371192;
 
@@ -154,14 +150,21 @@ function saveRoute(event) {
 
     var newRoute = {
         name: "default",
-        distance: distance
-        // wayPoints: wayPoints
+        distance: distance,
+        wayPoints: wayPoints
     }
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', '/api/saveRoute');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(newRoute);
+    console.log(newRoute);
+
+    API.saveRoute(newRoute).then(function(response) {
+        console.log("Saving...");
+        console.log(response);
+    });
+
+    // var xhr = new XMLHttpRequest();
+    // xhr.open('POST', '/api/saveRoute');
+    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    // xhr.send(newRoute);
 }
 
 // LOAD ROUTE
