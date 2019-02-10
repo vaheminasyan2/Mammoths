@@ -1,7 +1,10 @@
 module.exports = function(sequelize, DataTypes) {
   var Runs = sequelize.define("Runs", {
     date: DataTypes.STRING,
-    distance: DataTypes.FLOAT
+    distance: DataTypes.FLOAT,
+    duration: DataTypes.STRING,
+    location: DataTypes.STRING,
+    surface: DataTypes.STRING,
   });
 
   Runs.associate = function(models) {

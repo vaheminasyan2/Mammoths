@@ -1,12 +1,16 @@
-
+#loginNavbar {
+  position: fixed; 
+  top: 10%;
+  left: 45%;
+}
 #logoImage {
-  position: fixed; /* or absolute */
+  position: fixed; 
   top: 20%;
   left: 45%;
 }
 
 .g-signin2 {
-  position: fixed; /* or absolute */
+  position: fixed; 
   top: 50%;
   left: 47%;
 }
