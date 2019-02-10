@@ -7,37 +7,6 @@ var login = require("./routes/loginroutes");
 var axios = require("axios");
 
 var db = require("./models");
-<<<<<<< HEAD
-
-// BEGIN GOOGLE
-var { google } = require('googleapis');
-var plus = google.plus('v1');
-const OAuth2 = google.auth.OAuth2;
-const ClientId = "998275819899-rjr5qft278mhidlpbbp08uvfttk8ed9v.apps.googleusercontent.com";
-const ClientSecret = "ylmjsFksC0VZ_WSAZJEqnUK5";
-const RedirectionUrl = "http://localhost:3000/oauthCallback/";
-
-function getOAuthClient () {
-  return new OAuth2(ClientId ,  ClientSecret, RedirectionUrl);
-}
-
-function getAuthUrl () {
-  var oauth2Client = getOAuthClient();
-  // generate a url that asks permissions for Google+ and Google Calendar scopes
-  var scopes = [
-    'https://www.googleapis.com/auth/plus.me'
-  ];
-
-  var url = oauth2Client.generateAuthUrl({
-      access_type: 'offline',
-      scope: scopes // If you only need one scope you can pass it as string
-  });
-
-  return url;
-}
-
-=======
->>>>>>> 5499523f71c79d89e4b68e4a4681ed8232319030
 var app = express();
 var PORT = process.env.PORT || 3000;
 
