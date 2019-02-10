@@ -40,6 +40,17 @@ var API = {
       url: "api/runs/" + id,
       type: "DELETE"
     });
+  },
+
+  saveRoute: function(route) {
+    return $.ajax({
+      headers: {
+        "Content-Type": "application/json"
+      },
+      url: "api/saveRoute",
+      type: "POST",
+      data: JSON.stringify(route)
+    });
   }
 };
 
@@ -72,6 +83,7 @@ var refreshRuns = function () {
     // $runList.append($runs);
   });
 };
+
 refreshRuns();
 
 // handleFormSubmit is called whenever we submit a new run
@@ -114,8 +126,9 @@ $submitBtn.on("click", handleFormSubmit);
 $runList.on("click", ".delete", handleDeleteBtnClick);
 
 
-// Google signOut()
-var auth2
+// Google Sign Out
+// =======================================================
+var auth2;
 
 window.onLoadCallback = function () {
   gapi.load('auth2', function () {
@@ -123,8 +136,8 @@ window.onLoadCallback = function () {
       client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
       scope: 'profile',
       fetch_basic_profile: false
-    })
-  })
+    });
+  });
 }
 
 function signOut() {
@@ -135,9 +148,9 @@ function signOut() {
   });
 }
 
+// Bar Chart
+// =======================================================
 
-
-// Dispaly user's data
 var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -187,10 +200,11 @@ var ctx = document.getElementById("myChart").getContext('2d');
           },
         }]
       },
-
     }
   });
 
+  // Line Chart
+  // =======================================================
 
   var lineC = document.getElementById("lineChart").getContext('2d');
   var myChart = new Chart(lineC, {
@@ -256,3 +270,5 @@ var ctx = document.getElementById("myChart").getContext('2d');
       }
     }
   });
+
+  module.exports = API;
