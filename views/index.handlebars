@@ -1,57 +1,132 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<section class="hero is-primary is-fullheight">
+  <div class="hero-head">
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar-brand">
+          <a class="navbar-item" href="/home">
+            <img src="images/image.png" alt="Logo">
+          </a>
+          <span class="navbar-burger burger" data-target="navMenu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+        <div id="navMenu" class="navbar-menu">
+          <div class="navbar-start">
+            <div class="navbar-item has-dropdown is-hoverable">
+              <a class='navbar-link' href="/home">
+                Dashboard
+              </a>
 
-<head>
-  <meta charset="UTF-8">
-  <title>Mammoth</title>
-  <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
-  <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css">
-</head>
-
-<body>
-
-  <div id="home">
-    <div class="container">
-
-      {{!-- First Row --}}
-      <div class="row" id="row1">
-        <h1 class="col-5">Mammoth</h1>
-        <form class="col-6" id="headerForm">
-          <button class="btn btn-primary">Dashboard</button>
-          <button class="btn btn-primary">Friends</button>
-          <button class="btn btn-primary">Reports</button>
-        </form>
-      </div>
-
-      {{!-- Second Row --}}
-      <div class="row">
-        <h1 class="col-5" id="name">Name</h1>
-
-        {{!-- Plan, History, Post New Activity Buttons --}}
-        <div class="col-6" id="headerBtns">
-          <form action="/" id="headerForm" method="GET">
-            <button class="btn btn-primary" formaction="/plan" id="plan" name="plan">Plan</button>
-            <button class="btn btn-primary" formaction="/history" id="history" name="history">History</button>
-            <button class="btn btn-primary" formaction="/post-activity" id="postNewActivity" name="postNewActivity">Post New Activity</button>
-          </form>
+              <div class='navbar-dropdown'>
+                <a class='navbar-item'>
+                  Reports
+                </a>
+                <a class='navbar-item'>
+                  History
+                </a>
+                <a class='navbar-item'>
+                  Plan
+                </a>
+              </div>
+            </div>
+            <a class="navbar-item">
+              Friends
+            </a>
+            <a class="navbar-item">
+              Challenge
+            </a>
+            <a class="navbar-item" id="newActivity" href="/post-activity">
+              Post New Activity
+            </a>
+          </div>
+          <div class="navbar-end">
+            <span class="navbar-item" id="signOut">
+              <a class="button is-primary is-inverted" href="#" onclick="signOut();">
+                <span>Sign Out</span>
+              </a>
+            </span>
+          </div>
         </div>
       </div>
+    </header>
+  </div>
 
-      {{!-- Third Row --}}
-      <div class="row" id="row3">
-        Display Stats
-        <div class="row">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-third">
+          <canvas id="myChart" width="200" height="200"></canvas>
+        </div>
+        <div class="column is-one-third">
 
+        </div>
+        <div class="column is-one-third">
+          <canvas id="lineChart" width="200" height="200"></canvas>
         </div>
       </div>
     </div>
   </div>
 
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li><a>FAQ</a></li>
+          <li><a>Contact Us</a></li>
+          <li><a>About</a></li>
+          <li><a>Terms of Service</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+<div class="modal">
+  <div class="modal-background modalClose"></div>
+  <div class="modal-content ">
+    <!-- Any other Bulma elements you want -->
+    <form class="box">
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control has-icons-left">
+          <input class="input is-primary" type="text" placeholder="Username" required>
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control has-icons-left">
+          <input class="input" type="password" placeholder="••••••••" required>
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </div>
+      </div>
+      <div class="field">
+        <label class="checkbox">
+          <input type="checkbox">
+          Remember me
+        </label>
+      </div>
+
+    </form>
+
+    </script>
+  </div>
+  <button class="modal-close is-large modalClose" aria-label="close"></button>
+</div>
+
+<<<<<<< HEAD
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="/js/index.js"></script>
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+=======
+<script>
+>>>>>>> 5499523f71c79d89e4b68e4a4681ed8232319030
 
-</body>
 
-</html>
+</script>
+<script src="/js/index.js"></script>

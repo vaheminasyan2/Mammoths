@@ -1,103 +1,38 @@
-$("#login").on("click", function(){
-    var user = {
-        email: $("#email").val().trim(),
-        password: $("#password").val().trim()
-    };
-     
-    if (user.email == "" || user.password == "") {return false}
-
-    $.ajax("api/login", {
-        type:"POST",
-        data: user
-    }).then(
-        function() {
-        }
-    )
-
-})
-
-$("#register").on("click", function(){
-    var newUser = {
-        first_name: $("#first-name").val().trim(),
-        last_name: $("#last-name").val().trim(),
-        email: $("#email").val().trim(),
-        password: $("#password").val().trim(),
-    };
-     
-    if (newUser.first_name == "" || newUser.last_name == "" || newUser.email == "" || newUser.password == "") {return false}
-
-    $.ajax( {
-        headers: {
-            "Content-Type": "application/json"
-          },
-        type:"POST",
-        data:JSON.stringify(newUser),
-        url: "api/register" 
-    }).then(
-        function() {
-            console.log(newUser);
-        }
-    )
-})
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  var id_token = googleUser.getAuthResponse().id_token;
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST', '/api/login');
+  xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+  //var user = 
+  xhr.onload = function () {
+    var googleUserObject = JSON.parse(xhr.responseText);
+    localStorage.setItem("userId", googleUserObject.sub);
+    localStorage.setItem("userEmail", googleUserObject.email);
+    localStorage.setItem("userName", googleUserObject.name);
+    document.location.href = '/home?' + profile.getName();
+  };
+  xhr.send('idtoken=' + id_token); 
+}
 
 
+/*
+Signed in as: {
+  "iss":"accounts.google.com","azp":"894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com","aud":"894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com",
+  "sub":"105954656735327480941",
+  "email":"vahe1816@gmail.com",
+  "email_verified":"true",
+  "at_hash":"R0TWVEbePx2wNoUkj1bsvw",
+  "name":"Vahe Minasyan",
+  "picture":"https://lh6.googleusercontent.com/-LtMAdRBeMjk/AAAAAAAAAAI/AAAAAAAAAKU/CoYbRdjPDV8/s96-c/photo.jpg",
+  "given_name":"Vahe",
+  "family_name":"Minasyan",
+  "locale":"en",
+  "iat":"1549748780",
+  "exp":"1549752380",
+  "jti":"41f1b20282c6d3778918c94241c8a827d3226a11",
+  "alg":"RS256",
+  "kid":"7c309e3a1c1999cb0404ab7125ee40b7cdbcaf7d",
+  "typ":"JWT"}
 
-        // connection.query('SELECT * FROM users WHERE email = ?', [email], function (error, results, fields) {
-        //     if (error) {
-        //         // console.log("error ocurred",error);
-        //         res.send({
-        //             "code": 400,
-        //             "failed": "error ocurred"
-        //         })
-        //     } else {
-        //         // console.log('The solution is: ', results);
-        //         if (results.length > 0) {
-        //             if (results[0].password == password) {
-        //                 res.send({
-        //                     "code": 200,
-        //                     "success": "login sucessfull"
-        //                 });
-        //             }
-        //             else {
-        //                 res.send({
-        //                     "code": 204,
-        //                     "success": "Email and password does not match"
-        //                 });
-        //             }
-        //         }
-        //         else {
-        //             res.send({
-        //                 "code": 204,
-        //                 "success": "Email does not exits"
-        //             });
-        //         }
-        //     }
-        // });
-        
-        
-        
-        
-        // var today = new Date();
-        // var users = {
-        //     "first_name": req.body.first_name,
-        //     "last_name": req.body.last_name,
-        //     "email": req.body.email,
-        //     "password": req.body.password,
-        //     "created": today,
-        //     "modified": today
-        // }
-        // connection.query('INSERT INTO users SET ?', users, function (error, results, fields) {
-        //     if (error) {
-        //         console.log("error ocurred", error);
-        //         res.send({
-        //             "code": 400,
-        //             "failed": "error ocurred"
-        //         })
-        //     } else {
-        //         console.log('The solution is: ', results);
-        //         res.send({
-        //             "code": 200,
-        //             "success": "user registered sucessfully"
-        //         });
-        //     }
-        // });
+  */

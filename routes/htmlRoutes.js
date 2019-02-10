@@ -1,40 +1,14 @@
 var db = require("../models");
 
 module.exports = function (app) {
-  // Load index page
-  app.get("/", function (req, res) {
-    // if we dont have tokens, go to login page
-    if (!req.session["tokens"]) {
-      res.redirect("/login");
-    } else {
-      db.Runs.findAll({}).then(function (dbRuns) {
-        res.render("index", {
-          msg: "Welcome!",
-          runs: dbRuns,
-        });
-      });
-    }
+
+  app.get("/home", function(req, res) {
+    res.render("index")
   });
 
-  app.get("/login", function (req, res) {
-    // if we already have tokens, go to home page
-    if (req.session["tokens"]) {
-      res.redirect("/");
-    } else {
-      res.render("login", {
-        loginUrl: app.get("loginUrl")
-      });
-    }
-  });
-
-  app.get("/register", function (req, res) {
-    res.render("register");
-  });
-
-  // clear tokens and redirect for logout
-  app.get("/logout", function (req, res) {
-    req.session["tokens"] = undefined;
-    res.redirect("/login");
+  
+  app.get("/", function(req, res) {
+    res.render("login")
   });
 
   // Load example page and pass in an example by id
@@ -50,6 +24,11 @@ module.exports = function (app) {
   app.get("/post-activity", function (req, res) {
     res.render("post-activity");
   });
+
+  // app.get("api-user", function (req, res) {
+  //   //res.render("post-activity");
+  // });
+
 
   // Get Plan page
   app.get("/plan", function (req, res) {
@@ -67,7 +46,8 @@ module.exports = function (app) {
   });
 
   // Submit new activity to database
-  app.post("/", function(req, res) {
+  app.post("/home", function(req, res) {
     res.render("index");
   });
+
 };

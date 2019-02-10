@@ -1,14 +1,13 @@
 require("dotenv").config();
 
-// Google
-var http = require('http');
-var Session = require('express-session');
-
 var express = require("express");
 var exphbs = require("express-handlebars");
-//var login = require("./routes/loginroutes");
+var path = require('path');
+var login = require("./routes/loginroutes");
+var axios = require("axios");
 
 var db = require("./models");
+<<<<<<< HEAD
 
 // BEGIN GOOGLE
 var { google } = require('googleapis');
@@ -37,34 +36,10 @@ function getAuthUrl () {
   return url;
 }
 
+=======
+>>>>>>> 5499523f71c79d89e4b68e4a4681ed8232319030
 var app = express();
 var PORT = process.env.PORT || 3000;
-
-app.use(Session({
-  secret: 'raysources-secret-19890913007',
-  resave: true,
-  saveUninitialized: true
-}));
-
-app.use("/oauthCallback", function (req, res) {
-  var oauth2Client = getOAuthClient();
-  var session = req.session;
-  var code = req.query.code;
-  oauth2Client.getToken(code, function(err, tokens) {
-    // Now tokens contains an access_token and an optional refresh_token. Save them.
-    if(!err) {
-      oauth2Client.setCredentials(tokens);
-      session["tokens"]=tokens;
-      res.redirect("/");
-    }
-    else{
-      res.send(`
-          &lt;h3&gt;Login failed!!&lt;/h3&gt;
-      `);
-    }
-  });
-});
-// END GOOGLE
 
 // Middleware
 app.use(express.urlencoded({ extended: false }));
@@ -88,7 +63,7 @@ app.engine(
   })
 );
 app.set("view engine", "handlebars");
-app.set("loginUrl", getAuthUrl());
+//app.set("loginUrl", getAuthUrl());
 
 // Routes
 require("./routes/apiRoutes")(app);

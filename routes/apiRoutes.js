@@ -1,4 +1,5 @@
 var db = require("../models");
+var axios = require("axios");
 
 module.exports = function (app) {
   // Get all examples
@@ -22,6 +23,7 @@ module.exports = function (app) {
     });
   });
 
+<<<<<<< HEAD
   // Create a new user with a validation to check if that user already exisits in the database. It'll check against user's email. Return false if an user with same email has been found
   app.post("/api/register", function (req, res) {
     db.Users.findOrCreate({
@@ -41,3 +43,58 @@ module.exports = function (app) {
     //console.log(req.params.userId)
   }) 
 };
+=======
+  // Create new user with a validation to check if that user already exists in the database. It'll check against user's id. Return false if an user with same email has been found
+  // var user = {};
+
+  app.post("/api/login", function (req, res) {
+    var newUser = {};
+    //console.log(req.body);
+    axios
+      .get(
+        "https://oauth2.googleapis.com/tokeninfo?id_token=" + req.body.idtoken
+      )
+      .then(function (response) {
+        res.json(response.data);
+        newUser = {
+          name: response.data.name,
+          email: response.data.email,
+          id: response.data.sub
+        };
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+        db.Users.findOrCreate({
+          where: { id: newUser.id },
+          defaults: {
+            name: newUser.name,
+            email: newUser.email
+          }
+        })
+          .spread(user, created)
+          .then(function (dbUser) {
+            res.end(dbUser);
+          });
+      });
+  });
+
+  app.get("api/user/:id", function (req, res) {
+    res.json(newUser);
+    console.log(newUser);
+  });
+
+  // Save a new route to database
+  app.post("/api/saveRoute", function (req, res) {
+    db.Routes.create({
+      name: req.body.name,
+      distance: req.body.distance
+      // wayPoints: req.body.wayPoints
+    }).then(function (dbRoutes) {
+      res.json(dbRoutes);
+    });
+  });
+
+};
+>>>>>>> 5499523f71c79d89e4b68e4a4681ed8232319030

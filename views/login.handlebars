@@ -1,32 +1,43 @@
-<div id="home">
-    <div class="container">
-        <div class="row">
-            <div class="col-8 offset-2">
-                <h1>{{msg}}</h1>
-                <h2>Please login here!</h2>
-                {{!-- <br><br>
-                <a href="/register">
-                <button id="registerPage" class="btn btn-primary">Create profile</button></a>
-                <br><br>
-                <form class="clearfix mb-4" action="POST">
-                    <div class="form-group">
-                        <label for="example-text">Email</label>
-                        <input type="text" id="email" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your email">
-                    </div>
-                    <div class="form-group">
-                        <label for="example-text">Password</label>
-                        <input type="text" id="password" class="form-control" aria-describedby="example-text"
-                            placeholder="Enter your password">
-                    </div>
-                    <button id="login" class="btn btn-success float-left">Login</button>
+<section class="hero is-primary is-fullheight">
 
-                </form> --}}
-                <a href="{{loginUrl}}" id="loginUrl" class="btn btn-success float-left">Login with Google</a>
-            </div>
-        </div>
-    </div>
+<br><br>
+  <div>
+    <h1 style="text-align:center">Welcome to Mammoth!</h1>
+  </div>
+  <br><br>
+<div> <img src="images/image.png" alt="Logo" id="logoImage"> 
 </div>
+  <div style="text-align:center" class="g-signin2" data-onsuccess="onSignIn" id="signIn"></div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns">
+        <div class="column is-one-third">
+          <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
+        </div>
+        <div class="column is-one-third">
+
+        </div>
+        <div class="column is-one-third">
+          <!-- <canvas id="lineChart" width="200" height="200"></canvas> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <nav class="tabs is-boxed is-fullwidth">
+      <div class="container">
+        <ul>
+          <li><a>FAQ</a></li>
+          <li><a>Contact Us</a></li>
+          <li><a>About</a></li>
+          <li><a>Terms of Service</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</section>
+
 <script src="/js/login.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
