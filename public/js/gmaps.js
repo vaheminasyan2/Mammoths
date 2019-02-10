@@ -142,6 +142,20 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoint
         });
 }
 
+// The API object contains methods for each kind of request we'll make
+var API = {
+    saveRoute: function(route) {
+      return $.ajax({
+        headers: {
+          "Content-Type": "application/json"
+        },
+        url: "api/saveRoute",
+        type: "POST",
+        data: JSON.stringify(route)
+      });
+    }
+  };
+
 // SAVE ROUTE
 // ======================================================
 

@@ -61,7 +61,7 @@
     <div class="columns">
 
         {{!-- First Column --}}
-        <div class="column is-half">
+        <div class="column is-one-third">
 
             {{!-- Map Display --}}
             <div id="wrapper">
@@ -83,7 +83,7 @@
         </div>
 
         {{!-- Second Column --}}
-        <div class="column is-half">
+        <div class="column is-one-third">
 
             {{!-- Running Form --}}
             <div id="runningForm">
@@ -111,10 +111,14 @@
                         id="submitRun">Submit</button>
                 </form>
             </div>
+
         </div>
 
         {{!-- Third Column --}}
-        {{!-- <div class="column is-one-third"> --}}
+        <div class="column is-one-third">
+
+            {{!-- Display recent 10 runs --}}
+            <H1 style="text-align:center">Runs</H1>
 
         </div>
 
@@ -179,7 +183,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/post-activity.js"></script>
 <script src="/js/gmaps.js"></script>
-<script src="/js/index.js"></script>
 <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB66kReNVkNXq1PYpmqbsmNUfrGWVx0pVg&libraries=drawing&callback=initMap"
     async defer></script>
