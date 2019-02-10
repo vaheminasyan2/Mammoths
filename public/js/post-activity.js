@@ -13,8 +13,8 @@ var user = {
 };
 console.log("userid from Index page " + user.userId);
 
+// The API object contains methods for each kind of request we'll make
 var API = {
-
   getRuns: function () {
     return $.ajax({
       url: "api/runs",
@@ -32,12 +32,14 @@ var API = {
       data: JSON.stringify(run)
     });
   },
+
   deleteRun: function (id) {
     return $.ajax({
       url: "api/runs/" + id,
       type: "DELETE"
     });
-  }
+  },
+  
 };
 
 // handleFormSubmit is called whenever we submit a new run
