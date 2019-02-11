@@ -59,9 +59,11 @@ var API = {
 
 };
 
-// SUBMIT NEW RUN
+// CALCULATE MILE PACE
 // ========================================
+
 $(".duration").on("change", calculatePace);
+$(".distance").on("change", calculatePace);
 
 function calculatePace() {
 
@@ -70,21 +72,31 @@ function calculatePace() {
   var minutes = parseInt($runMins.val().trim());
   var seconds = parseInt($runSecs.val().trim());
 
-  if ($runDistance && $runHours && $runMins && $runSecs) {
-    var totalMinutes = (hours * 60) + (minutes) + (seconds / 60);
-    var distance = parseFloat($runDistance.val().trim());
+  // Get distance
+  var distance = parseFloat($runDistance.val().trim());
 
+  // Validate data
+  // Then calculate and display pace
+  if ($runDistance && $runHours && (minutes <= 59 && minutes >= 0) && (seconds <= 59 && seconds >= 0)) {
+
+    var totalMinutes = (hours * 60) + (minutes) + (seconds / 60);
+    
     var paceMins = Math.floor(totalMinutes / distance);
     var paceSecs = Math.round(((totalMinutes / distance) - paceMins) * 60);
-  }
 
-  var addZero = "";
-  if (paceSecs < 10) {
-    addZero = 0;
-  }
+    // Adds a zero before the seconds figure
+    // To avoid having a result such as "5:9" for the pace. Corrects to "5:09"
+    var addZero = "";
+    if (paceSecs < 10) {
+      addZero = 0;
+    }
 
-  $("#pace").text(`${paceMins}:${addZero}${paceSecs}`);
+    $("#pace").text(` ${paceMins}:${addZero}${paceSecs}`);
+  }
 }
+
+// SUBMIT NEW RUN
+// ========================================
 
 var handleFormSubmit = function (event) {
   event.preventDefault();

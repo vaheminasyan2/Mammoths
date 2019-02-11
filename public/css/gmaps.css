@@ -56,8 +56,19 @@ button {
     z-index: 99;
 }
 
+#minutes {
+    width: 33%;
+}
+
 #pace {
-    
+    float: right;
+    font-size: 14px;
+}
+
+#paceLabel {
+    font-size: 14px;
+    float: right;
+    margin-right: 5px;
 }
 
 #runningForm {

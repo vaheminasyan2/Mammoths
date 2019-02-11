@@ -112,8 +112,7 @@ function initMap() {
     $("#clearRoute").on("click", clearRoute);
     $("#undoLast").on("click", undoLast);
     $("#loadRoute").on("click", loadRoute);
-
-    // $("#loopRoute").on("click", )
+    $("#loopRoute").on("click", loopRoute);
 
 }
 
@@ -152,6 +151,21 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoint
                 window.alert('Directions request failed due to ' + status);
             }
         });
+}
+
+// LOOP ROUTE (OUT AND BACK)
+// ======================================================
+
+function loopRoute() {
+
+    var reverseWayPoints = wayPoints.reverse(); 
+    var length = reverseWayPoints.length; // So that length doesn't update in for loop
+
+    for (var i=length-1; i>=0; i--) {
+        wayPoints.push(reverseWayPoints[i]);
+    }
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
 }
 
 // API CALLS

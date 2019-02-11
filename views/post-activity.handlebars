@@ -78,6 +78,7 @@
                             <button id="saveRoute">Save Route</button><br>
                             {{!-- <button id="loadRoute">Load Route</button><br> --}}
                             <button id="undoLast">Undo Last</button><br>
+                            <button id="loopRoute">Loop Route</button><br>
                             <button id="clearRoute">Clear Route</button>
                         </div>
                     </div>
@@ -106,9 +107,10 @@
                                 placeholder="mm" autocomplete="off">
                             <input type="text" class="form-control duration" name="duration" id="seconds"
                                 placeholder="ss" autocomplete="off">
-
-                            <label for="pace">Avg. Mile Pace: </label>
-                            <span id="pace" name="pace"> 0:00</span> <br>
+                                
+                            {{!-- label and span flipped due to float right --}}
+                            <span id="pace" name="pace"> 0:00</span>
+                            <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
 
                             <label for="location">Location: </label>
                             <input type="text" class="form-control" name="location" id="locationForm"
