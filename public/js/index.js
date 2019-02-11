@@ -8,7 +8,10 @@ var user = {
   userEmail: localStorage.getItem("userEmail"),
   userName: localStorage.getItem("userName")
 };
-console.log("userid from Index page " + user.userId);
+console.log("userid " + user.userId);
+
+// APPEND USER NAME TO THE NAV BAR
+$("#loggedInUser").append(user.userName)
 
 // The API object contains methods for each kind of request we'll make
 var API = {

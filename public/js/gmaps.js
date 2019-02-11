@@ -7,6 +7,18 @@ var wayPoints;
 var distance;
 var icon;
 
+// USER INFO ON SIGN IN
+// ========================================
+
+var user = {
+    userId: localStorage.getItem("userId"),
+    userEmail: localStorage.getItem("userEmail"),
+    userName: localStorage.getItem("userName"),
+  };
+  
+  console.log("userid" + user.userId);
+
+
 // INITIALIZE MAP
 // ======================================================
 
@@ -174,16 +186,18 @@ function saveRoute(event) {
     var newRoute = {
         name: "default",
         distance: distance,
-        wayPoints: wayPoints.toString()
+        wayPoints: wayPoints.toString(),
+        UserId: user.userId
     }
 
-    // console.log(newRoute);
+    console.log(newRoute);
 
     API.saveRoute(newRoute).then(function (response) {
         console.log("Saving...");
         console.log(response);
     });
 }
+
 
 // LOAD ROUTE
 // ======================================================

@@ -45,7 +45,8 @@
                     </div>
                     <div class="navbar-end">
                         <span class="navbar-item" id="signOut">
-                            <a class="button is-primary is-inverted" href="#" onclick="signOut();">
+                            <p id="loggedInUser">Logged in as </p>
+                            <a id="signOutBtn" class="button is-primary is-inverted" href="#" onclick="signOut();">
                                 <span>Sign Out</span>
                             </a>
                         </span>
@@ -91,36 +92,43 @@
                     <form>
                         <div class="form-group mx-sm-5 mb-2" action="/api/runs" method="POST">
                             <label for="date">Date*:</label>
-                                <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY" autocomplete="off"><br>
+                            <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY"
+                                autocomplete="off"><br>
 
-                                <label for="distance">Distance (miles)*: </label>
-                                <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0" autocomplete="off"><br>
+                            <label for="distance">Distance (miles)*: </label>
+                            <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0"
+                                autocomplete="off"><br>
 
-                                <label for="duration">Duration*: </label><br>
-                                <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh" autocomplete="off">
-                                <input type="text" class="form-control duration" name="duration" id="minutes" placeholder="mm" autocomplete="off">
-                                <input type="text" class="form-control duration" name="duration" id="seconds" placeholder="ss" autocomplete="off">
+                            <label for="duration">Duration*: </label><br>
+                            <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
+                                autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="minutes"
+                                placeholder="mm" autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="seconds"
+                                placeholder="ss" autocomplete="off">
 
-                                <label for="pace">Avg. Mile Pace:  </label>
-                                <span id="pace" name="pace"> 0:00</span> <br>
+                            <label for="pace">Avg. Mile Pace: </label>
+                            <span id="pace" name="pace"> 0:00</span> <br>
 
-                                <label for="location">Location: </label>
-                                <input type="text" class="form-control" name="location" id="locationForm" placeholder="Neighborhood" autocomplete="off"><br>
+                            <label for="location">Location: </label>
+                            <input type="text" class="form-control" name="location" id="locationForm"
+                                placeholder="Neighborhood" autocomplete="off"><br>
 
-                                <label for="surface">Primary Surface: </label>
-                                <select class="form-control" id="surfaceForm" name="surface">
-                                    <option value="" selected></option>
-                                    <option value="street">Street</option>
-                                    <option value="bike path">Bike Path</option>
-                                    <option value="trail">Trail</option>
-                                    <option value="track">Track</option>
-                                    <option value="dirt road">Dirt Road</option>
-                                    <option value="grass">Grass</option>
-                                    <option value="beach">Beach</option>
-                                    <option value="treadmill">Treadmill</option>
-                                </select><br>
+                            <label for="surface">Primary Surface: </label>
+                            <select class="form-control" id="surfaceForm" name="surface">
+                                <option value="" selected></option>
+                                <option value="street">Street</option>
+                                <option value="bike path">Bike Path</option>
+                                <option value="trail">Trail</option>
+                                <option value="track">Track</option>
+                                <option value="dirt road">Dirt Road</option>
+                                <option value="grass">Grass</option>
+                                <option value="beach">Beach</option>
+                                <option value="treadmill">Treadmill</option>
+                            </select><br>
 
-                                <button type="submit" name="submitRun" class="btn btn-warning btn-sm" id="submitRun">Submit</button>
+                            <button type="submit" name="submitRun" class="btn btn-warning btn-sm"
+                                id="submitRun">Submit</button>
                         </div>
                     </form>
                 </div>
@@ -196,4 +204,6 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="/js/post-activity.js"></script>
 <script src="/js/gmaps.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB66kReNVkNXq1PYpmqbsmNUfrGWVx0pVg&libraries=drawing&callback=initMap" async defer></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB66kReNVkNXq1PYpmqbsmNUfrGWVx0pVg&libraries=drawing&callback=initMap"
+    async defer></script>

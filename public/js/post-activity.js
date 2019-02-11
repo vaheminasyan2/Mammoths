@@ -22,7 +22,11 @@ var user = {
   userName: localStorage.getItem("userName"),
 };
 
-console.log("userid from Index page " + user.userId);
+console.log("userid" + user.userId);
+
+
+// APPEND USER NAME TO THE NAV BAR
+$("#loggedInUser").append(user.userName)
 
 // API OBJECT
 // ========================================
@@ -85,7 +89,7 @@ function calculatePace() {
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
-  var $runDuration = `${$runHours.val().trim()}:${$runMins.val().trim()}:${runSecs.val().trim()}`;
+  var $runDuration = `${$runHours.val().trim()}:${$runMins.val().trim()}:${$runSecs.val().trim()}`;
 
   var run = {
     date: $runDate.val().trim(),
@@ -98,7 +102,7 @@ var handleFormSubmit = function (event) {
 
   // ===== Form Validation =====
 
-  if (!(run.date && run.distance && $runDuration)) {
+  if (!(run.date && run.distance && $runHours.val().trim() && $runMins.val().trim() && $runSecs.val().trim())) {
     alert("Please fill out the date, distance and duration.");
     return;
   };
