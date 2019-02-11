@@ -142,19 +142,28 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoint
         });
 }
 
-// The API object contains methods for each kind of request we'll make
+// API CALLS
+// ======================================================
+
 var API = {
-    saveRoute: function(route) {
-      return $.ajax({
-        headers: {
-          "Content-Type": "application/json"
-        },
-        url: "api/saveRoute",
-        type: "POST",
-        data: JSON.stringify(route)
-      });
+    saveRoute: function (route) {
+        return $.ajax({
+            headers: {
+                "Content-Type": "application/json"
+            },
+            url: "api/saveRoute",
+            type: "POST",
+            data: JSON.stringify(route)
+        });
+    },
+
+    loadRoute: function() {
+        return $.ajax({
+            url: "api/loadRoute",
+            type: "GET"
+        });
     }
-  };
+};
 
 // SAVE ROUTE
 // ======================================================
@@ -165,28 +174,31 @@ function saveRoute(event) {
     var newRoute = {
         name: "default",
         distance: distance,
-        wayPoints: wayPoints
+        wayPoints: wayPoints.toString()
     }
 
-    console.log(newRoute);
+    // console.log(newRoute);
 
-    API.saveRoute(newRoute).then(function(response) {
+    API.saveRoute(newRoute).then(function (response) {
         console.log("Saving...");
         console.log(response);
     });
-
-    // var xhr = new XMLHttpRequest();
-    // xhr.open('POST', '/api/saveRoute');
-    // xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    // xhr.send(newRoute);
 }
 
 // LOAD ROUTE
 // ======================================================
 
-function loadRoute() {
-    // get wayPoints from database
+function loadRoute(event) {
+    event.preventDefault();
 
+    var route = {
+        name: "default"
+    }
+
+    API.loadRoute(route).then(function(response) {
+        console.log("Loading...");
+        console.log(response);
+    });
 }
 
 // UNDO LAST

@@ -1,24 +1,30 @@
-// Get references to page elements
+// REFERENCES TO FORM ELEMENTS
+// ========================================
+
 var $runDate = $("#dateForm");
 var $runDistance = $("#distanceForm");
 var $runDuration = $("#durationForm");
 var $runLocation = $("#locationForm");
 var $runSurface = $("#surfaceForm")
 
-
 var $submitBtn = $("#submitRun");
 var $runList = $("#runList");
 var $newActivity = $("#newActivity");
 
-// Our signed in User info 
+// USER INFO ON SIGN IN
+// ========================================
+
 var user = {
   userId: localStorage.getItem("userId"),
   userEmail: localStorage.getItem("userEmail"),
   userName: localStorage.getItem("userName"),
 };
+
 console.log("userid from Index page " + user.userId);
 
-// The API object contains methods for each kind of request we'll make
+// API OBJECT
+// ========================================
+
 var API = {
   getRuns: function () {
     return $.ajax({
@@ -47,8 +53,9 @@ var API = {
   
 };
 
-// handleFormSubmit is called whenever we submit a new run
-// Save the new run to the db and refresh the list
+// SUBMIT NEW RUN
+// ========================================
+
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
@@ -58,16 +65,19 @@ var handleFormSubmit = function (event) {
     duration: $runDuration.val().trim(),
     location: $runLocation.val().trim(),
     surface: $runSurface.val().trim(),
-    UserId: user.userId,
+    UserId: user.userId
   };
 
+  // ===== Form Validation =====
 
   if (!(run.date && run.distance && run.duration)) {
     alert("Please fill out the date, distance and duration.");
     return;
   };
 
-  console.log(run)
+  console.log(run);
+
+  // Submit new run
   $.ajax({
     headers: {
       "Content-Type": "application/json"
@@ -75,10 +85,12 @@ var handleFormSubmit = function (event) {
     type: "POST",
     url: "api/runs",
     data: JSON.stringify(run)
-  }).then(function () {
+  }).then(function (response) {
+    console.log(response);
     refreshRuns();
   });
 
+  // Empty form fields
   $runDate.val("");
   $runDistance.val("");
   $runDuration.val("");
@@ -86,8 +98,9 @@ var handleFormSubmit = function (event) {
   $runSurface.val("");
  };
 
-// handleDeleteBtnClick is called when an run's delete button is clicked
-// Remove the run from the db and refresh the list
+// DELETE RUN
+// ========================================
+
 var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
@@ -96,14 +109,10 @@ var handleDeleteBtnClick = function () {
   API.deleteRun(idToDelete).then(function () {
     refreshRuns();
   });
-
-  
 };
 
-// Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-//$runList.on("click", ".delete", handleDeleteBtnClick);
-
+// REFRESH RUNS
+// ========================================
 
 var refreshRuns = function () {
   API.getRuns().then(function (data) {
@@ -134,9 +143,17 @@ var refreshRuns = function () {
   });
 };
 
+// EVENT HANDLERS: SUBMIT, DELETE
+// ========================================
 
-// Google signOut()
-var auth2
+$submitBtn.on("click", handleFormSubmit);
+//$runList.on("click", ".delete", handleDeleteBtnClick);
+
+
+// GOOGLE SIGN OUT
+// ========================================
+
+var auth2;
 
 window.onLoadCallback = function () {
   gapi.load('auth2', function () {
@@ -144,8 +161,8 @@ window.onLoadCallback = function () {
       client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
       scope: 'profile',
       fetch_basic_profile: false
-    })
-  })
+    });
+  });
 }
 
 function signOut() {
