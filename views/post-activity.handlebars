@@ -62,7 +62,7 @@
         <div class="columns">
 
             {{!-- First Column --}}
-            <div class="column is-one-third">
+            <div class="col-4">
 
                 {{!-- Map Display --}}
                 <div id="wrapper">
@@ -85,8 +85,8 @@
                 </div>
             </div>
 
-            {{!-- Second Column --}}
-            <div class="column is-one-third">
+            {{!-- Second Column column is-one-third --}}
+            <div class="col-4">
 
                 {{!-- Running Form --}}
                 <div id="runningForm">
@@ -138,10 +138,37 @@
             </div>
 
             {{!-- Third Column --}}
-            <div class="column is-one-third">
-
-                {{!-- Display recent 10 runs --}}
-                <H1 style="text-align:center">Runs</H1>
+            <div class="col-4">
+                <div class="row">
+                    <p id="top5Runs">Top 5 Runs:</p>
+                    <ul id="run-list" class="list-group">
+                        {{#each runs}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <a>{{this.duration}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
+                </div>
+                <br><br>
+                <div class="row">
+                    <p id="top5Routes">Top 5 Routes:</p>
+                    <ul id="route-list" class="list-group">
+                        {{#each routes}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
+                </div>
 
             </div>
 

@@ -2,9 +2,10 @@ var db = require("../models");
 var axios = require("axios");
 
 module.exports = function (app) {
-  // Get all examples
-  app.get("/api/runs", function (req, res) {
-    db.Runs.findAll({}).then(function (dbRuns) {
+  // GET RECENT 5 RUNS
+  app.get("/api/runs/:id", function (req, res) {
+    //console.log(req.params.id)
+    db.Runs.findAll({limit: 5, order:[['createdAt', 'DESC']]},{where: { UserId: req.params.id }}).then(function (dbRuns) {
       res.json(dbRuns);
     });
   });
