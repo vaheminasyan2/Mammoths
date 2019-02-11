@@ -5,6 +5,12 @@ module.exports = function(sequelize, DataTypes) {
       wayPoints: DataTypes.STRING
     });
 
+    Routes.associate = function(models) {
+      Routes.belongsTo(models.Users, {
+        allowNull: false
+      });
+    };
+
     return Routes;
   };
   

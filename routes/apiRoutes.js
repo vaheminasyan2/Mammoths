@@ -9,7 +9,7 @@ module.exports = function (app) {
     });
   });
 
-  // Create a new example
+  // Create a new run
   app.post("/api/runs", function (req, res) {
     db.Runs.create(req.body).then(function (dbRun) {
       res.json(dbRun);
@@ -77,7 +77,8 @@ module.exports = function (app) {
     db.Routes.create({
       name: req.body.name,
       distance: req.body.distance,
-      wayPoints: req.body.wayPoints.toString()
+      wayPoints: req.body.wayPoints.toString(),
+      UserId: req.body.UserId
     }).then(function (dbRoutes) {
       res.json(dbRoutes);
     });
