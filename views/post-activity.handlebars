@@ -93,20 +93,32 @@
                             <label for="date">Date*:</label>
                                 <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY" autocomplete="off"><br>
 
-                                <label for="distance">Distance*: </label>
+                                <label for="distance">Distance (miles)*: </label>
                                 <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0" autocomplete="off"><br>
 
-                                <label for="duration">Duration*: </label>
-                                <input type="text" class="form-control" name="duration" id="durationForm" placeholder="00:00" autocomplete="off"><br>
+                                <label for="duration">Duration*: </label><br>
+                                <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh" autocomplete="off">
+                                <input type="text" class="form-control duration" name="duration" id="minutes" placeholder="mm" autocomplete="off">
+                                <input type="text" class="form-control duration" name="duration" id="seconds" placeholder="ss" autocomplete="off">
 
-                                <label for="pace">Pace:  </label>
+                                <label for="pace">Avg. Mile Pace:  </label>
                                 <span id="pace" name="pace"> 0:00</span> <br>
 
                                 <label for="location">Location: </label>
-                                <input type="text" class="form-control" name="location" id="locationForm" placeholder="City" autocomplete="off"><br>
+                                <input type="text" class="form-control" name="location" id="locationForm" placeholder="Neighborhood" autocomplete="off"><br>
 
-                                <label for="surface">Surface: </label>
-                                <input type="text" class="form-control" name="surface" id="surfaceForm" placeholder="Grass" autocomplete="off"><br><br>
+                                <label for="surface">Primary Surface: </label>
+                                <select class="form-control" id="surfaceForm" name="surface">
+                                    <option value="" selected></option>
+                                    <option value="street">Street</option>
+                                    <option value="bike path">Bike Path</option>
+                                    <option value="trail">Trail</option>
+                                    <option value="track">Track</option>
+                                    <option value="dirt road">Dirt Road</option>
+                                    <option value="grass">Grass</option>
+                                    <option value="beach">Beach</option>
+                                    <option value="treadmill">Treadmill</option>
+                                </select><br>
 
                                 <button type="submit" name="submitRun" class="btn btn-warning btn-sm" id="submitRun">Submit</button>
                         </div>
