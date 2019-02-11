@@ -57,7 +57,14 @@ button {
 }
 
 #pace {
-    
+    float: right;
+    font-size: 14px;
+}
+
+#paceLabel {
+    font-size: 14px;
+    float: right;
+    margin-right: 5px;
 }
 
 #runningForm {
