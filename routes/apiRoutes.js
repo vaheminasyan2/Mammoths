@@ -5,7 +5,11 @@ module.exports = function (app) {
   // GET RECENT 5 RUNS
   app.get("/api/runs/:id", function (req, res) {
     //console.log(req.params.id)
-    db.Runs.findAll({limit: 5, order:[['createdAt', 'DESC']]},{where: { UserId: req.params.id }}).then(function (dbRuns) {
+    db.Runs.findAll({
+      where: { UserId: req.params.id },
+      order: [["updatedAt", "DESC"]],
+      limit: 5
+    }).then(function (dbRuns) {
       res.json(dbRuns);
     });
   });
