@@ -107,9 +107,10 @@
                                 placeholder="mm" autocomplete="off">
                             <input type="text" class="form-control duration" name="duration" id="seconds"
                                 placeholder="ss" autocomplete="off">
-
+                                
+                            {{!-- label and span flipped due to float right --}}
                             <span id="pace" name="pace"> 0:00</span>
-                            <label for="pace">Avg. Mile Pace: </label> <br>
+                            <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
 
                             <label for="location">Location: </label>
                             <input type="text" class="form-control" name="location" id="locationForm"
