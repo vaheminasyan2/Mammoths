@@ -3,7 +3,9 @@
 
 var $runDate = $("#dateForm");
 var $runDistance = $("#distanceForm");
-var $runDuration = $("#durationForm");
+var $runHours = $("#hours");
+var $runMins = $("#minutes");
+var $runSecs = $("#seconds");
 var $runLocation = $("#locationForm");
 var $runSurface = $("#surfaceForm")
 
@@ -50,19 +52,40 @@ var API = {
       type: "DELETE"
     });
   },
-  
+
 };
 
 // SUBMIT NEW RUN
 // ========================================
+$(".duration").on("change", calculatePace);
+
+function calculatePace() {
+
+  // Convert form values to total minutes
+  var hours = parseInt($runHours.val().trim());
+  var minutes = parseInt($runMins.val().trim());
+  var seconds = parseInt($runSecs.val().trim());
+
+  if ($runDistance && $runHours && $runMins && $runSecs) {
+    var totalMinutes = (hours * 60) + (minutes) + (seconds / 60);
+    var distance = parseFloat($runDistance.val().trim());
+
+    var paceMins = Math.floor(totalMinutes / distance);
+    var paceSecs = Math.round(((totalMinutes / distance) - paceMins) * 60);
+  }
+
+  $("#pace").text(`${paceMins}:${paceSecs}`);
+}
 
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
+  var $runDuration = `${$runHours.val().trim()}:${$runMins.val().trim()}:${runSecs.val().trim()}`;
+
   var run = {
     date: $runDate.val().trim(),
     distance: $runDistance.val().trim(),
-    duration: $runDuration.val().trim(),
+    duration: $runDuration,
     location: $runLocation.val().trim(),
     surface: $runSurface.val().trim(),
     UserId: user.userId
@@ -70,7 +93,7 @@ var handleFormSubmit = function (event) {
 
   // ===== Form Validation =====
 
-  if (!(run.date && run.distance && run.duration)) {
+  if (!(run.date && run.distance && $runDuration)) {
     alert("Please fill out the date, distance and duration.");
     return;
   };
@@ -93,10 +116,12 @@ var handleFormSubmit = function (event) {
   // Empty form fields
   $runDate.val("");
   $runDistance.val("");
-  $runDuration.val("");
+  $runHours.val("");
+  $runMins.val("");
+  $runSecs.val("");
   $runLocation.val("");
   $runSurface.val("");
- };
+};
 
 // DELETE RUN
 // ========================================

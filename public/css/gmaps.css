@@ -30,6 +30,11 @@ button {
     font-size: 12px;
 }
 
+.duration {
+    display: inline-block;
+    width: 30%;
+}
+
 #loopRoute {
     color: black;
 }
@@ -49,6 +54,16 @@ button {
     text-align: center;
     top: 60px;
     z-index: 99;
+}
+
+#pace {
+    
+}
+
+#runningForm {
+    background: rgb(51, 0, 122);
+    border: 1px solid black;
+    padding: 15px 0px 15px 0px;
 }
 
 #wrapper {
