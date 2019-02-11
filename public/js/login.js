@@ -10,7 +10,7 @@ function onSignIn(googleUser) {
     localStorage.setItem("userId", googleUserObject.sub);
     localStorage.setItem("userEmail", googleUserObject.email);
     localStorage.setItem("userName", googleUserObject.name);
-    document.location.href = '/home?' + profile.getName();
+    document.location.href = '/home';
   };
   xhr.send('idtoken=' + id_token); 
 }

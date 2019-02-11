@@ -28,36 +28,43 @@ console.log("userid" + user.userId);
 // APPEND USER NAME TO THE NAV BAR
 $("#loggedInUser").append(user.userName)
 
-// API OBJECT
+// REFRESH RUNS
 // ========================================
 
-var API = {
-  getRuns: function () {
-    return $.ajax({
-      url: "api/runs",
+var refreshRuns = function () {
+
+  $.ajax({
+      url: "api/runs/" + user.userId,
       type: "GET"
-    });
-  },
+    })
+  .then(function (data) {
+    //console.log(data);
+    var $runs = data.map(function (run) {
+      var $date = $("<a>").text("Date: " + run.date);
+      var $distance = $("<a>").text(" Distance: " + run.distance);
+      var $duration = $("<a>").text(" Duration: " + run.duration);
+      var $li = $("<li>")
+        .attr({
+          class: "list-group-item",
+          "data-id": run.id
+        })
+        .append($date, $distance, $duration);
 
-  saveRun: function (run) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/runs",
-      data: JSON.stringify(run)
-    });
-  },
+      var $button = $("<button>")
+        .addClass("btn btn-danger float-right delete")
+        .text("ｘ");
 
-  deleteRun: function (id) {
-    return $.ajax({
-      url: "api/runs/" + id,
-      type: "DELETE"
-    });
-  },
+      $li.append($button);
 
+      return $li;
+    });
+
+    $("#run-list").empty();
+    $("#run-list").append($runs);
+  });
 };
+refreshRuns();
+
 
 // SUBMIT NEW RUN
 // ========================================
@@ -117,10 +124,11 @@ var handleFormSubmit = function (event) {
     type: "POST",
     url: "api/runs",
     data: JSON.stringify(run)
-  }).then(function (response) {
-    console.log(response);
+  }).then(function () {
+    //console.log(response);
     refreshRuns();
   });
+  
 
   // Empty form fields
   $runDate.val("");
@@ -140,48 +148,23 @@ var handleDeleteBtnClick = function () {
     .parent()
     .attr("data-id");
 
-  API.deleteRun(idToDelete).then(function () {
+    $.ajax({
+        url: "api/runs/" + idToDelete,
+        type: "DELETE"
+      })
+
+  .then(function () {
     refreshRuns();
   });
-};
+}
 
-// REFRESH RUNS
-// ========================================
 
-var refreshRuns = function () {
-  API.getRuns().then(function (data) {
-    console.log(data);
-    // var $runs = data.map(function (run) {
-    //   var $a = $("<a>")
-    //     .text(run.date)
-    //     .attr("href", "/runs/" + run.id);
-
-    //   var $li = $("<li>")
-    //     .attr({
-    //       class: "list-group-item",
-    //       "data-id": run.id
-    //     })
-    //     .append($a);
-
-    //   var $button = $("<button>")
-    //     .addClass("btn btn-danger float-right delete")
-    //     .text("ｘ");
-
-    //   $li.append($button);
-
-    //   return $li;
-    // });
-
-    // $runList.empty();
-    // $runList.append($runs);
-  });
-};
 
 // EVENT HANDLERS: SUBMIT, DELETE
 // ========================================
 
 $submitBtn.on("click", handleFormSubmit);
-//$runList.on("click", ".delete", handleDeleteBtnClick);
+$("#run-list").on("click", ".delete", handleDeleteBtnClick);
 
 
 // GOOGLE SIGN OUT

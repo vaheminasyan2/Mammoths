@@ -27,29 +27,10 @@ var API = {
 var refreshRuns = function () {
   API.getRuns().then(function (data) {
     console.log(data);
-    // var $runs = data.map(function (run) {
-    //   var $a = $("<a>")
-    //     .text(run.date)
-    //     .attr("href", "/runs/" + run.id);
 
-    //   var $li = $("<li>")
-    //     .attr({
-    //       class: "list-group-item",
-    //       "data-id": run.id
-    //     })
-    //     .append($a);
+    /// BAR CHART GOES HERE
 
-    //   var $button = $("<button>")
-    //     .addClass("btn btn-danger float-right delete")
-    //     .text("ｘ");
 
-    //   $li.append($button);
-
-    //   return $li;
-    // });
-
-    // $runList.empty();
-    // $runList.append($runs);
   });
 };
 
