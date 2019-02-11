@@ -64,6 +64,14 @@ module.exports = function (app) {
     //console.log(user);
   });
 
+  // Load a route from database
+  app.get("/api/loadRoute", function(req, res) {
+    db.Routes.findOne({ where: {name: "default"} }).then(function(route) {
+      res.json(route);
+      console.log(route);
+    });
+  });
+
   // Save a new route to database
   app.post("/api/saveRoute", function (req, res) {
     db.Routes.create({
@@ -72,7 +80,6 @@ module.exports = function (app) {
       wayPoints: req.body.wayPoints.toString()
     }).then(function (dbRoutes) {
       res.json(dbRoutes);
-      //console.log(dbRoutes);
     });
   });
 
