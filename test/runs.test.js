@@ -18,7 +18,6 @@ describe("GET /api/runs", function() {
   });
 
   it("should find all examples", function(done) {
-
     // Add some examples to the db to test with
     db.Runs.bulkCreate([
       { date: "First Example", distance: 1.00 },
@@ -26,7 +25,6 @@ describe("GET /api/runs", function() {
     ]).then(function() {
       // Request the route that returns all examples
       request.get("/api/runs").end(function(err, res) {
-
         var responseStatus = res.status;
         var responseBody = res.body;
 
@@ -47,7 +45,6 @@ describe("GET /api/runs", function() {
         expect(responseBody[1])
           .to.be.an("object")
           .that.includes({ date: "Second Example", distance: 1.00 });
-
         // The `done` function is used to end any asynchronous tests
         done();
       });

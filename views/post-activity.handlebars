@@ -1,102 +1,243 @@
-<!DOCTYPE html>
-<html lang="en-us">
+<section class="hero is-primary is-fullheight">
 
-<head>
-    <meta charset="UTF-8">
+    {{!-- Header --}}
+    <div class="hero-head">
+        <header class="navbar">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item" href="/home">
+                        <img src="images/image.png" alt="Logo">
+                    </a>
+                    <span class="navbar-burger burger" data-target="navMenu">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
+                </div>
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-start">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class='navbar-link' href="/home">
+                                Dashboard
+                            </a>
 
-    <title>Mammoth</title>
+                            <div class='navbar-dropdown'>
+                                <a class='navbar-item'>
+                                    Reports
+                                </a>
+                                <a class='navbar-item'>
+                                    History
+                                </a>
+                                <a class='navbar-item'>
+                                    Plan
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-item">
+                            Friends
+                        </a>
+                        <a class="navbar-item">
+                            Challenge
+                        </a>
+                        <a class="navbar-item" id="newActivity" href="/post-activity">
+                            Post New Activity
+                        </a>
+                    </div>
+                    <div class="navbar-end">
+                        <span class="navbar-item" id="signOut">
+                            <p id="loggedInUser">Logged in as </p>
+                            <a id="signOutBtn" class="button is-primary is-inverted" href="#" onclick="signOut();">
+                                <span>Sign Out</span>
+                            </a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
 
-    {{!-- Styling --}}
-    {{!-- <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap-grid.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.css"> --}}
-</head>
+    {{!-- Body --}}
+    <div class="hero-body">
 
-<body>
+        <div class="columns">
 
-    <div id="home">
-        <div class="container">
+            {{!-- First Column --}}
+            <div class="col-4">
 
-            {{!-- Header --}}
-            <div class="row">
-                <h1 class="col-5">Post New Activity</h1>
-                <form class="col-6" id="headerForm" action="/" method="POST">
-                    <button class="btn btn-primary" name="dashboard">Dashboard</button>
-                    <button class="btn btn-primary" name="friends">Friends</button>
-                    <button class="btn btn-primary" name="reports">Reports</button>
-                </form>
+                {{!-- Map Display --}}
+                <div id="wrapper">
+
+                    <div id="map"></div>
+
+                    <div id="mapControl">
+                        <div id="distanceDiv">
+                            DISTANCE
+                            <div id="distance">0.0 mi.</div>
+                        </div>
+                        <div id="buttonDiv">
+                            <button id="saveRoute">Save Route</button><br>
+                            {{!-- <button id="loadRoute">Load Route</button><br> --}}
+                            <button id="undoLast">Undo Last</button><br>
+                            <button id="loopRoute">Loop Route</button><br>
+                            <button id="clearRoute">Clear Route</button><br>
+                            <button id="loadRoute">Load Route</button>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            {{!-- Activity List --}}
-            <div class="row" id="activityList">
-                <button class="activity btn btn-light" id="runningBtn" name="running">Running</button>
-                <button class="activity btn btn-light" id="strengthBtn" name="strength">Strength Training</button>
+            {{!-- Second Column column is-one-third --}}
+            <div class="col-4">
+
+                {{!-- Running Form --}}
+                <div id="runningForm">
+                    <form>
+                        <div class="form-group mx-sm-5 mb-2" action="/api/runs" method="POST">
+                            <label for="date">Date*:</label>
+                            <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY"
+                                autocomplete="off"><br>
+
+                            <label for="distance">Distance (miles)*: </label>
+                            <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0"
+                                autocomplete="off"><br>
+
+                            <label for="duration">Duration*: </label><br>
+                            <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
+                                autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="minutes"
+                                placeholder="mm" autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="seconds"
+                                placeholder="ss" autocomplete="off">
+                                
+                            {{!-- label and span flipped due to float right --}}
+                            <span id="pace" name="pace"> 0:00</span>
+                            <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
+
+                            <label for="location">Location: </label>
+                            <input type="text" class="form-control" name="location" id="locationForm"
+                                placeholder="Neighborhood" autocomplete="off"><br>
+
+                            <label for="surface">Primary Surface: </label>
+                            <select class="form-control" id="surfaceForm" name="surface">
+                                <option value="">Select one</option>
+                                <option value="street">Street</option>
+                                <option value="bike path">Bike Path</option>
+                                <option value="trail">Trail</option>
+                                <option value="track">Track</option>
+                                <option value="dirt road">Dirt Road</option>
+                                <option value="grass">Grass</option>
+                                <option value="beach">Beach</option>
+                                <option value="treadmill">Treadmill</option>
+                            </select><br>
+
+                            <button type="submit" name="submitRun" class="btn btn-warning btn-sm"
+                                id="submitRun">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
             </div>
 
-            {{!-- Running Form --}}
-            <div class="row" id="runningForm">
-                <form class="col-3 offset-4" id="headerForm"> {{!-- Need to change this to
-                    submit data to database --}}
+            {{!-- Third Column --}}
+            <div class="col-4">
+                <div class="row">
+                    <p id="top5Runs">Recent 5 Runs:</p>
+                    <ul id="run-list" class="list-group">
+                        {{#each runs}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <a>{{this.duration}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
+                </div>
+                <br><br>
+                <div class="row">
+                    <p id="top5Routes">Recent 5 Routes:</p>
+                    <ul id="route-list" class="list-group">
+                        {{#each routes}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
+                    
+                </div>
+                <br><br>
+                {{!-- <button class="btn btn-light btn-sm" id="loadRoute">Load Route</button> --}}
 
-                    <label for="date">Date: </label>
-                    <input type="text" name="date" id="date" autocomplete="off"><br>
-
-                    <label for="distance">Distance: </label>
-                    <input type="text" name="distance" id="distance" autocomplete="off"><br>
-
-                    <label for="duration">Duration: </label>
-                    <input type="text" name="duration" id="duration" autocomplete="off"><br>
-
-                    <label for="pace">Pace: </label> {{!-- Auto-calculate. Conditions = distance/duration fields are
-                    filled out --}}
-                    <p id="pace" name="pace">0:00</p><br>
-
-                    <label for="location">Location: </label>
-                    <input type="text" name="location" id="location" autocomplete="off"><br>
-
-                    <label for="surface">Surface: </label>
-                    <input type="text" name="surface" id="surface" autocomplete="off"><br><br>
-
-                    <button type="submit" name="submitRun" class="btn btn-primary" id="submitRun">Submit</button>
-                </form>
-            </div>
-
-            <div id="runList"></div>
-
-            {{!-- Strength Training Form--}}
-            <div class="row" id="strengthForm">
-
-                {{!-- <form class="clearfix mb-4" action="POST">
-
-                    <input type="text" name="exercise" id="exercise">
-                    <div id="addExercise">Add Exercise</div>
-
-                    <button type="submit" id="submitStrength" class="btn btn-primary float-right">Submit</button>
-
-                </form> --}}
-
-
-                {{#each run}}
-
-                <li data-id="{{this.id}}" class="list-group-item">
-                    <a href="runs/{{this.id}}">{{this.date}}</a>
-                    <button class="btn btn-dnager float-right delete">x</button>
-                </li>
-
-                {{/each}}
-
-                </ul>
             </div>
 
         </div>
     </div>
+
+    {{!-- Footer --}}
+    <div class="hero-foot">
+        <nav class="tabs is-boxed is-fullwidth">
+            <div class="container">
+                <ul>
+                    <li><a>FAQ</a></li>
+                    <li><a>Contact Us</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Terms of Service</a></li>
+                </ul>
+            </div>
+        </nav>
     </div>
 
-    {{!-- Javascript, Jquery --}}
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="/js/post-activity.js"></script>
-    <script src="/js/index.js"></script>
+</section>
 
-</body>
+{{!-- Log In Modal --}}
 
-</html>
+<div class="modal">
+    <div class="modal-background modalClose"></div>
+    <div class="modal-content ">
+        <!-- Any other Bulma elements you want -->
+        <form class="box">
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control has-icons-left">
+                    <input class="input is-primary" type="text" placeholder="Username" required>
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="password" placeholder="••••••••" required>
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
+        </form>
+    </div>
+
+    <button class="modal-close is-large modalClose" aria-label="close"></button>
+
+</div>
+
+{{!-- Javascript, Jquery --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/js/post-activity.js"></script>
+<script src="/js/gmaps.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB66kReNVkNXq1PYpmqbsmNUfrGWVx0pVg&libraries=drawing&callback=initMap"
+    async defer></script>

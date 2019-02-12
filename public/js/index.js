@@ -1,127 +1,44 @@
 // Get references to page elements
-var $runDate = $("#date");
-var $runDistance = $("#distance");
-var $submitBtn = $("#submitRun");
 var $runList = $("#runList");
+
+
+// Our signed in User info 
+var user = {
+  userId: localStorage.getItem("userId"),
+  userEmail: localStorage.getItem("userEmail"),
+  userName: localStorage.getItem("userName")
+};
+console.log("userid " + user.userId);
+
+// APPEND USER NAME TO THE NAV BAR
+$("#loggedInUser").append(user.userName)
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveRun: function (run) {
-    return $.ajax({
-      headers: {
-        "Content-Type": "application/json"
-      },
-      type: "POST",
-      url: "api/runs",
-      data: JSON.stringify(run)
-    });
-  },
   getRuns: function () {
     return $.ajax({
       url: "api/runs",
       type: "GET"
     });
   },
-  deleteRun: function (id) {
-    return $.ajax({
-      url: "api/runs/" + id,
-      type: "DELETE"
-    });
-  }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
+// refreshRuns gets new runs from the db and repopulates the list
 var refreshRuns = function () {
   API.getRuns().then(function (data) {
-    var $runs = data.map(function (run) {
-      var $a = $("<a>")
-        .text(run.date)
-        .attr("href", "/runs/" + run.id);
+    console.log(data);
 
-      var $li = $("<li>")
-        .attr({
-          class: "list-group-item",
-          "data-id": run.id
-        })
-        .append($a);
+    /// BAR CHART GOES HERE
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
-        .text("ｘ");
 
-      $li.append($button);
-
-      return $li;
-    });
-
-    $runList.empty();
-    $runList.append($runs);
   });
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
-var handleFormSubmit = function (event) {
-  event.preventDefault();
+refreshRuns();
 
-  var run = {
-    date: $runDate.val().trim(),
-    distance: $runDistance.val().trim()
-  };
+// Bar Chart
+// =======================================================
 
-  if (!(run.date && run.distance)) {
-    alert("Fill out both fields dude.");
-    return;
-  }
-
-  API.saveRun(run).then(function () {
-    refreshRuns();
-  });
-
-  $runDate.val("");
-  $runDistance.val("");
-};
-
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
-var handleDeleteBtnClick = function () {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-
-  API.deleteRun(idToDelete).then(function () {
-    refreshRuns();
-  });
-};
-
-// Add event listeners to the submit and delete buttons
-$submitBtn.on("click", handleFormSubmit);
-$runList.on("click", ".delete", handleDeleteBtnClick);
-
-
-// Google signOut()
-var auth2
-
-window.onLoadCallback = function () {
-  gapi.load('auth2', function () {
-    auth2 = gapi.auth2.init({
-      client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
-      scope: 'profile',
-      fetch_basic_profile: false
-    })
-  })
-}
-
-function signOut() {
-  var auth2 = gapi.auth2.getAuthInstance();
-  auth2.signOut().then(function () {
-    console.log('User signed out.');
-    document.location.href = '/';
-  });
-}
-
-
-// Dispaly user's data
 var ctx = document.getElementById("myChart").getContext('2d');
   var myChart = new Chart(ctx, {
     type: 'bar',
@@ -171,10 +88,11 @@ var ctx = document.getElementById("myChart").getContext('2d');
           },
         }]
       },
-
     }
   });
 
+  // Line Chart
+  // =======================================================
 
   var lineC = document.getElementById("lineChart").getContext('2d');
   var myChart = new Chart(lineC, {
@@ -240,3 +158,26 @@ var ctx = document.getElementById("myChart").getContext('2d');
       }
     }
   });
+
+  // Google Sign Out
+// =======================================================
+var auth2;
+
+window.onLoadCallback = function () {
+  gapi.load('auth2', function () {
+    auth2 = gapi.auth2.init({
+      client_id: '894965613215-inve9sto28jrujo1kshpeao4gm2e8hdb.apps.googleusercontent.com',
+      scope: 'profile',
+      fetch_basic_profile: false
+    });
+  });
+}
+
+function signOut() {
+  var auth2 = gapi.auth2.getAuthInstance();
+  auth2.signOut().then(function () {
+    console.log('User signed out.');
+    document.location.href = '/';
+  });
+}
+

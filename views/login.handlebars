@@ -1,26 +1,29 @@
 <section class="hero is-primary is-fullheight">
-
-<br><br>
-  <div>
-    <h1 style="text-align:center">Welcome to Mammoth!</h1>
-  </div>
   <br><br>
-<div> <img src="images/image.png" alt="Logo" id="logoImage"> 
-</div>
-  <div style="text-align:center" class="g-signin2" data-onsuccess="onSignIn" id="signIn"></div>
+  <div class="hero-head">
+    <header class="navbar">
+      <div class="container">
+        <div class="navbar-brand" id="loginNavbar">
+          <h1> Welcome to Mammoths!</h1>
+        </div>
+      </div>
+    </header>
+  </div>
 
   <div class="hero-body">
     <div class="container">
-      <div class="columns">
-        <div class="column is-one-third">
-          <!-- <canvas id="myChart" width="200" height="200"></canvas> -->
-        </div>
-        <div class="column is-one-third">
+      <div class="row">
+        <div class="col-4">
+
+          <div>
+            <img src="images/image.png" alt="Logo" id="logoImage">
+          </div>
+
+          <div style="text-align:center" class="g-signin2" data-onsuccess="onSignIn" id="signIn">
+          </div>
 
         </div>
-        <div class="column is-one-third">
-          <!-- <canvas id="lineChart" width="200" height="200"></canvas> -->
-        </div>
+
       </div>
     </div>
   </div>
@@ -40,3 +43,4 @@
 </section>
 
 <script src="/js/login.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
