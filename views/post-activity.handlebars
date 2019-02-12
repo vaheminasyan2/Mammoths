@@ -60,7 +60,11 @@
     <div class="hero-body">
 
         <div class="columns">
-            <div class="column is-one-third">
+
+            {{!-- First Column --}}
+            <div class="col-4">
+
+                {{!-- Map Display --}}
                 <div id="wrapper">
 
                     <div id="map"></div>
@@ -82,136 +86,99 @@
                     </div>
                 </div>
             </div>
-            <div class="column is-one-third">
-                <div class="tile is-ancestor">
-                    <div class="tile is-parent">
-                        <div class="tile is-child notification is-warning">
-                            <div id="runningForm">
-                                <form action="/api/runs" method="POST">
-                                    <div class="field">
-                                        <label class="label has-text-white">Date</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary" type="date" name="date" id="dateForm"
-                                                placeholder="MM/DD/YYYY">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-calendar"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label has-text-white">Distance (Miles)</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary" type="text" name="distance"
-                                                id="distanceForm" placeholder="0.0">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-road"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field" style="display:inline-block; width:32%;">
-                                        <label class="label has-text-white">Duration</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary is-small" type="text" name="duration"
-                                                id="hours" placeholder="hh">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-stopwatch"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field" style="display:inline-block; width:32%;">
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary is-small" type="text" name="duration"
-                                                id="minutes" placeholder="mm">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-stopwatch"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field" style="display:inline-block; width:32%;">
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary is-small" type="text" name="duration"
-                                                id="seconds" placeholder="ss">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-stopwatch"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label has-text-white">Location</label>
-                                        <div class="control has-icons-left">
-                                            <input class="input is-primary" type="text" name="location"
-                                                id="locationForm" placeholder="Neighborhood">
-                                            <span class="icon is-small is-left">
-                                                <i class="fas fa-map-marker-alt"></i>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <label class="label has-text-white">Primary Surface</label>
-                                        <div class="control">
-                                            <select id="surfaceForm" name="surface">
-                                                <option value="" selected></option>
-                                                <option value="street">Street</option>
-                                                <option value="bike path">Bike Path</option>
-                                                <option value="trail">Trail</option>
-                                                <option value="track">Track</option>
-                                                <option value="dirt road">Dirt Road</option>
-                                                <option value="grass">Grass</option>
-                                                <option value="beach">Beach</option>
-                                                <option value="treadmill">Treadmill</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="field">
-                                        <button class="button is-primary" id="login" type="submit">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
+
+            {{!-- Second Column column is-one-third --}}
+            <div class="col-4">
+
+                {{!-- Running Form --}}
+                <div id="runningForm">
+                    <form>
+                        <div class="form-group mx-sm-5 mb-2" action="/api/runs" method="POST">
+                            <label for="date">Date*:</label>
+                            <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY"
+                                autocomplete="off"><br>
+
+                            <label for="distance">Distance (miles)*: </label>
+                            <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0"
+                                autocomplete="off"><br>
+
+                            <label for="duration">Duration*: </label><br>
+                            <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
+                                autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="minutes"
+                                placeholder="mm" autocomplete="off">
+                            <input type="text" class="form-control duration" name="duration" id="seconds"
+                                placeholder="ss" autocomplete="off">
+                                
+                            {{!-- label and span flipped due to float right --}}
+                            <span id="pace" name="pace"> 0:00</span>
+                            <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
+
+                            <label for="location">Location: </label>
+                            <input type="text" class="form-control" name="location" id="locationForm"
+                                placeholder="Neighborhood" autocomplete="off"><br>
+
+                            <label for="surface">Primary Surface: </label>
+                            <select class="form-control" id="surfaceForm" name="surface">
+                                <option value="">Select one</option>
+                                <option value="street">Street</option>
+                                <option value="bike path">Bike Path</option>
+                                <option value="trail">Trail</option>
+                                <option value="track">Track</option>
+                                <option value="dirt road">Dirt Road</option>
+                                <option value="grass">Grass</option>
+                                <option value="beach">Beach</option>
+                                <option value="treadmill">Treadmill</option>
+                            </select><br>
+
+                            <button type="submit" name="submitRun" class="btn btn-warning btn-sm"
+                                id="submitRun">Submit</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
             </div>
-            <div class="column is-one-third">
-                <div class="tile is-ancestor">
-                    <div class="tile is-vertical is-parent">
-                        <div class="tile is-child box">
-                            <p id="top5Runs">Top 5 Runs:</p>
-                            <ul id="run-list" class="list-group">
-                                {{#each runs}}
-                                {{!-- <span> --}}
-                                <li data-id="{{this.id}}" class="list-group-item">
-                                    <a>{{this.date}}</a>
-                                    <a>{{this.distance}}</a>
-                                    <a>{{this.duration}}</a>
-                                    <button class="btn btn-danger float-right delete">ｘ</button>
-                                </li>
-                                {{!-- </span> --}}
-                                {{/each}}
-                            </ul>
-                        </div>
-                        <div class="tile is-child box">
-                            <p id="top5Routes">Top 5 Routes:</p>
-                            <ul id="route-list" class="list-group">
-                                {{#each routes}}
-                                {{!-- <span> --}}
-                                <li data-id="{{this.id}}" class="list-group-item">
-                                    <a>{{this.date}}</a>
-                                    <a>{{this.distance}}</a>
-                                    <button class="btn btn-danger float-right delete">ｘ</button>
-                                </li>
-                                {{!-- </span> --}}
-                                {{/each}}
-                            </ul>
-                        </div>
-                    </div>
+
+            {{!-- Third Column --}}
+            <div class="col-4">
+                <div class="row">
+                    <p id="top5Runs">Recent 5 Runs:</p>
+                    <ul id="run-list" class="list-group">
+                        {{#each runs}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <a>{{this.duration}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
                 </div>
+                <br><br>
+                <div class="row">
+                    <p id="top5Routes">Recent 5 Routes:</p>
+                    <ul id="route-list" class="list-group">
+                        {{#each routes}}
+                        {{!-- <span> --}}
+                        <li data-id="{{this.id}}" class="list-group-item">
+                            <a>{{this.date}}</a>
+                            <a>{{this.distance}}</a>
+                            <button class="btn btn-danger float-right delete">ｘ</button>
+                        </li>
+                        {{!-- </span> --}}
+                        {{/each}}
+                    </ul>
+                    
+                </div>
+                <br><br>
+                {{!-- <button class="btn btn-light btn-sm" id="loadRoute">Load Route</button> --}}
 
             </div>
+
         </div>
-
     </div>
-
 
     {{!-- Footer --}}
     <div class="hero-foot">
