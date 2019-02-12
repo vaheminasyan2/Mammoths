@@ -26,7 +26,6 @@ function initMap() {
 
     // Map style settings
     // Turn off points of interest
-
     var myStyles = [
         {
             featureType: "poi",
@@ -78,26 +77,12 @@ function initMap() {
         // If this is the first point, put a marker there
         if (wayPoints.length == 1) {
 
-            icon = new google.maps.Marker({
+            icon = new google.maps.Marker ({
                 position: wayPoints[0].location,
                 icon: startIcon,
                 map: map
             });
-
-            // Event handler for clicking on Marker
-            // ======================================================
-
-            var content = "<div id='loopRoute'>Loop route to this point</div>";
-
-            var infowindow = new google.maps.InfoWindow({
-                content: content
-            });
-
-            icon.addListener('click', function () {
-                infowindow.open(map, icon);
-            });
         }
-
 
         // If at least one wayPoint present, calculate route
         if (wayPoints.length > 1) {
@@ -111,8 +96,9 @@ function initMap() {
     $("#saveRoute").on("click", saveRoute);
     $("#clearRoute").on("click", clearRoute);
     $("#undoLast").on("click", undoLast);
-    $("#loadRoute").on("click", loadRoute);
     $("#loopRoute").on("click", loopRoute);
+
+    $("#loadRoute").on("click", loadRoute);
 
 }
 
@@ -183,9 +169,9 @@ var API = {
         });
     },
 
-    loadRoute: function() {
+    loadRoute: function(route) {
         return $.ajax({
-            url: "api/loadRoute",
+            url: "api/loadRoute/" + route.name,
             type: "GET"
         });
     }
@@ -197,21 +183,25 @@ var API = {
 function saveRoute(event) {
     event.preventDefault();
 
+    var routeName = prompt("Name this route: ");
+
     var newRoute = {
-        name: "default",
+        name: routeName,
         distance: distance,
-        wayPoints: wayPoints.toString(),
+        wayPoints: JSON.stringify(wayPoints),
         UserId: user.userId
     }
 
-    console.log(newRoute);
+    // console.log(newRoute);
 
     API.saveRoute(newRoute).then(function (response) {
         console.log("Saving...");
         console.log(response);
     });
-}
 
+    // *** TEMPORARY. Change to more elegant later ***
+    alert("Route saved!");
+}
 
 // LOAD ROUTE
 // ======================================================
@@ -219,13 +209,21 @@ function saveRoute(event) {
 function loadRoute(event) {
     event.preventDefault();
 
+    // *** TEMPORARY. Change to more elegant later ***
+    var routeName = prompt("Enter name of route to load: ");
+
     var route = {
-        name: "default"
+        name: routeName
     }
 
     API.loadRoute(route).then(function(response) {
         console.log("Loading...");
-        console.log(response);
+
+        // Get stored waypoints for route
+        wayPoints = JSON.parse(response.wayPoints);
+
+        // Draw route on map
+        calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
     });
 }
 
@@ -255,7 +253,9 @@ function clearRoute(event) {
     wayPoints = [];
 
     // Clear icons
-    icon.setMap(null);
+    if (icon != null) {
+        icon.setMap(null);
+    }
 
     $("#distance").text("0.0 mi.");
 
