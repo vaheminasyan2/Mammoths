@@ -170,8 +170,6 @@ var handleDeleteBtnClick = function () {
   });
 }
 
-
-
 // EVENT HANDLERS: SUBMIT, DELETE
 // ========================================
 

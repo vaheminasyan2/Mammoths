@@ -6,6 +6,7 @@ var directionsDisplay;
 var wayPoints;
 var distance;
 var icon;
+var map;
 
 // USER INFO ON SIGN IN
 // ========================================
@@ -26,7 +27,6 @@ function initMap() {
 
     // Map style settings
     // Turn off points of interest
-
     var myStyles = [
         {
             featureType: "poi",
@@ -40,7 +40,7 @@ function initMap() {
     // Set up map centered around Seattle
     // ======================================================
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    map = new google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: { lat: 47.60453, lng: -122.33422 },
         draggableCursor: "crosshair",
@@ -72,32 +72,10 @@ function initMap() {
             location: new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()),
         });
 
-        // Google libraries of map marker icons
-        var startIcon = "http://maps.google.com/mapfiles/arrow.png";
-
         // If this is the first point, put a marker there
         if (wayPoints.length == 1) {
-
-            icon = new google.maps.Marker({
-                position: wayPoints[0].location,
-                icon: startIcon,
-                map: map
-            });
-
-            // Event handler for clicking on Marker
-            // ======================================================
-
-            var content = "<div id='loopRoute'>Loop route to this point</div>";
-
-            var infowindow = new google.maps.InfoWindow({
-                content: content
-            });
-
-            icon.addListener('click', function () {
-                infowindow.open(map, icon);
-            });
+            icon = getStartIcon(wayPoints[0].location);
         }
-
 
         // If at least one wayPoint present, calculate route
         if (wayPoints.length > 1) {
@@ -111,9 +89,27 @@ function initMap() {
     $("#saveRoute").on("click", saveRoute);
     $("#clearRoute").on("click", clearRoute);
     $("#undoLast").on("click", undoLast);
-    $("#loadRoute").on("click", loadRoute);
     $("#loopRoute").on("click", loopRoute);
 
+    $("#loadRoute").on("click", loadRoute);
+
+}
+
+// GET START ICON
+// ======================================================
+
+function getStartIcon(position) {
+    
+    // Google libraries of map marker icons
+    var startIcon = "http://maps.google.com/mapfiles/arrow.png";
+
+    icon = new google.maps.Marker({
+        position: position,
+        icon: startIcon,
+        map: map
+    });
+
+    return icon;
 }
 
 // CALCULATE AND DISPLAY ROUTE
@@ -183,9 +179,9 @@ var API = {
         });
     },
 
-    loadRoute: function() {
+    loadRoute: function(route) {
         return $.ajax({
-            url: "api/loadRoute",
+            url: "api/loadRoute/" + route.name,
             type: "GET"
         });
     }
@@ -197,21 +193,26 @@ var API = {
 function saveRoute(event) {
     event.preventDefault();
 
+    var routeName = prompt("Name this route: ");
+
     var newRoute = {
-        name: "default",
+        name: routeName,
         distance: distance,
-        wayPoints: wayPoints.toString(),
+        wayPoints: JSON.stringify(wayPoints),
+        icon: JSON.stringify(icon.position),
         UserId: user.userId
     }
 
-    console.log(newRoute);
+    // console.log(newRoute);
 
     API.saveRoute(newRoute).then(function (response) {
         console.log("Saving...");
         console.log(response);
     });
-}
 
+    // *** TEMPORARY. Change to more elegant later ***
+    alert("Route saved!");
+}
 
 // LOAD ROUTE
 // ======================================================
@@ -219,13 +220,31 @@ function saveRoute(event) {
 function loadRoute(event) {
     event.preventDefault();
 
+    // *** TEMPORARY. Change to more elegant later ***
+    var routeName = prompt("Enter name of route to load: ");
+
     var route = {
-        name: "default"
+        name: routeName
+    }
+    
+    // Clear icons
+    if (icon != null) {
+        icon.setMap(null);
     }
 
     API.loadRoute(route).then(function(response) {
         console.log("Loading...");
-        console.log(response);
+
+        // Get stored waypoints for route
+        wayPoints = JSON.parse(response.wayPoints);
+
+        // Get stored icon location
+        iconLocation = JSON.parse(response.icon);
+
+        getStartIcon(iconLocation);
+
+        // Draw route on map
+        calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
     });
 }
 
@@ -255,7 +274,9 @@ function clearRoute(event) {
     wayPoints = [];
 
     // Clear icons
-    icon.setMap(null);
+    if (icon != null) {
+        icon.setMap(null);
+    }
 
     $("#distance").text("0.0 mi.");
 

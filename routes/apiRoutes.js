@@ -70,8 +70,10 @@ module.exports = function (app) {
   });
 
   // Load a route from database
-  app.get("/api/loadRoute", function(req, res) {
-    db.Routes.findOne({ where: {name: "default"} }).then(function(route) {
+  app.get("/api/loadRoute/:name", function(req, res) {
+    db.Routes.findOne({
+      where: {name: req.params.name} 
+    }).then(function(route) {
       res.json(route);
       console.log(route);
     });
@@ -82,10 +84,11 @@ module.exports = function (app) {
     db.Routes.create({
       name: req.body.name,
       distance: req.body.distance,
-      wayPoints: req.body.wayPoints.toString(),
+      wayPoints: req.body.wayPoints,
+      icon: req.body.icon,
       UserId: req.body.UserId
     }).then(function (dbRoutes) {
-      res.json(dbRoutes);
+      console.log(dbRoutes);
     });
   });
 
