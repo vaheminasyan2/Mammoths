@@ -226,6 +226,11 @@ function loadRoute(event) {
     var route = {
         name: routeName
     }
+    
+    // Clear icons
+    if (icon != null) {
+        icon.setMap(null);
+    }
 
     API.loadRoute(route).then(function(response) {
         console.log("Loading...");
