@@ -111,12 +111,12 @@
 
                             {{!-- Duration --}}
                             <label for="duration">Duration*: </label><br>
-                            <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
+                            <input type="number" class="form-control duration" name="duration" id="hours" placeholder="hh"
                                 autocomplete="off">
-                            <input type="text" class="form-control duration" name="duration" id="minutes"
-                                placeholder="mm" autocomplete="off">
-                            <input type="text" class="form-control duration" name="duration" id="seconds"
-                                placeholder="ss" autocomplete="off">
+                            <input type="number" class="form-control duration" name="duration" id="minutes"
+                                placeholder="mm" max="59" autocomplete="off">
+                            <input type="number" class="form-control duration" name="duration" id="seconds"
+                                placeholder="ss" max="59" autocomplete="off">
                                 
                             {{!-- Mile Pace --}}
                             {{!-- label and span flipped due to float right --}}
