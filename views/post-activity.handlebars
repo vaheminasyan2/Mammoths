@@ -79,9 +79,7 @@
                             {{!-- <button id="loadRoute">Load Route</button><br> --}}
                             <button id="undoLast">Undo Last</button><br>
                             <button id="loopRoute">Loop Route</button><br>
-                            <button id="clearRoute">Clear Route</button><br>
-                            <button id="loadRoute">Load Route</button>
-
+                            <button id="clearRoute">Clear Route</button>
                         </div>
                     </div>
                 </div>
@@ -94,14 +92,24 @@
                 <div id="runningForm">
                     <form>
                         <div class="form-group mx-sm-5 mb-2" action="/api/runs" method="POST">
+
+                            {{!-- Date --}}
                             <label for="date">Date*:</label>
                             <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY"
                                 autocomplete="off"><br>
 
+                            {{!-- Choose Existing Route --}}
+                            <label for="showRoutes">Choose Existing Route:</label>
+                            <select class="form-control" id="showRoutes" class="list-group">
+                                <option val="" selected></option>
+                            </select><br>
+
+                            {{!-- Distance --}}
                             <label for="distance">Distance (miles)*: </label>
                             <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0"
                                 autocomplete="off"><br>
 
+                            {{!-- Duration --}}
                             <label for="duration">Duration*: </label><br>
                             <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
                                 autocomplete="off">
@@ -110,14 +118,17 @@
                             <input type="text" class="form-control duration" name="duration" id="seconds"
                                 placeholder="ss" autocomplete="off">
                                 
+                            {{!-- Mile Pace --}}
                             {{!-- label and span flipped due to float right --}}
                             <span id="pace" name="pace"> 0:00</span>
                             <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
 
+                            {{!-- Location --}}
                             <label for="location">Location: </label>
                             <input type="text" class="form-control" name="location" id="locationForm"
                                 placeholder="Neighborhood" autocomplete="off"><br>
 
+                            {{!-- Primary Surface --}}
                             <label for="surface">Primary Surface: </label>
                             <select class="form-control" id="surfaceForm" name="surface">
                                 <option value="">Select one</option>
@@ -131,6 +142,7 @@
                                 <option value="treadmill">Treadmill</option>
                             </select><br>
 
+                            {{!-- Submit Button --}}
                             <button type="submit" name="submitRun" class="btn btn-warning btn-sm"
                                 id="submitRun">Submit</button>
                         </div>

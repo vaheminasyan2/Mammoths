@@ -3,6 +3,7 @@
 
 var $runDate = $("#dateForm");
 var $runDistance = $("#distanceForm");
+var $runRoute = $("#showRoutes");
 var $runHours = $("#hours");
 var $runMins = $("#minutes");
 var $runSecs = $("#seconds");
@@ -63,8 +64,29 @@ var refreshRuns = function () {
     $("#run-list").append($runs);
   });
 };
+
 refreshRuns();
 
+// LOAD EXISTING ROUTE (DROP DOWN MENU IN FORM)
+// ========================================
+
+function showRoutes() {
+
+  $.ajax({
+    url: "api/loadAllRoutes/",
+    type: "GET"
+  })
+  .then(function (data) {
+    console.log(data);
+    for (var i=0; i<data.length; i++) {
+      var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " miles");
+
+      $("#showRoutes").append(route);
+    }
+  });
+};
+
+showRoutes();
 
 // CALCULATE MILE PACE
 // ========================================
@@ -109,10 +131,11 @@ var handleFormSubmit = function (event) {
   event.preventDefault();
 
   var $runDuration = `${$runHours.val().trim()}:${$runMins.val().trim()}:${$runSecs.val().trim()}`;
-
+  console.log($runRoute.val());
   var run = {
     date: $runDate.val().trim(),
     distance: $runDistance.val().trim(),
+    route: $runRoute.val(),
     duration: $runDuration,
     location: $runLocation.val().trim(),
     surface: $runSurface.val().trim(),
@@ -145,6 +168,7 @@ var handleFormSubmit = function (event) {
   // Empty form fields
   $runDate.val("");
   $runDistance.val("");
+  $runRoute.val("");
   $runHours.val("");
   $runMins.val("");
   $runSecs.val("");
