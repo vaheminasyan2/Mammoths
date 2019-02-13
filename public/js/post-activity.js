@@ -88,6 +88,19 @@ function showRoutes() {
 
 showRoutes();
 
+// AUTO-POPULATE DISTANCE FIELD
+// ========================================
+
+$("#showRoutes").on("change", populateDistance);
+
+function populateDistance() {
+  var routeText = $("#showRoutes").val().trim();
+  var distanceText = routeText.split(":")[1];
+  var distanceVal = parseFloat(distanceText.split(" ")[1]);
+
+  $("#distanceForm").val(distanceVal);
+}
+
 // CALCULATE MILE PACE
 // ========================================
 
@@ -98,8 +111,8 @@ function calculatePace() {
 
   // Convert form values to total minutes
   var hours = parseInt($runHours.val().trim());
-  var minutes = parseInt($runMins.val().trim());
-  var seconds = parseInt($runSecs.val().trim());
+  var minutes = $runMins.val();
+  var seconds = $runSecs.val();
 
   // Get distance
   var distance = parseFloat($runDistance.val().trim());
