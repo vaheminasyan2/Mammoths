@@ -88,6 +88,19 @@ function showRoutes() {
 
 showRoutes();
 
+// AUTO-POPULATE DISTANCE FIELD
+// ========================================
+
+$("#showRoutes").on("change", populateDistance);
+
+function populateDistance() {
+  var routeText = $("#showRoutes").val().trim();
+  var distanceText = routeText.split(":")[1];
+  var distanceVal = parseFloat(distanceText.split(" ")[1]);
+
+  $("#distanceForm").val(distanceVal);
+}
+
 // CALCULATE MILE PACE
 // ========================================
 
