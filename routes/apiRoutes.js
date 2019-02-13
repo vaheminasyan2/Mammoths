@@ -79,6 +79,14 @@ module.exports = function (app) {
     });
   });
 
+  // Load all routes
+  app.get("/api/loadAllRoutes",function(req, res) {
+    db.Routes.findAll({}).then(function(response) {
+      // console.log(response);
+      return res.json(response);
+    });
+  });
+
   // Save a new route to database
   app.post("/api/saveRoute", function (req, res) {
     db.Routes.create({
