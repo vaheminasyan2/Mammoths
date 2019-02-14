@@ -97,7 +97,7 @@ function initMap() {
     // Event handlers for Map Control Buttons
     // ======================================================
 
-    $("#saveRoute").on("click", saveRoute);
+    $("#saveRoute").on("click", openModal);
     $("#clearRoute").on("click", clearRoute);
     $("#undoLast").on("click", undoLast);
     $("#loopRoute").on("click", loopRoute);
@@ -110,15 +110,6 @@ function toggleMapBoxBtns(key) {
     $("#saveRoute").prop("disabled", key);
     $("#undoLast").prop("disabled", key);
     $("#loopRoute").prop("disabled", key);
-    $("#clearRoute").prop("disabled", key);
-
-    // Toggle coloring of Clear Route button text
-    if (key) {
-        $("#clearRoute").css("color", "#777777");
-    }
-    else {
-        $("#clearRoute").css("color", "red");
-    }
 }
 
 // GET START ICON
@@ -225,13 +216,33 @@ var API = {
 // SAVE ROUTE
 // ======================================================
 
-function saveRoute(event) {
+// Open modal to enter route name
+function openModal(event) {
     event.preventDefault();
 
-    var routeName = prompt("Enter name of route: ");
+    var modal = $("#nameRouteModal");
+    modal.show();
+    $("#modal-routeName").focus();
+}
+
+// Event handler to close modal and save route
+$("#closeNameRouteModal").on("click", function(event) {
+    event.preventDefault();
+
+    $("#nameRouteModal").hide();
+
+    var name = $("#modal-routeName").val().trim();
+    var location = $("#modal-location").val().trim();
+
+    saveRoute(name, location);
+});
+
+// Save route to database
+function saveRoute(routeName, location) {  
 
     var newRoute = {
         name: routeName,
+        location: location,
         distance: distance,
         wayPoints: JSON.stringify(wayPoints),
         startIcon: JSON.stringify(startIcon.position),
@@ -241,15 +252,14 @@ function saveRoute(event) {
 
     if (routeName != null & routeName != "") {
         console.log("Saving...");
-        
+
         API.saveRoute(newRoute);
 
-        setTimeout(setConfirmMsg("save"),1000);     
-    }   
+        setTimeout(setConfirmMsg("save"), 1000);
+    }
 }
 
-// "ROUTE SAVED" CONFIRMATION MESSAGE
-
+// "Route saved" confirmation message
 function setConfirmMsg(key) {
 
     var message;
@@ -257,7 +267,7 @@ function setConfirmMsg(key) {
     switch (key) {
         case "save": message = "Route saved!"; break;
         case "clear": message = ""; break;
-        case "saving": message= "Saving..."; break;
+        case "saving": message = "Saving..."; break;
         default: message = "";
     }
 
@@ -273,7 +283,7 @@ function loopRoute() {
     var length = reverseWayPoints.length; // So that length doesn't update in for loop
 
     // Add reversed way points onto route
-    for (var i = 0; i <length; i++) {
+    for (var i = 0; i < length; i++) {
         wayPoints.push(reverseWayPoints[i]);
     }
 
@@ -288,8 +298,6 @@ $("#showRoutes").on("change", loadRoute);
 function loadRoute() {
 
     var routeName = $("#showRoutes").val().split(":")[0].toString();
-
-    console.log(routeName);
 
     var route = {
         name: routeName
@@ -354,6 +362,11 @@ function clearRoute(event) {
 
     // Disable map control buttons
     toggleMapBoxBtns(true);
+    
+    // Clear entry form
+    $("#showRoutes").val("");
+    $("#distanceForm").val("");
+    $("#locationForm").val("");
 
     // Clear waypoints
     wayPoints = [];
