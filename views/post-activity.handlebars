@@ -62,7 +62,7 @@
         <div class="columns">
 
             {{!-- First Column --}}
-            <div class="col-4">
+            <div class="column is-one-third">
 
                 {{!-- Map Display --}}
                 <div id="wrapper">
@@ -79,37 +79,29 @@
                             {{!-- <button id="loadRoute">Load Route</button><br> --}}
                             <button id="undoLast">Undo Last</button><br>
                             <button id="loopRoute">Loop Route</button><br>
-                            <button id="clearRoute">Clear Route</button>
+                            <button id="clearRoute">Clear Route</button><br>
+                            <button id="loadRoute">Load Route</button>
+
                         </div>
                     </div>
                 </div>
             </div>
 
             {{!-- Second Column column is-one-third --}}
-            <div class="col-4">
+            <div class="column is-one-third">
 
                 {{!-- Running Form --}}
                 <div id="runningForm">
                     <form>
                         <div class="form-group mx-sm-5 mb-2" action="/api/runs" method="POST">
-
-                            {{!-- Date --}}
                             <label for="date">Date*:</label>
                             <input type="date" class="form-control" name="date" id="dateForm" placeholder="MM/DD/YYYY"
                                 autocomplete="off"><br>
 
-                            {{!-- Choose Existing Route --}}
-                            <label for="showRoutes">Choose Existing Route:</label>
-                            <select class="form-control" id="showRoutes" class="list-group">
-                                <option val="" selected></option>
-                            </select><br>
-
-                            {{!-- Distance --}}
                             <label for="distance">Distance (miles)*: </label>
                             <input type="text" class="form-control" name="distance" id="distanceForm" placeholder="0.0"
                                 autocomplete="off"><br>
 
-                            {{!-- Duration --}}
                             <label for="duration">Duration*: </label><br>
                             <input type="text" class="form-control duration" name="duration" id="hours" placeholder="hh"
                                 autocomplete="off">
@@ -118,17 +110,14 @@
                             <input type="text" class="form-control duration" name="duration" id="seconds"
                                 placeholder="ss" autocomplete="off">
                                 
-                            {{!-- Mile Pace --}}
                             {{!-- label and span flipped due to float right --}}
                             <span id="pace" name="pace"> 0:00</span>
                             <label for="pace" id="paceLabel">Avg. Mile Pace:  </label> <br><br>
 
-                            {{!-- Location --}}
                             <label for="location">Location: </label>
                             <input type="text" class="form-control" name="location" id="locationForm"
                                 placeholder="Neighborhood" autocomplete="off"><br>
 
-                            {{!-- Primary Surface --}}
                             <label for="surface">Primary Surface: </label>
                             <select class="form-control" id="surfaceForm" name="surface">
                                 <option value="">Select one</option>
@@ -142,7 +131,6 @@
                                 <option value="treadmill">Treadmill</option>
                             </select><br>
 
-                            {{!-- Submit Button --}}
                             <button type="submit" name="submitRun" class="btn btn-warning btn-sm"
                                 id="submitRun">Submit</button>
                         </div>
@@ -152,40 +140,41 @@
             </div>
 
             {{!-- Third Column --}}
-            <div class="col-4">
-                <div class="row">
-                    <p id="top5Runs">Recent 5 Runs:</p>
-                    <ul id="run-list" class="list-group">
-                        {{#each runs}}
-                        {{!-- <span> --}}
-                        <li data-id="{{this.id}}" class="list-group-item">
-                            <a>{{this.date}}</a>
-                            <a>{{this.distance}}</a>
-                            <a>{{this.duration}}</a>
-                            <button class="btn btn-danger float-right delete">ｘ</button>
-                        </li>
-                        {{!-- </span> --}}
-                        {{/each}}
-                    </ul>
+            <div class="column is-one-third">
+                <div class="tile is-ancestor">
+                    <div class="tile is-vertical is-parent">
+                        <div class="tile is-child notification is-white">
+                            <p id="top5Runs">Top 5 Runs:</p>
+
+                            <ul id="run-list">
+                                {{#each runs}}
+                                {{!-- <span> --}}
+                                <li data-id="{{this.id}}">
+                                    <a>{{this.date}}</a>
+                                    <a>{{this.distance}}</a>
+                                    <a>{{this.duration}}</a>
+                                    <button class="btn btn-danger float-right delete">ｘ</button>
+                                </li>
+                                {{!-- </span> --}}
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="tile is-child notification is-white">
+                            <p id="top5Routes">Top 5 Routes:</p>
+                            <ul id="route-list">
+                                {{#each routes}}
+                                {{!-- <span> --}}
+                                <li data-id="{{this.id}}">
+                                    <a>{{this.date}}</a>
+                                    <a>{{this.distance}}</a>
+                                    <button class="btn btn-danger float-right delete">ｘ</button>
+                                </li>
+                                {{!-- </span> --}}
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-                <br><br>
-                <div class="row">
-                    <p id="top5Routes">Recent 5 Routes:</p>
-                    <ul id="route-list" class="list-group">
-                        {{#each routes}}
-                        {{!-- <span> --}}
-                        <li data-id="{{this.id}}" class="list-group-item">
-                            <a>{{this.date}}</a>
-                            <a>{{this.distance}}</a>
-                            <button class="btn btn-danger float-right delete">ｘ</button>
-                        </li>
-                        {{!-- </span> --}}
-                        {{/each}}
-                    </ul>
-                    
-                </div>
-                <br><br>
-                {{!-- <button class="btn btn-light btn-sm" id="loadRoute">Load Route</button> --}}
 
             </div>
 
