@@ -70,14 +70,14 @@ module.exports = function (app) {
   });
 
   // Load a route from database
-  app.get("/api/loadRoute/:name", function(req, res) {
-    db.Routes.findOne({
-      where: {name: req.params.name} 
-    }).then(function(route) {
-      res.json(route);
-      console.log(route);
-    });
-  });
+  // app.get("/api/loadRoute/:name", function(req, res) {
+  //   db.Routes.findOne({
+  //     where: {name: req.params.name} 
+  //   }).then(function(route) {
+  //     res.json(route);
+  //     console.log(route);
+  //   });
+  // });
 
   // Load all routes
   app.get("/api/loadAllRoutes",function(req, res) {
