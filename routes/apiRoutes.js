@@ -8,7 +8,7 @@ module.exports = function (app) {
     db.Runs.findAll({
       where: { UserId: req.params.id },
       order: [["updatedAt", "DESC"]],
-      limit: 10
+      limit: 5
     }).then(function (dbRuns) {
       res.json(dbRuns);
     });
