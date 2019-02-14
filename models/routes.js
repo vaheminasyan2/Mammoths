@@ -3,7 +3,8 @@ module.exports = function(sequelize, DataTypes) {
       name: DataTypes.STRING,
       distance: DataTypes.FLOAT,
       wayPoints: DataTypes.STRING(10000),
-      icon: DataTypes.STRING(500)
+      startIcon: DataTypes.STRING(500),
+      endIcon: DataTypes.STRING(500,)
     });
 
     Routes.associate = function(models) {
