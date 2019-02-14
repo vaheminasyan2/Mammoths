@@ -363,8 +363,10 @@ function clearRoute(event) {
     // Disable map control buttons
     toggleMapBoxBtns(true);
     
-    // Clear Load Existing Routes drop down
+    // Clear entry form
     $("#showRoutes").val("");
+    $("#distanceForm").val("");
+    $("#locationForm").val("");
 
     // Clear waypoints
     wayPoints = [];
