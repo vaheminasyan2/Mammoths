@@ -23,20 +23,32 @@ module.exports = function (app) {
     res.json(user);
   });
 
+  // Get all users in database
+  app.get("/api/allUsers", function(req, res) {
+    db.Users.findAll({}).then(function(dbUsers) {
+      return res.json(dbUsers);
+    });
+  });
+
   //Load a route from database
   app.get("/api/loadRoute/:name", function (req, res) {
     db.Routes.findOne({
       where: { name: req.params.name }
     }).then(function (route) {
       res.json(route);
-      console.log(route);
     });
   });
 
   // Load all routes specific to user
   app.get("/api/loadAllRoutes/:id", function (req, res) {
     db.Routes.findAll({ where: { UserId: req.params.id } }).then(function (response) {
-      console.log(response);
+      return res.json(response);
+    });
+  });
+
+  // Load route by Route ID
+  app.get("/api/loadRouteById/:id", function(req, res) {
+    db.Routes.findOne({ where: { id: req.params.id } }).then(function(response) {
       return res.json(response);
     });
   });

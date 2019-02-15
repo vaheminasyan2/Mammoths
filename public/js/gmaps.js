@@ -134,7 +134,7 @@ function getStartIcon(position) {
 function getEndIcon(position) {
 
     // Google libraries of map marker icons
-    endIconImg = "http://www.google.com/mapfiles/dd-end.png";
+    var endIconImg = "http://www.google.com/mapfiles/dd-end.png";
 
     endIcon = new google.maps.Marker({
         position: position,

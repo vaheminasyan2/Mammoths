@@ -42,12 +42,6 @@ var refreshRuns = function () {
     var $runs = data.map(function (run) {
       var $recentRun = $("<a>").html(run.date + ": " + run.distance + " miles, " + run.duration);
 
-      var $deleteBtn = $("<div>")
-      .addClass("delete")
-      .css("float", "right")
-      .css("margin-left", "10px")
-      .text("delete");
-
       var $div = $("<div>")
         .attr({
           "data-id": run.id
@@ -55,7 +49,6 @@ var refreshRuns = function () {
         .addClass("recentRun")
         .css("margin-bottom", "5px")
         .append($recentRun);
-        // .append($deleteBtn)
 
       return $div;
     });
@@ -207,32 +200,15 @@ var handleFormSubmit = function (event) {
   $runSecs.val("");
   $runLocation.val("");
   $runSurface.val("");
+
+  // Clear map
+  clearRoute(event);
 };
 
-// DELETE RUN
-// ========================================
-
-var handleDeleteBtnClick = function () {
-  var idToDelete = $(this)
-    .parent()
-    .attr("data-id");
-
-    $.ajax({
-        url: "api/runs/" + idToDelete,
-        type: "DELETE"
-      })
-
-  .then(function () {
-    refreshRuns();
-  });
-}
-
-
-// EVENT HANDLERS: SUBMIT RUN, DELETE RUN
+// EVENT HANDLERS: SUBMIT RUN
 // ========================================
 
 $submitBtn.on("click", handleFormSubmit);
-$("#run-list").on("click", ".delete", handleDeleteBtnClick);
 
 // GOOGLE SIGN OUT
 // ========================================
