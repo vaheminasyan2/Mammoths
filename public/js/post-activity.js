@@ -69,7 +69,17 @@ refreshRuns();
 // LOAD EXISTING ROUTE (DROP DOWN MENU IN FORM)
 // ========================================
 
+// Initial call to populate drop down menu
 showRoutes();
+
+// Update Load Existing Route drop down menu when clicked
+$("#showRoutes").on("mouseenter", checkShowRoutes);
+
+function checkShowRoutes() {
+  if ($("#showRoutes").val() == "") {
+    showRoutes();
+  }
+}
 
 function showRoutes() {
 
@@ -79,6 +89,9 @@ function showRoutes() {
   })
   .then(function (data) {
     //console.log(data);
+
+    $("#showRoutes").empty();
+    $("#showRoutes").append(`<option val="">`);
 
     for (var i=0; i<data.length; i++) {
       var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " miles, " + data[i].location);

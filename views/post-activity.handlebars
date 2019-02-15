@@ -67,18 +67,21 @@
                 {{!-- Map Display --}}
                 <div id="wrapper">
 
+                    {{!-- Map Container --}}
                     <div id="map"></div>
 
+                    {{!-- Map Control Box --}}
                     <div id="mapControl">
                         <div id="distanceDiv">
                             DISTANCE
                             <div id="distance">0.0 mi.</div>
                         </div>
                         <div id="buttonDiv">
-                            <button id="saveRoute">Save Route</button><br>
-                            <button id="undoLast">Undo Last</button><br>
-                            <button id="loopRoute">Loop Route</button><br>
-                            <button id="clearRoute">Clear Route</button>
+                            <button class="mapButton" id="searchAddress">Search Address</button><br>
+                            <button class="mapButton" id="saveRoute">Save Route</button><br>
+                            <button class="mapButton" id="undoLast">Undo Last</button><br>
+                            <button class="mapButton" id="loopRoute">Loop Route</button><br>
+                            <button class="mapButton" id="clearRoute">Clear Route</button>
                         </div>
                         <div id="confirmSave"></div>
 
@@ -126,9 +129,8 @@
 
                             {{!-- Location --}}
                             <label for="location">Location: </label>
-                            <input type="text" class="form-control" name="location" id="locationForm"
-                                placeholder="Neighborhood" autocomplete="off"><br>
-
+                            <input type="text" class="form-control" name="location" id="locationForm" autocomplete="off"><br>
+                                
                             {{!-- Primary Surface --}}
                             <label for="surface">Primary Surface: </label>
                             <select class="form-control" id="surfaceForm" name="surface">
@@ -239,13 +241,31 @@
     <div class="modal-background modalClose"></div>
     <div class="modal-content ">
         <form class="box">
-            <label class="label">Route Name</label>
+            <label class="label">Route Name*</label>
             <input class="input is-primary" type="text" id="modal-routeName" autocomplete="off" required>
 
-            <label class="label">Location</label>
+            <label class="label" id="modal-locationLabel">Location</label>
             <input class="input is-primary" type="text" id="modal-location" autocomplete="off">
+            
+            {{!-- Buttons flipped due to float right property --}}
+            <button id="cancelNameRouteModal">Cancel</button>
+            <button id="closeNameRouteModal" type="submit">Submit</button>
+        </form>
+    </div>    
+</div>
 
-            <button id="closeNameRouteModal">Submit</button>
+{{!-- Search Address Modal --}}
+
+<div class="modal" id="searchAddressModal">
+    <div class="modal-background modalClose"></div>
+    <div class="modal-content ">
+        <form class="box">
+            <label class="label">Enter Full Address or City</label>
+            <input class="input is-primary" type="text" id="modal-address" autocomplete="off">
+
+            {{!-- Buttons flipped due to float right property --}}
+            <button id="cancelAddressModal">Cancel</button>
+            <button id="closeAddressModal" type="submit">Submit</button>
         </form>
     </div>
 </div>
