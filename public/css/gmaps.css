@@ -15,6 +15,18 @@ button {
     padding: 5px;
 }
 
+#cancelNameRouteModal,
+#cancelAddressModal {
+    color: red;
+    float: right;
+    margin-left: 5px;
+}
+
+#closeNameRouteModal,
+#closeAddressModal {
+    float: right;
+}
+
 #confirmSave {
     font-size: 12px;
     margin-bottom: -5px;
@@ -42,6 +54,10 @@ button {
     width: 100%;
 }
 
+.mapButton {
+    font-size: 12px;
+}
+
 #mapControl {
     background: rgb(87, 87, 87);
     border: 1px solid black;
@@ -58,7 +74,12 @@ button {
     width: 33%;
 }
 
-#nameRouteModal {
+#modal-locationLabel {
+    margin-top: 5px;
+}
+
+#nameRouteModal,
+#searchAddressModal {
     padding-top: 15%;
     vertical-align: middle;
 }
