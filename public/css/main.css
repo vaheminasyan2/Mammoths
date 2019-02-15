@@ -4601,10 +4601,15 @@ a.navbar-link.is-active {
   .navbar-tabs .navbar-item {
     align-items: center;
     display: flex; }
-  .navbar-menu {
-    background-color: white;
-    box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
-    padding: 0.5rem 0; }
+    .navbar-menu {
+      background-color: rgb(41, 0, 95) !important;
+      box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+      padding: 0.5rem 0; 
+      max-width: 50%;
+      position:absolute;
+      right: 0;
+      z-index: 2;
+    }
     .navbar-menu.is-active {
       display: block; }
   .navbar.is-fixed-bottom-touch, .navbar.is-fixed-top-touch {

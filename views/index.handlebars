@@ -6,11 +6,11 @@
           <a class="navbar-item" href="/home">
             <img src="images/image.png" alt="Logo">
           </a>
-          <span class="navbar-burger burger" data-target="navMenu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </span>
+          <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
         <div id="navMenu" class="navbar-menu">
           <div class="navbar-start">
@@ -44,7 +44,7 @@
           <div class="navbar-end">
             <span class="navbar-item" id="signOut">
               <p id="loggedInUser">Logged in as </p>
-              <a id= "signOutBtn" class="button is-primary is-inverted" href="#" onclick="signOut();">
+              <a id="signOutBtn" class="button is-primary is-inverted" href="#" onclick="signOut();">
                 <span>Sign Out</span>
               </a>
             </span>

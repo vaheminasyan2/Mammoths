@@ -42,17 +42,16 @@ var refreshRuns = function () {
     var $runs = data.map(function (run) {
       var $date = $("<a>").text(run.date);
       var $distance = $("<a>").text(" Distance: " + run.distance + " mi");
-      var $duration = $("<a>").text(" Duration: " + run.duration);
-      var $route = $("<a>").text(" Route: Route A"  + " ");
+      var $duration = $("<a>").text(" Duration: " + run.duration + " ");
       var $li = $("<li>")
         .attr({
           "data-id": run.id
         })
-        .append($date, $distance, $duration, $route);
+        .append($date, $distance, $duration);
 
       var $button = $("<button>")
         .addClass("btn btn-danger delete")
-        .text("ｘ");
+        .text("x");
 
       $li.append($button);
 
@@ -248,3 +247,15 @@ function signOut() {
     document.location.href = '/';
   });
 }
+
+$(document).ready(function() {
+
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+});

@@ -8,11 +8,12 @@
                     <a class="navbar-item" href="/home">
                         <img src="images/image.png" alt="Logo">
                     </a>
-                    <span class="navbar-burger burger" data-target="navMenu">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
+                    <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu"
+                        aria-expanded="false">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </a>
                 </div>
                 <div id="navMenu" class="navbar-menu">
                     <div class="navbar-start">
@@ -129,8 +130,9 @@
 
                             {{!-- Location --}}
                             <label for="location">Location: </label>
-                            <input type="text" class="form-control" name="location" id="locationForm" autocomplete="off"><br>
-                                
+                            <input type="text" class="form-control" name="location" id="locationForm"
+                                autocomplete="off"><br>
+
                             {{!-- Primary Surface --}}
                             <label for="surface">Primary Surface: </label>
                             <select class="form-control" id="surfaceForm" name="surface">
@@ -246,12 +248,12 @@
 
             <label class="label" id="modal-locationLabel">Location</label>
             <input class="input is-primary" type="text" id="modal-location" autocomplete="off">
-            
+
             {{!-- Buttons flipped due to float right property --}}
             <button id="cancelNameRouteModal">Cancel</button>
             <button id="closeNameRouteModal" type="submit">Submit</button>
         </form>
-    </div>    
+    </div>
 </div>
 
 {{!-- Search Address Modal --}}
