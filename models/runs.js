@@ -14,6 +14,16 @@ module.exports = function(sequelize, DataTypes) {
       }
     });
   };
+
+  Runs.associate = function(models) {
+    Runs.belongsTo(models.Routes, {
+      foreignKey: {
+        allowNull: true
+      }
+    });
+  };
+
+
   
   return Runs;
 };
