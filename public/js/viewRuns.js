@@ -28,6 +28,9 @@ function viewAllRuns() {
 
 viewAllRuns();
 
+// INITIATE VIEW RUNS MAP
+// ========================================
+
 function initViewRunsMap() {
 
     // Map style settings
@@ -79,6 +82,11 @@ function displayAllRunsList(runData) {
         method: "GET"
     })
         .then(function (response) {
+        
+            // If no runs in database, display message
+            if (runData.length == 0) {
+                $("#allRunsList").text("No runs to display.");
+            }
 
             for (var i in runData) {
 
