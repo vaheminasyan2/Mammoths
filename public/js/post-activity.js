@@ -12,6 +12,7 @@ var $runSurface = $("#surfaceForm");
 var $submitBtn = $("#submitRun");
 var $runList = $("#runList");
 var $newActivity = $("#newActivity");
+var $showRoutes = $("#showRoutes");
 
 // USER INFO ON SIGN IN
 // ========================================
@@ -23,7 +24,6 @@ var user = {
 };
 
 console.log("userid" + user.userId);
-
 
 // APPEND USER NAME TO THE NAV BAR
 $("#loggedInUser").append(user.userName)
@@ -40,22 +40,24 @@ var refreshRuns = function () {
   .then(function (data) {
     //console.log(data);
     var $runs = data.map(function (run) {
-      var $date = $("<a>").text(run.date);
-      var $distance = $("<a>").text(" Distance: " + run.distance + " mi");
-      var $duration = $("<a>").text(" Duration: " + run.duration + " ");
-      var $li = $("<li>")
+      var $recentRun = $("<a>").html(run.date + ": " + run.distance + " miles, " + run.duration);
+
+      var $deleteBtn = $("<div>")
+      .addClass("delete")
+      .css("float", "right")
+      .css("margin-left", "10px")
+      .text("delete");
+
+      var $div = $("<div>")
         .attr({
           "data-id": run.id
         })
-        .append($date, $distance, $duration);
+        .addClass("recentRun")
+        .css("margin-bottom", "5px")
+        .append($recentRun);
+        // .append($deleteBtn)
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger delete")
-        .text("x");
-
-      $li.append($button);
-
-      return $li;
+      return $div;
     });
 
     $("#run-list").empty();
@@ -66,36 +68,39 @@ var refreshRuns = function () {
 refreshRuns();
 
 // LOAD EXISTING ROUTE (DROP DOWN MENU IN FORM)
-// ========================================
+// =============================================
 
 // Initial call to populate drop down menu
 showRoutes();
 
 // Update Load Existing Route drop down menu when clicked
-$("#showRoutes").on("mouseenter", checkShowRoutes);
+$showRoutes.on("mouseenter", checkShowRoutes);
 
+// Update routes only if the drop down menu is blank
+// This avoids erasing user's selection
 function checkShowRoutes() {
-  if ($("#showRoutes").val() == "") {
+  if ($showRoutes.val() == "") {
     showRoutes();
   }
 }
 
+// Update the drop down menu with all routes
 function showRoutes() {
 
   $.ajax({
-    url: "api/loadAllRoutes/",
+    url: "api/loadAllRoutes/" + user.userId,
     type: "GET"
   })
   .then(function (data) {
-    //console.log(data);
-
-    $("#showRoutes").empty();
-    $("#showRoutes").append(`<option val="">`);
+    $showRoutes.empty();
+    $showRoutes.append(`<option val="" id="0">`);
 
     for (var i=0; i<data.length; i++) {
       var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " miles, " + data[i].location);
+      
+      route.attr("id", data[i].id);
 
-      $("#showRoutes").append(route);
+      $showRoutes.append(route);
     }
   });
 };
@@ -103,10 +108,11 @@ function showRoutes() {
 // AUTO-POPULATE DISTANCE & LOCATION FIELDS
 // ========================================
 
-$("#showRoutes").on("change", populateFields);
+$showRoutes.on("change", populateFields);
 
 function populateFields() {
-  var routeText = $("#showRoutes").val().trim();
+
+  var routeText = $showRoutes.val().trim();
   var distanceText = routeText.split(":")[1];
   var distanceVal = parseFloat(distanceText.split(" ")[1]);
 
@@ -152,6 +158,7 @@ function calculatePace() {
   }
 }
 
+
 // SUBMIT NEW RUN
 // ========================================
 
@@ -167,6 +174,7 @@ var handleFormSubmit = function (event) {
     duration: $runDuration,
     location: $runLocation.val().trim(),
     surface: $runSurface.val().trim(),
+    RouteId: $("#showRoutes :selected").attr("id"),
     UserId: user.userId
   };
 
@@ -219,7 +227,8 @@ var handleDeleteBtnClick = function () {
   });
 }
 
-// EVENT HANDLERS: SUBMIT, DELETE
+
+// EVENT HANDLERS: SUBMIT RUN, DELETE RUN
 // ========================================
 
 $submitBtn.on("click", handleFormSubmit);
@@ -247,15 +256,3 @@ function signOut() {
     document.location.href = '/';
   });
 }
-
-$(document).ready(function() {
-
-  // Check for click events on the navbar burger icon
-  $(".navbar-burger").click(function() {
-
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
-  });
-});

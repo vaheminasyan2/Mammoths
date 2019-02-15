@@ -1,0 +1,43 @@
+html,
+body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+
+.hero.is-fullheight .hero-body {
+    align-items: stretch;
+}
+
+#allRunsList {
+    overflow-y: scroll;
+}
+
+#map2 {
+    height: 100%;
+    width: 50%;
+}
+
+.runDiv {
+    background: white;
+    border: 1px solid black;
+    border-radius: 12px;
+    color: black;
+    font-size: 20px;
+    margin: 5px 0px 5px 0px;
+    padding: 5px;
+    width: 100%;
+}
+
+.runDiv:first-child {
+    margin-top: -12px;
+}
+
+.runDiv:hover {
+    background: rgb(255, 255, 156);
+}
+
+.runDetail {
+    background: none;
+    display: inline;
+}
