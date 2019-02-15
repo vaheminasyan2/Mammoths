@@ -40,18 +40,18 @@ var refreshRuns = function () {
   .then(function (data) {
     //console.log(data);
     var $runs = data.map(function (run) {
-      var $date = $("<a>").text("Date: " + run.date);
-      var $distance = $("<a>").text(" Distance: " + run.distance);
+      var $date = $("<a>").text(run.date);
+      var $distance = $("<a>").text(" Distance: " + run.distance + " mi");
       var $duration = $("<a>").text(" Duration: " + run.duration);
+      var $route = $("<a>").text(" Route: Route A"  + " ");
       var $li = $("<li>")
         .attr({
-          class: "list-group-item",
           "data-id": run.id
         })
-        .append($date, $distance, $duration);
+        .append($date, $distance, $duration, $route);
 
       var $button = $("<button>")
-        .addClass("btn btn-danger float-right delete")
+        .addClass("btn btn-danger delete")
         .text("ｘ");
 
       $li.append($button);
