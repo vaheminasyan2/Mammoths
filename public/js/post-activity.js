@@ -40,23 +40,30 @@ var refreshRuns = function () {
   .then(function (data) {
     //console.log(data);
     var $runs = data.map(function (run) {
-      var $date = $("<a>").text(run.date);
-      var $distance = $("<a>").text(" Distance: " + run.distance + " mi");
-      var $duration = $("<a>").text(" Duration: " + run.duration);
-      var $route = $("<a>").text(" Route: Route A"  + " ");
-      var $li = $("<li>")
+      var $recentRun = $("<div>").text(run.date + ": " + run.distance + " miles, " + run.duration);
+
+      var $deleteBtn = $("<span>")
+      .addClass("delete")
+      .css("float", "right")
+      .css("margin-left", "10px")
+      .text("delete");
+
+      var $viewBtn = $("<a>")
+        .addClass("viewBtn")
+        .css("float", "right")
+        .text("view");
+
+      var $div = $("<div>")
         .attr({
           "data-id": run.id
         })
-        .append($date, $distance, $duration, $route);
+        .addClass("recentRun")
+        .css("margin-bottom", "5px")
+        .append($recentRun)
+        // .append($deleteBtn)
+        // .append($viewBtn);
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger delete")
-        .text("ｘ");
-
-      $li.append($button);
-
-      return $li;
+      return $div;
     });
 
     $("#run-list").empty();
@@ -84,7 +91,7 @@ function checkShowRoutes() {
 function showRoutes() {
 
   $.ajax({
-    url: "api/loadAllRoutes/",
+    url: "api/loadAllRoutes/" + user.userId,
     type: "GET"
   })
   .then(function (data) {

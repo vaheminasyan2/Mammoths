@@ -80,9 +80,9 @@ module.exports = function (app) {
   });
 
   // Load all routes
-  app.get("/api/loadAllRoutes",function(req, res) {
-    db.Routes.findAll({}).then(function(response) {
-      // console.log(response);
+  app.get("/api/loadAllRoutes/:id",function(req, res) {
+    db.Routes.findAll({ where: { UserId: req.params.id } }).then(function(response) {
+      console.log(response);
       return res.json(response);
     });
   });
