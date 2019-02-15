@@ -24,7 +24,6 @@ var user = {
 
 console.log("userid" + user.userId);
 
-
 // APPEND USER NAME TO THE NAV BAR
 $("#loggedInUser").append(user.userName)
 
@@ -40,22 +39,24 @@ var refreshRuns = function () {
   .then(function (data) {
     //console.log(data);
     var $runs = data.map(function (run) {
-      var $date = $("<a>").text(run.date);
-      var $distance = $("<a>").text(" Distance: " + run.distance + " mi");
-      var $duration = $("<a>").text(" Duration: " + run.duration + " ");
-      var $li = $("<li>")
+      var $recentRun = $("<a>").html(run.date + ": " + run.distance + " miles, " + run.duration);
+
+      var $deleteBtn = $("<div>")
+      .addClass("delete")
+      .css("float", "right")
+      .css("margin-left", "10px")
+      .text("delete");
+
+      var $div = $("<div>")
         .attr({
           "data-id": run.id
         })
-        .append($date, $distance, $duration);
+        .addClass("recentRun")
+        .css("margin-bottom", "5px")
+        .append($recentRun);
+        // .append($deleteBtn)
 
-      var $button = $("<button>")
-        .addClass("btn btn-danger delete")
-        .text("x");
-
-      $li.append($button);
-
-      return $li;
+      return $div;
     });
 
     $("#run-list").empty();
@@ -83,7 +84,7 @@ function checkShowRoutes() {
 function showRoutes() {
 
   $.ajax({
-    url: "api/loadAllRoutes/",
+    url: "api/loadAllRoutes/" + user.userId,
     type: "GET"
   })
   .then(function (data) {
@@ -247,15 +248,3 @@ function signOut() {
     document.location.href = '/';
   });
 }
-
-$(document).ready(function() {
-
-  // Check for click events on the navbar burger icon
-  $(".navbar-burger").click(function() {
-
-      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-      $(".navbar-burger").toggleClass("is-active");
-      $(".navbar-menu").toggleClass("is-active");
-
-  });
-});
