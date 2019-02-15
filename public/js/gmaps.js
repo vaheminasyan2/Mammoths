@@ -18,7 +18,7 @@ var user = {
     userName: localStorage.getItem("userName"),
 };
 
-console.log("userid" + user.userId);
+//console.log("userid" + user.userId);
 
 
 // INITIALIZE MAP
@@ -53,7 +53,6 @@ function initMap() {
 
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({
-        // draggable: true,
         preserveViewport: true,
         suppressMarkers: true
     });
@@ -97,6 +96,7 @@ function initMap() {
     // Event handlers for Map Control Buttons
     // ======================================================
 
+    $("#searchAddress").on("click", openAddressModal);
     $("#saveRoute").on("click", openModal);
     $("#clearRoute").on("click", clearRoute);
     $("#undoLast").on("click", undoLast);
@@ -151,20 +151,30 @@ function getEndIcon(position) {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints) {
 
-    distance = 0;
-    var meters = 0;
     const metersToMiles = 0.000621371192;
-    var destination = wayPoints[wayPoints.length - 1];
+    var meters = 0;
+    
+    var origin = wayPoints[0].location;
+    var destination = wayPoints[wayPoints.length - 1].location;
+
+    // Cut off origin and destination to avoid duplication
+    var stops = [];
+    for (var i=1; i<wayPoints.length-1; i++) {
+        stops.push(wayPoints[i]);
+    }
+    
+    distance = 0;
 
     directionsService.route({
-        origin: wayPoints[0],
-        waypoints: wayPoints,
+        origin: origin,
+        waypoints: stops,
         destination: destination,
         optimizeWaypoints: false,
+        provideRouteAlternatives: false,
         travelMode: 'WALKING'
     },
         function (response, status) {
-            // console.log(response);
+            //console.log(response);
 
             // Sum up the distance (in meters) of each leg of route
             for (var i = 0; i < response.routes[0].legs.length; i++) {
@@ -186,7 +196,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoint
             if (endIcon != null) {
                 endIcon.setMap(null);
             }
-            endIcon = getEndIcon(destination.location);
+            endIcon = getEndIcon(destination);
         });
 }
 
@@ -213,6 +223,56 @@ var API = {
     }
 };
 
+// SEARCH ADDRESS
+// ======================================================
+
+// Open modal to enter address
+function openAddressModal(event) {
+    event.preventDefault();
+
+    $("#searchAddressModal").show();
+    $("#modal-address").focus();
+}
+
+// Event handler to close modal and search address
+$("#closeAddressModal").on("click", function(event) {
+    event.preventDefault();
+
+    var address = $("#modal-address").val().trim();
+    $("#modal-address").val("");
+
+    if (address != null && address != "") {
+        $("#searchAddressModal").hide();
+        changeAddress(address);
+    }
+    else {
+        alert("Please enter a name for this route.");
+    }
+});
+
+// Event handler to cancel and close modal without searching address
+$("#cancelAddressModal").on("click", function(event) {
+    event.preventDefault();
+    
+    $("#modal-address").val("");
+    $("#searchAddressModal").hide();
+});
+
+// Change address
+function changeAddress(address) {
+    var geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({"address": address}, function(results, status) {
+        if (status === 'OK') {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(15);
+        } 
+        else {
+            alert("Geocode error: " + status);
+        }
+    });
+}
+
 // SAVE ROUTE
 // ======================================================
 
@@ -220,8 +280,7 @@ var API = {
 function openModal(event) {
     event.preventDefault();
 
-    var modal = $("#nameRouteModal");
-    modal.show();
+    $("#nameRouteModal").show();
     $("#modal-routeName").focus();
 }
 
@@ -229,12 +288,23 @@ function openModal(event) {
 $("#closeNameRouteModal").on("click", function(event) {
     event.preventDefault();
 
-    $("#nameRouteModal").hide();
-
     var name = $("#modal-routeName").val().trim();
     var location = $("#modal-location").val().trim();
 
-    saveRoute(name, location);
+    if (name != null && name != "") {
+        $("#nameRouteModal").hide();
+        saveRoute(name, location);
+    }
+    else {
+        alert("Please enter a name for this route.");
+    }
+});
+
+// Event handler to cancel and close modal without saving route
+$("#cancelNameRouteModal").on("click", function(event) {
+    event.preventDefault();
+
+    $("#nameRouteModal").hide();
 });
 
 // Save route to database
@@ -251,11 +321,11 @@ function saveRoute(routeName, location) {
     }
 
     if (routeName != null & routeName != "") {
-        console.log("Saving...");
 
         API.saveRoute(newRoute);
 
         setTimeout(setConfirmMsg("save"), 1000);
+        checkShowRoutes();      
     }
 }
 
@@ -272,22 +342,6 @@ function setConfirmMsg(key) {
     }
 
     $("#confirmSave").text(message);
-}
-
-// LOOP ROUTE (OUT AND BACK)
-// ======================================================
-
-function loopRoute() {
-
-    var reverseWayPoints = wayPoints.reverse();
-    var length = reverseWayPoints.length; // So that length doesn't update in for loop
-
-    // Add reversed way points onto route
-    for (var i = 0; i < length; i++) {
-        wayPoints.push(reverseWayPoints[i]);
-    }
-
-    calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
 }
 
 // LOAD ROUTE
@@ -329,6 +383,22 @@ function loadRoute() {
         // Draw route on map
         calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
     });
+}
+
+// LOOP ROUTE (OUT AND BACK)
+// ======================================================
+
+function loopRoute() {
+
+    var wayPointCopy = wayPoints;
+    var length = wayPointCopy.length; // So that length doesn't update in for loop
+
+    // Add way points onto route in reverse order
+    for (var i=length-1; i>=0; i--) {
+        wayPoints.push(wayPointCopy[i]);
+    }
+
+    calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoints);
 }
 
 // UNDO LAST
