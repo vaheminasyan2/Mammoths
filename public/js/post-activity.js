@@ -93,7 +93,7 @@ function showRoutes() {
   })
   .then(function (data) {
     $showRoutes.empty();
-    $showRoutes.append(`<option val="" id="0">`);
+    $showRoutes.append(`<option val="0" id="0">`);
 
     for (var i=0; i<data.length; i++) {
       var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " miles, " + data[i].location);
@@ -256,3 +256,15 @@ function signOut() {
     document.location.href = '/';
   });
 }
+
+$(document).ready(function() {
+
+  // Check for click events on the navbar burger icon
+  $(".navbar-burger").click(function() {
+
+      // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+      $(".navbar-burger").toggleClass("is-active");
+      $(".navbar-menu").toggleClass("is-active");
+
+  });
+}); 
