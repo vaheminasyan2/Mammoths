@@ -20,7 +20,6 @@ var user = {
 
 //console.log("userid" + user.userId);
 
-
 // INITIALIZE MAP
 // ======================================================
 
