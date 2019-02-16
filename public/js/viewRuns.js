@@ -29,7 +29,7 @@ function viewAllRuns() {
 viewAllRuns();
 
 // INITIATE VIEW RUNS MAP
-// ========================================
+// ======================================================
 
 function initViewRunsMap() {
 
@@ -59,7 +59,6 @@ function initViewRunsMap() {
 
     directionsService2 = new google.maps.DirectionsService;
     directionsDisplay2 = new google.maps.DirectionsRenderer({
-        preserveViewport: true,
         suppressMarkers: true
     });
 
@@ -76,14 +75,13 @@ function displayAllRunsList(runData) {
 
     var userName;
 
-    // Get User Name from User ID
+    // Get all users from database
     $.ajax({
         url: "/api/allUsers",
         method: "GET"
     })
         .then(function (response) {
-        
-            // If no runs in database, display message
+
             if (runData.length == 0) {
                 $("#allRunsList").text("No runs to display.");
             }
@@ -108,7 +106,11 @@ function displayAllRunsList(runData) {
                 }
 
                 // Populate div and display run data
-                runDiv.text(userName + " " + runData[i].date + " " + runData[i].distance + " " + runData[i].duration + " " + runData[i].route);
+                runDiv.html(runData[i].date + " &nbsp&nbsp " 
+                + runData[i].distance + " miles&nbsp&nbsp " 
+                + runData[i].duration + " &nbsp&nbsp&nbsp"
+                + runData[i].location + " &nbsp&nbsp&nbsp"
+                + runData[i].surface);
 
                 $("#allRunsList").append(runDiv);
             }
@@ -133,7 +135,7 @@ function getRoutePoints() {
     $(this).css("background", "orange");
 
     // Add delete button to run div
-    deleteBtn = $("<a class='deleteRun'>").text("delete").css("float", "right");
+    deleteBtn = $("<a class='btn btn-danger delete deleteRun'>").text("delete").css("float", "right");
     $(this).append(deleteBtn);
 
     var routeId = $(this).attr("data-routeId");

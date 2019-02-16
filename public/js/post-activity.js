@@ -40,7 +40,12 @@ var refreshRuns = function () {
   .then(function (data) {
     //console.log(data);
     var $runs = data.map(function (run) {
-      var $recentRun = $("<a>").html(run.date + ": " + run.distance + " miles, " + run.duration);
+      console.log(run);
+      var $recentRun = $("<a>").html(
+        run.date + ": &nbsp&nbsp&nbsp&nbsp" 
+        + run.distance + " miles, &nbsp&nbsp&nbsp&nbsp" 
+        + run.duration + "&nbsp&nbsp&nbsp&nbsp " 
+        + run.location);
 
       var $div = $("<div>")
         .attr({
@@ -142,15 +147,14 @@ function calculatePace() {
 
     // Adds a zero before the seconds figure
     // To avoid having a result such as "5:9" for the pace. Corrects to "5:09"
-    var addZero = "";
+    var addZeroSecs = "";
     if (paceSecs < 10) {
-      addZero = 0;
+      addZeroSecs = 0;
     }
 
-    $("#pace").text(` ${paceMins}:${addZero}${paceSecs}`);
+    $("#pace").text(` ${paceMins}:${addZeroSecs}${paceSecs}`);
   }
 }
-
 
 // SUBMIT NEW RUN
 // ========================================
@@ -158,16 +162,35 @@ function calculatePace() {
 var handleFormSubmit = function (event) {
   event.preventDefault();
 
-  var $runDuration = `${$runHours.val().trim()}:${$runMins.val().trim()}:${$runSecs.val().trim()}`;
+  var addZeroMins = "";
+  if ($runMins.val().trim().length < 2) {
+    addZeroMins = 0;
+  }
+
+  var $runDuration = `${$runHours.val().trim()}:${addZeroMins}${$runMins.val().trim()}:${$runSecs.val().trim()}`;
+
+  var routeId = $("#showRoutes :selected").attr("id");
+
+  // Default route ID if route is empty
+  if (routeId < 1 || routeId == "") {
+    routeId = null;
+  }
+
+  var routeName = $runRoute.val().trim();
+
+  // Default route name if route is empty
+  if (routeName == "" || routeName == null) {
+    routeName = "No route";
+  }
   
   var run = {
     date: $runDate.val().trim(),
     distance: $runDistance.val().trim(),
-    route: $runRoute.val(),
+    route: routeName,
     duration: $runDuration,
     location: $runLocation.val().trim(),
     surface: $runSurface.val().trim(),
-    RouteId: $("#showRoutes :selected").attr("id"),
+    RouteId: routeId,
     UserId: user.userId
   };
 

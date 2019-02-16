@@ -7,12 +7,23 @@ module.exports = function (app) {
   // GET
   // ==========================================
 
+
   // Get recent runs by ID
   app.get("/api/runs/:id", function (req, res) {
     db.Runs.findAll({
       where: { UserId: req.params.id },
-      order: [["updatedAt", "DESC"]],
+      order: [["date", "DESC"]],
       limit: 15,
+    }).then(function (dbRuns) {
+      console.log(dbRuns);
+      res.json(dbRuns);
+    });
+  });
+  
+  // Load all runs for all users
+  app.get("/viewAllRuns", function (req, res) {
+    db.Runs.findAll({
+      order: [["date", "DESC"]]
     }).then(function (dbRuns) {
       res.json(dbRuns);
     });
@@ -50,13 +61,6 @@ module.exports = function (app) {
   app.get("/api/loadRouteById/:id", function(req, res) {
     db.Routes.findOne({ where: { id: req.params.id } }).then(function(response) {
       return res.json(response);
-    });
-  });
-
-  // Load all routes for all users
-  app.get("/viewAllRuns", function (req, res) {
-    db.Runs.findAll({}).then(function (dbRuns) {
-      res.json(dbRuns);
     });
   });
 
