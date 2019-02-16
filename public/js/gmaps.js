@@ -52,7 +52,7 @@ function initMap() {
 
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({
-        preserveViewport: true,
+        // preserveViewport: true,
         suppressMarkers: true
     });
 
@@ -280,6 +280,8 @@ function openModal(event) {
     event.preventDefault();
 
     $("#nameRouteModal").show();
+    $("#modal-routeName").val("");
+    $("#modal-location").val("");
     $("#modal-routeName").focus();
 }
 
@@ -293,6 +295,7 @@ $("#closeNameRouteModal").on("click", function(event) {
     if (name != null && name != "") {
         $("#nameRouteModal").hide();
         saveRoute(name, location);
+        clearRoute(event);
     }
     else {
         alert("Please enter a name for this route.");
