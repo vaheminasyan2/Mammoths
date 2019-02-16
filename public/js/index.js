@@ -24,8 +24,14 @@ var refreshRuns = function () {
     type: "GET"
   })
     .then(function (data) {
-      console.log(data);
-      for (var i = 0; i < data.length; i++) {
+
+      var length = 5;
+
+      if (data.length < length) {
+        length = data.length;
+      }
+
+      for (var i = length-1; i>=0; i--) {
         runTableDates.push(data[i].date);
         runTableDistances.push(data[i].distance);
       }
@@ -61,7 +67,7 @@ var refreshRuns = function () {
         options: {
           title: {
             display: true,
-            text: 'Miles Ran',
+            text: 'Last Five Runs',
             fontColor: "white"
           },
           legend: {
@@ -78,7 +84,7 @@ var refreshRuns = function () {
               }
             }],
             xAxes: [{
-              barThickness: 75,
+              barThickness: 55,
               ticks: {
                 fontColor: "white"
               },

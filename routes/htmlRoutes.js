@@ -12,6 +12,10 @@ module.exports = function (app) {
     res.render("index")
   });
 
+  app.get("/friends", function(req, res) {
+    res.render("friends");
+  });
+
   // Contact Page
   app.get("/contact", function(req, res) {
     res.render("contact");

@@ -412,7 +412,8 @@ function undoLast(event) {
     // If waypoints are emptied, clear markers from map
     if (wayPoints.length == 0) {
         startIcon.setMap(null);
-
+        endIcon.setMap(null);
+        
         toggleMapBoxBtns(true); // disable map control buttons
     }
 
