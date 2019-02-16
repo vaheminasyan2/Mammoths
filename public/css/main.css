@@ -2,6 +2,14 @@ a {
   text-decoration: none !important;
 }
 
+#runningForm {
+  height:100%;
+  display:table;
+}
+ .center{
+   display: table-cell;
+   vertical-align:middle;
+ }
 #loginPageTitle {
   font-size: 72px;
   font-weight: 700;
