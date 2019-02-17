@@ -1,3 +1,15 @@
+// USER INFO ON SIGN IN
+// ========================================
+
+var user = {
+    userId: localStorage.getItem("userId"),
+    userEmail: localStorage.getItem("userEmail"),
+    userName: localStorage.getItem("userName"),
+  };
+  
+  // APPEND USER NAME TO THE NAV BAR
+  $("#loggedInUser").append(user.userName)
+
 // GET ALL RUNS API CALL
 // ========================================
 
@@ -79,12 +91,17 @@ function generateLeaderboard(mileageData) {
     // Compile and display leaderboard data
     for (var user in mileageData) {
 
-        var userName = mileageData[user].userName;
-        var userMiles = Math.round((mileageData[user].userMiles)*100)/100;
+        var userName = $("<div>")
+            .addClass("userNameDiv")
+            .text(mileageData[user].userName);
+        var userMiles = $("<div>")
+            .addClass("userMilesDiv")
+            .text((Math.round((mileageData[user].userMiles)*100)/100) + " miles");
 
         var userTotalMiles = $("<div>")
             .addClass("userTotalMiles")
-            .text(userName + ": " + userMiles + " miles");
+            .append(userName)
+            .append(userMiles);
 
         $("#leaderboard").append(userTotalMiles);
     }
@@ -120,7 +137,6 @@ function signOut() {
     document.location.href = '/';
   });
 }
-
 
 $(document).ready(function() {
 

@@ -18,8 +18,6 @@ var user = {
     userName: localStorage.getItem("userName"),
 };
 
-//console.log("userid" + user.userId);
-
 // INITIALIZE MAP
 // ======================================================
 
@@ -52,7 +50,7 @@ function initMap() {
 
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer({
-        preserveViewport: true,
+        // preserveViewport: true,
         suppressMarkers: true
     });
 
@@ -173,7 +171,6 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, wayPoint
         travelMode: 'WALKING'
     },
         function (response, status) {
-            //console.log(response);
 
             // Sum up the distance (in meters) of each leg of route
             for (var i = 0; i < response.routes[0].legs.length; i++) {
@@ -280,6 +277,8 @@ function openModal(event) {
     event.preventDefault();
 
     $("#nameRouteModal").show();
+    $("#modal-routeName").val("");
+    $("#modal-location").val("");
     $("#modal-routeName").focus();
 }
 
@@ -293,6 +292,7 @@ $("#closeNameRouteModal").on("click", function(event) {
     if (name != null && name != "") {
         $("#nameRouteModal").hide();
         saveRoute(name, location);
+        clearRoute(event);
     }
     else {
         alert("Please enter a name for this route.");
@@ -366,7 +366,6 @@ function loadRoute() {
     }
 
     API.loadRoute(route).then(function (response) {
-        console.log("Loading...");
 
         // Get stored waypoints for route
         wayPoints = JSON.parse(response.wayPoints);

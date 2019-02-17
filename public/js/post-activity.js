@@ -23,8 +23,6 @@ var user = {
   userName: localStorage.getItem("userName"),
 };
 
-console.log("userid" + user.userId);
-
 // APPEND USER NAME TO THE NAV BAR
 $("#loggedInUser").append(user.userName)
 
@@ -38,14 +36,13 @@ var refreshRuns = function () {
       type: "GET"
     })
   .then(function (data) {
-    //console.log(data);
     var $runs = data.map(function (run) {
-      console.log(run);
-      var $recentRun = $("<a>").html(
-        run.date + ": &nbsp&nbsp&nbsp&nbsp" 
-        + run.distance + " miles &nbsp&nbsp&nbsp&nbsp" 
-        + run.duration + "&nbsp&nbsp&nbsp&nbsp " 
-        + run.location);
+      var $recentRun = $("<div class='recentRunDiv'>").html(
+        `<td class='dataSpan'>${run.date}</td>` +
+        `<td class='dataSpan'>${run.distance} mi.</td>` +
+        `<td class='dataSpan'>${run.duration}</td>` +
+        `<td class='dataSpan'>${run.location}</td>`
+      );
 
       var $div = $("<div>")
         .attr({
@@ -94,7 +91,7 @@ function showRoutes() {
     $showRoutes.append(`<option val="0" id="0">`);
 
     for (var i=0; i<data.length; i++) {
-      var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " miles, " + data[i].location);
+      var route = $(`<option val=${data[i].name}>`).text(data[i].name + ": " + data[i].distance + " mi., " + data[i].location);
       
       route.attr("id", data[i].id);
 
@@ -210,7 +207,6 @@ var handleFormSubmit = function (event) {
     url: "api/runs",
     data: JSON.stringify(run)
   }).then(function () {
-    //console.log(response);
     refreshRuns();
   });
   

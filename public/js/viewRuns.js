@@ -12,6 +12,15 @@ var endIcon;
 var endIconLoc;
 var deleteBtn;
 
+// USER INFO
+// ======================================================
+
+var user = {
+    userId: localStorage.getItem("userId"),
+    userEmail: localStorage.getItem("userEmail"),
+    userName: localStorage.getItem("userName")
+};
+
 // VIEW ALL RUNS API CALL
 // ========================================
 
@@ -22,6 +31,7 @@ function viewAllRuns() {
         method: "GET"
     })
         .then(function (response) {
+            $("#allRunsList").empty();
             displayAllRunsList(response);
         });
 }
@@ -69,11 +79,8 @@ function initViewRunsMap() {
 // ======================================================
 
 function displayAllRunsList(runData) {
-    console.log(runData);
 
     var runDiv;
-
-    var userName;
 
     // Get all users from database
     $.ajax({
@@ -106,11 +113,15 @@ function displayAllRunsList(runData) {
                 }
 
                 // Populate div and display run data
-                runDiv.html(runData[i].date + " &nbsp&nbsp " 
-                + runData[i].distance + " miles&nbsp&nbsp " 
-                + runData[i].duration + " &nbsp&nbsp&nbsp"
-                + runData[i].location + " &nbsp&nbsp&nbsp"
-                + runData[i].surface);
+                //***I sure wish there was something that could handle these bars
+                runDiv.html(
+                    `<td class="dataSpan">${userName}</td>` +
+                    `<td class="dataSpan">${runData[i].date}</td>` +
+                    `<td class="dataSpan">${runData[i].distance} miles</td>` +
+                    `<td class="dataSpan">${runData[i].duration}</td>` +
+                    `<td class="dataSpan">${runData[i].location}</td>` +
+                    `<td class="dataSpan">${runData[i].surface}</td>`
+                );
 
                 $("#allRunsList").append(runDiv);
             }
@@ -130,12 +141,15 @@ function getRoutePoints() {
     // Hide all delete buttons 
     $(deleteBtn).hide();
 
+    // Clear map of route
+    clearMap();
+
     // Change color of div to show selected run
     $(".runDiv").css("background", "white");
     $(this).css("background", "orange");
 
     // Add delete button to run div
-    deleteBtn = $("<a class='btn btn-danger delete deleteRun'>").text("delete").css("float", "right");
+    deleteBtn = $("<a class='btn btn-danger delete deleteRun'>").text("delete");
     $(this).append(deleteBtn);
 
     var routeId = $(this).attr("data-routeId");
@@ -145,14 +159,21 @@ function getRoutePoints() {
         method: "GET"
     })
         .then(function (response) {
-            //console.log(response);
 
-            startIconLoc = JSON.parse(response.startIcon);
-            endIconLoc = JSON.parse(response.endIcon);
+            // If a route exists, load its info and display it on map
+            if (response) {
+                startIconLoc = JSON.parse(response.startIcon);
+                endIconLoc = JSON.parse(response.endIcon);
+                wayPoints2 = JSON.parse(response.wayPoints);
+                displayRunRoute(directionsService2, directionsDisplay2, wayPoints2);
+            }
 
-            wayPoints2 = JSON.parse(response.wayPoints);
-
-            displayRunRoute(directionsService2, directionsDisplay2, wayPoints2);
+            // Otherwise, default to show Seattle
+            // *** LATER CHANGE TO DEFAULT CITY
+            else {
+                map2.setCenter({ lat: 47.60453, lng: -122.33422 });
+                map2.setZoom(13);
+            }
         });
 }
 
@@ -167,7 +188,6 @@ function deleteRun() {
         type: "DELETE"
     })
         .then(function (response) {
-            console.log(response);
 
             // Empty runs list to prevent duplication of entries
             $("#allRunsList").empty();
@@ -178,6 +198,63 @@ function deleteRun() {
             // Refresh runs list
             viewAllRuns();
         });
+}
+
+// VIEW FILTER
+// ======================================================
+
+$("#onlyMe").on("click", showOnlyUser);
+$("#showAllRuns").on("click", viewAllRuns);
+
+function showOnlyUser(event) {
+    event.preventDefault();
+
+    $.ajax({
+        url: "/api/runs/" + user.userId,
+        method: "GET"
+    }).then(function (runData) {
+
+        $("#allRunsList").empty();
+
+        if (runData.length == 0) {
+            $("#allRunsList").text("No runs to display.");
+        }
+
+        for (var i in runData) {
+
+            // Create a div to hold each run's data
+            // Store route ID in each div's data
+            // Add run ID for run deletion function
+            runDiv = $("<div>").addClass("runDiv")
+                .attr("data-routeId", runData[i].RouteId)
+                .attr("data-runId", runData[i].id);
+
+            // Get ID of user who entered each run
+            var userId = runData[i].UserId;
+
+            // Get Name of runner from ID
+            // for (var user in runData) {
+            //     if (userId == runData[user].id) {
+            //         userName = runData[user].name;
+            //     }
+            // }
+
+            userName = user.userName; //**** */ TEMPORARY FIX
+
+            // Populate div and display run data
+            //***I sure wish there was something that could handle these bars
+            runDiv.html(
+                `<td class="dataSpan">${userName}</td>` +
+                `<td class="dataSpan">${runData[i].date}</td>` +
+                `<td class="dataSpan">${runData[i].distance} mi.</td>` +
+                `<td class="dataSpan">${runData[i].duration}</td>` +
+                `<td class="dataSpan">${runData[i].location}</td>` +
+                `<td class="dataSpan">${runData[i].surface}</td>`
+            );
+
+            $("#allRunsList").append(runDiv);
+        }
+    });
 }
 
 // CLEAR MAP
@@ -226,7 +303,6 @@ function displayRunRoute(directionsService2, directionsDisplay2, wayPoints2) {
         travelMode: 'WALKING'
     },
         function (response, status) {
-            //console.log(response);
 
             if (status === 'OK') {
                 directionsDisplay2.setDirections(response);
