@@ -1,7 +1,7 @@
 # Mammoth App
 
 ### Overview
-The Mammoth app is logging and tracking tool for runners. It allows users to log runs of varying types and share/compare results with other users. The app is deployed in Heroku and avaible at [mammoth-app.herokuapp.com](https://mammoth-app.herokuapp.com/). Check it out.
+The Mammoth app is logging and tracking tool for runners. It allows users to log runs of varying types and share/compare results with other users. The app is deployed in Heroku and avaible at [mammoth-app.herokuapp.com](https://mammoth-app.herokuapp.com/). Check it out!
 
 ![homepgae](public/images/mammoth.PNG)
 
@@ -32,4 +32,4 @@ The app uses [Google sign-in](https://developers.google.com/identity/sign-in/web
 4. Inside your terminal or Bash window run `node server` and navigate to `localhost:3030` to view the app.
 
 ### Future development
-Our team is currently working on improving current functionalities and adding a few more. Checkout this [issue](https://github.com/vaheminasyan2/Mammoths/issues/60) to see what is in on our road map. 
+Our team is currently working on improving current functionalities and adding a few more. Checkout this [issue](https://github.com/vaheminasyan2/Mammoths/issues/60) to see what is in our road map. 
