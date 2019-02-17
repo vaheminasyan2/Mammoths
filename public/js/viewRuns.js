@@ -79,7 +79,6 @@ function initViewRunsMap() {
 // ======================================================
 
 function displayAllRunsList(runData) {
-    //console.log(runData);
 
     var runDiv;
 
@@ -142,6 +141,9 @@ function getRoutePoints() {
     // Hide all delete buttons 
     $(deleteBtn).hide();
 
+    // Clear map of route
+    clearMap();
+
     // Change color of div to show selected run
     $(".runDiv").css("background", "white");
     $(this).css("background", "orange");
@@ -157,14 +159,21 @@ function getRoutePoints() {
         method: "GET"
     })
         .then(function (response) {
-            //console.log(response);
 
-            startIconLoc = JSON.parse(response.startIcon);
-            endIconLoc = JSON.parse(response.endIcon);
+            // If a route exists, load its info and display it on map
+            if (response) {
+                startIconLoc = JSON.parse(response.startIcon);
+                endIconLoc = JSON.parse(response.endIcon);
+                wayPoints2 = JSON.parse(response.wayPoints);
+                displayRunRoute(directionsService2, directionsDisplay2, wayPoints2);
+            }
 
-            wayPoints2 = JSON.parse(response.wayPoints);
-
-            displayRunRoute(directionsService2, directionsDisplay2, wayPoints2);
+            // Otherwise, default to show Seattle
+            // *** LATER CHANGE TO DEFAULT CITY
+            else {
+                map2.setCenter({ lat: 47.60453, lng: -122.33422 });
+                map2.setZoom(13);
+            }
         });
 }
 
@@ -179,7 +188,6 @@ function deleteRun() {
         type: "DELETE"
     })
         .then(function (response) {
-            //console.log(response);
 
             // Empty runs list to prevent duplication of entries
             $("#allRunsList").empty();
@@ -205,7 +213,6 @@ function showOnlyUser(event) {
         url: "/api/runs/" + user.userId,
         method: "GET"
     }).then(function (runData) {
-        //console.log(runData);
 
         $("#allRunsList").empty();
 
@@ -239,7 +246,7 @@ function showOnlyUser(event) {
             runDiv.html(
                 `<td class="dataSpan">${userName}</td>` +
                 `<td class="dataSpan">${runData[i].date}</td>` +
-                `<td class="dataSpan">${runData[i].distance} miles</td>` +
+                `<td class="dataSpan">${runData[i].distance} mi.</td>` +
                 `<td class="dataSpan">${runData[i].duration}</td>` +
                 `<td class="dataSpan">${runData[i].location}</td>` +
                 `<td class="dataSpan">${runData[i].surface}</td>`
@@ -296,7 +303,6 @@ function displayRunRoute(directionsService2, directionsDisplay2, wayPoints2) {
         travelMode: 'WALKING'
     },
         function (response, status) {
-            //console.log(response);
 
             if (status === 'OK') {
                 directionsDisplay2.setDirections(response);

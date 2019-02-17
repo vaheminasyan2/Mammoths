@@ -36,14 +36,13 @@ var refreshRuns = function () {
       type: "GET"
     })
   .then(function (data) {
-    //console.log(data);
     var $runs = data.map(function (run) {
-      console.log(run);
       var $recentRun = $("<div class='recentRunDiv'>").html(
-        run.date + ": &nbsp&nbsp&nbsp&nbsp" 
-        + run.distance + " mi. &nbsp&nbsp&nbsp&nbsp" 
-        + run.duration + "&nbsp&nbsp&nbsp&nbsp " 
-        + run.location);
+        `<td class='dataSpan'>${run.date}</td>` +
+        `<td class='dataSpan'>${run.distance} mi.</td>` +
+        `<td class='dataSpan'>${run.duration}</td>` +
+        `<td class='dataSpan'>${run.location}</td>`
+      );
 
       var $div = $("<div>")
         .attr({
@@ -208,7 +207,6 @@ var handleFormSubmit = function (event) {
     url: "api/runs",
     data: JSON.stringify(run)
   }).then(function () {
-    //console.log(response);
     refreshRuns();
   });
   
