@@ -3,7 +3,7 @@
 ### Overview
 The Mammoth app is logging and tracking tool for runners. It allows users to log runs of varying types and share/compare results with other users. The app is deployed in Heroku and avaible at [mammoth-app.herokuapp.com](https://mammoth-app.herokuapp.com/). Check it out!
 
-![homepgae](public/images/mammoth.PNG)
+![homepage](public/images/mammoth.PNG)
 
 ### Technology used
 - Node.js
