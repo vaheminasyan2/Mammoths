@@ -23,7 +23,7 @@ The Mammoth app is logging and tracking tool for runners. It allows users to log
 
 
 ### How the App Works
-The app uses [Google sign-in](https://developers.google.com/identity/sign-in/web/sign-in) for user authentication. User will need to use his existing google account or create one if they don't have it. Once signed in the user is taken to the dashboard with graphs of five recent runs. To post a new run user will need to navigate to the `Post New Run` page. On that page they can use the map to create a route and the form to log the run. After run is saved it'll be displayed in the **Your Recent Runs** box. To view full details for each run user can navigate to the `View All Runs` page from where he can also delete the run and toggle to show only his runs and all users runs. The `Leaderboard` provides summary of total miles ran by each user in descending order. 
+The app uses [Google sign-in](https://developers.google.com/identity/sign-in/web/sign-in) for user authentication. User will need to use his existing google account or create one if they don't have it. Once signed in it loads the dashboard with graphs of five recent runs. To post a new run user needs to navigate to the `Post New Run` page. On that page they can use the map to create a route and the form to log the run. After run is saved it'll be displayed in the `Your Recent Runs` box. To view full details for each run user can navigate to the `View All Runs` page from where he can also delete runs and switch between views to show only his runs or all users runs. The `Leaderboard` page provides summary of total miles ran by each user in the descending order. 
 
 ### How to Setup 
 1. After cloning this repo run `npm install` to install all dependencies. 
