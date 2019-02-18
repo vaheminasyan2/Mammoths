@@ -26,6 +26,19 @@ var user = {
 
 // Gets all run entries from database
 function viewAllRuns() {
+
+    // Change colors to indicate selected button
+    $("#onlyMe")
+        .attr("data-selected", "false")
+        .css("background", "rgb(51, 67, 63)")
+        .css("color", "white");
+
+    $("#showAllRuns")
+        .attr("data-selected", "true")
+        .css("background", "gold")
+        .css("color", "black");
+
+    // Get and return all runs in database
     $.ajax({
         url: "/viewAllRuns",
         method: "GET"
@@ -100,7 +113,8 @@ function displayAllRunsList(runData) {
                 // Add run ID for run deletion function
                 runDiv = $("<div>").addClass("runDiv")
                     .attr("data-routeId", runData[i].RouteId)
-                    .attr("data-runId", runData[i].id);
+                    .attr("data-runId", runData[i].id)
+                    .attr("data-userId", runData[i].UserId);
 
                 // Get ID of user who entered each run
                 var userId = runData[i].UserId;
@@ -117,7 +131,7 @@ function displayAllRunsList(runData) {
                 runDiv.html(
                     `<td class="dataSpan">${userName}</td>` +
                     `<td class="dataSpan">${runData[i].date}</td>` +
-                    `<td class="dataSpan">${runData[i].distance} miles</td>` +
+                    `<td class="dataSpan">${runData[i].distance} mi.</td>` +
                     `<td class="dataSpan">${runData[i].duration}</td>` +
                     `<td class="dataSpan">${runData[i].location}</td>` +
                     `<td class="dataSpan">${runData[i].surface}</td>`
@@ -149,9 +163,11 @@ function getRoutePoints() {
     $(this).css("background", "orange");
 
     // Add delete button to run div
-    deleteBtn = $("<a class='btn btn-danger delete deleteRun'>").text("delete");
-    $(this).append(deleteBtn);
-
+    if ($(this).attr("data-userId") == user.userId) {
+        deleteBtn = $("<a class='btn btn-danger delete deleteRun'>").text("delete");
+        $(this).append(deleteBtn);
+    }
+    
     var routeId = $(this).attr("data-routeId");
 
     $.ajax({
@@ -180,7 +196,9 @@ function getRoutePoints() {
 // DELETE RUN FROM DATABASE
 // ======================================================
 
-function deleteRun() {
+function deleteRun(event) {
+    event.preventDefault();
+
     var runId = $(this).parent().attr("data-runId");
 
     $.ajax({
@@ -196,7 +214,18 @@ function deleteRun() {
             clearMap();
 
             // Refresh runs list
-            viewAllRuns();
+            if ($("#onlyMe").attr("data-selected") == "true") {
+                showOnlyUser(event);
+                console.log("Only Me");
+            }
+            else if ($("#showAllRuns").attr("data-selected") == "true") {
+                viewAllRuns();
+                console.log("Show All Runs");
+            }
+            else {
+                console.log("Else");
+                viewAllRuns();
+            }
         });
 }
 
@@ -208,6 +237,17 @@ $("#showAllRuns").on("click", viewAllRuns);
 
 function showOnlyUser(event) {
     event.preventDefault();
+    
+    // Change colors to indicate selected button
+    $("#showAllRuns")
+        .attr("data-selected", "false")
+        .css("background", "rgb(51, 67, 63)")
+        .css("color", "white");
+
+    $("#onlyMe")
+        .attr("data-selected", "true")
+        .css("background", "gold")
+        .css("color", "black");
 
     $.ajax({
         url: "/api/runs/" + user.userId,
@@ -227,7 +267,8 @@ function showOnlyUser(event) {
             // Add run ID for run deletion function
             runDiv = $("<div>").addClass("runDiv")
                 .attr("data-routeId", runData[i].RouteId)
-                .attr("data-runId", runData[i].id);
+                .attr("data-runId", runData[i].id)
+                .attr("data-userId", runData[i].UserId);
 
             // Get ID of user who entered each run
             var userId = runData[i].UserId;
