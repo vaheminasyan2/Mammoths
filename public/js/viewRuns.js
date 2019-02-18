@@ -216,14 +216,11 @@ function deleteRun(event) {
             // Refresh runs list
             if ($("#onlyMe").attr("data-selected") == "true") {
                 showOnlyUser(event);
-                console.log("Only Me");
             }
             else if ($("#showAllRuns").attr("data-selected") == "true") {
                 viewAllRuns();
-                console.log("Show All Runs");
             }
             else {
-                console.log("Else");
                 viewAllRuns();
             }
         });
