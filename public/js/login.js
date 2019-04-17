@@ -12,3 +12,20 @@ function onSignIn(googleUser) {
   };
   xhr.send('idtoken=' + id_token); 
 }
+
+//onSignIn(googleUser);
+
+//console.log(process.env.GOOGLE_CLIENT_ID)
+
+
+   
+// loadScript = () => {
+//   console.log(process.env.GOOGLE_CLIENT_ID);
+//   var index = window.document.getElementsByTagName("meta")[0];
+//   var meta = window.document.createElement("meta");
+//   meta.name = "google-signin-client_id";
+//   meta.content = process.env.GOOGLE_CLIENT_ID;
+//   // script.defer = true;
+//   index.parentNode.insertBefore(meta, index);
+// };
+//  loadScript();
