@@ -20,5 +20,11 @@ module.exports = function(sequelize, DataTypes) {
     });
   };
 
+  Routes.associate = function(models) {
+    Routes.hasMany(models.Runs, {
+      onDelete: "cascade"
+    });
+  };
+
   return Routes;
 };

@@ -116,9 +116,8 @@ function compare(a, b) {
     return 0;
 }
 
-// GOOGLE SIGN OUT
-// ========================================
-
+// Google Sign Out
+// =======================================================
 var auth2;
 
 window.onLoadCallback = function () {
@@ -149,4 +148,7 @@ $(document).ready(function() {
       $(".navbar-menu").toggleClass("is-active");
 
   });
-}); 
+});
+
+
+
