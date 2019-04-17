@@ -12,9 +12,10 @@ module.exports = function (app) {
   app.get("/api/runs/:id", function (req, res) {
     db.Runs.findAll({
       where: { UserId: req.params.id },
-      order: [["date", "DESC"]]
+      order: [["date", "DESC"]],
+      limit: 15,
     }).then(function (dbRuns) {
-      //console.log(dbRuns);
+      console.log(dbRuns);
       res.json(dbRuns);
     });
   });
@@ -100,23 +101,21 @@ module.exports = function (app) {
   
   // Create new user with a validation to check if that user's ID already exists in the database. 
   // Return false if an user with same email has been found
+
+
   app.post("/api/login", function (req, res) {
-
     var newUser = {};
-
     axios
       .get(
         "https://oauth2.googleapis.com/tokeninfo?id_token=" + req.body.idtoken
       )
       .then(function (response) {
         res.json(response.data);
-        
         newUser = {
           name: response.data.name,
           email: response.data.email,
           id: response.data.sub
         };
-
       })
       .catch(function (error) {
         console.log(error);
@@ -135,6 +134,7 @@ module.exports = function (app) {
           });
       });
   });
+
 
   // ==========================================
   // DELETE
