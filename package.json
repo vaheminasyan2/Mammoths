@@ -15,7 +15,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "bulma-start": "0.0.2",
-    "dotenv": "^6.0.0",
+    "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-handlebars": "^3.0.0",
     "googleapis": "^37.1.0",
